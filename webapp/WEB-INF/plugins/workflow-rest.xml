@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?><plug-in>
+    <name>workflow-rest</name>
+    <class>fr.paris.lutece.portal.service.plugin.PluginDefaultImplementation</class>
+    <version>1.0.0</version>
+    <description>module.workflow.rest.module.description</description>
+    <documentation/>
+    <installation/>
+    <changes/>
+    <user-guide/>
+    <provider>module.workflow.rest.module.provider</provider>
+    <provider-url>http://lutece.paris.fr</provider-url>
+    <icon-url>images/admin/skin/plugins/workflow/modules/rest/workflow-rest.png</icon-url>
+    <copyright>Copyright 2001-2011 Mairie de Paris</copyright>
+    <core-version-dependency>
+        <min-core-version/>
+        <max-core-version/>
+    </core-version-dependency>
+
+    <!-- if the plugin must have a connection pool with parameter : 1 - yes, 0 - no -->
+    <db-pool-required>0</db-pool-required>
+
+    <!-- REST security : Comment the filters if you want to test the REST service with the given JSP -->
+    <filters>
+        <filter>
+           <filter-name>WorkflowRestSecurity</filter-name>
+           <url-pattern>/rest/workflow/*</url-pattern>
+           <filter-class>fr.paris.lutece.util.signrequest.servlet.HeaderHashRequestFilter</filter-class>
+
+           <init-param>
+               <param-name>elementsSignature</param-name>
+               <param-value></param-value>
+           </init-param>
+
+           <init-param>
+               <param-name>validityTimePeriod</param-name>
+               <param-value>0</param-value>
+           </init-param>
+
+           <init-param>
+               <param-name>privateKey</param-name>
+               <param-value>change me</param-value>
+           </init-param>
+       </filter>
+    </filters>
+</plug-in>

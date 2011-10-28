@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+    <properties>
+        <title>Utilisation</title>
+    </properties>
+    <body>
+        <section name="Utilisation">
+            <subsection name="JSP de test">
+                <p>
+                	Il existe une JSP permettant de faire des tests sur le module-workflow-rest.
+                	Elle est accessible par l'URL suivante :  
+                </p>
+                <p>
+                	<strong>jsp/admin/plugins/workflow/modules/rest/TestWorkflowRest.jsp</strong>
+                </p>
+                <p>
+                	<strong>Note : </strong>Pour acc&#233;der &#224; cette JSP, il faut &#234;tre authentifi&#233;
+                	dans le Back-Office. Il faut &#233;galement commenter dans le fichier workflow-rest.xml les filtres
+                	de fa&#231;on &#224; ce qu'il n'utilise pas la s&#233;curit&#233;, sinon une r&#233;ponse HTTP 401
+                	sera renvoy&#233;e.
+                </p>
+            </subsection>
+            <subsection name="Syntaxe des URLs pour les workflows">
+            	<h3>R&#233;cup&#233;rer les informations d'un ou plusieurs workflows au format XML ou JSON</h3>
+            	<p>
+            		Syntaxe XML :
+            	</p>
+            	<ul>
+            		<li>Pour obtenir tous les workflows :</li>
+            	</ul>
+            	<div class="source">
+<pre>
+http://myhost/mywebapp/rest/workflow
+ou
+http://myhost/mywebapp/rest/workflow.xml
+</pre>
+				</div>
+				<ul>
+            		<li>Pour obtenir un workflow :</li>
+            	</ul>
+				<div class="source">
+<pre>
+http://myhost/mywebapp/rest/workflow/{id_workflow}
+ou
+http://myhost/mywebapp/rest/workflow/{id_workflow}.xml
+</pre>
+            	</div>
+            	<p>
+            		Syntaxe JSON :
+            	</p>
+            	<ul>
+            		<li>Pour obtenir tous les workflows :</li>
+            	</ul>
+            	<div class="source">
+<pre>
+http://myhost/mywebapp/rest/workflow.json
+</pre>
+				</div>
+				<ul>
+            		<li>Pour obtenir un workflow :</li>
+            	</ul>
+				<div class="source">
+<pre>
+http://myhost/mywebapp/rest/workflow/{id_workflow}.json
+</pre>
+            	</div>
+            </subsection>
+            <subsection name="Syntaxe des URLs pour les &#233;tats">
+            	<h3>R&#233;cup&#233;rer les informations d'un ou plusieurs &#233;tats au format XML ou JSON</h3>
+            	<p>
+            		Syntaxe XML :
+            	</p>
+            	<ul>
+            		<li>Pour obtenir tous les &#233;tats :</li>
+            	</ul>
+            	<div class="source">
+<pre>
+http://myhost/mywebapp/rest/workflow/state
+ou
+http://myhost/mywebapp/rest/workflow/state.xml
+</pre>
+				</div>
+				<ul>
+            		<li>Pour obtenir un &#233;tats :</li>
+            	</ul>
+				<div class="source">
+<pre>
+http://myhost/mywebapp/rest/workflow/state/{id_state}
+ou
+http://myhost/mywebapp/rest/workflow/state/{id_state}.xml
+</pre>
+            	</div>
+            	<p>
+            		Syntaxe JSON :
+            	</p>
+            	<ul>
+            		<li>Pour obtenir tous les &#233;tats :</li>
+            	</ul>
+            	<div class="source">
+<pre>
+http://myhost/mywebapp/rest/workflow/state.json
+</pre>
+				</div>
+				<ul>
+            		<li>Pour obtenir un &#233;tats :</li>
+            	</ul>
+				<div class="source">
+<pre>
+http://myhost/mywebapp/rest/workflow/state/{id_state}.json
+</pre>
+            	</div>
+            </subsection>
+            <subsection name="Syntaxe des URLs pour les actions">
+            	<h3>R&#233;cup&#233;rer les informations d'une ou plusieurs actions au format XML ou JSON</h3>
+            	<p>
+            		Syntaxe XML :
+            	</p>
+            	<ul>
+            		<li>Pour obtenir tous les actions :</li>
+            	</ul>
+            	<div class="source">
+<pre>
+http://myhost/mywebapp/rest/workflow/action
+ou
+http://myhost/mywebapp/rest/workflow/action.xml
+</pre>
+				</div>
+				<ul>
+            		<li>Pour obtenir une action :</li>
+            	</ul>
+				<div class="source">
+<pre>
+http://myhost/mywebapp/rest/workflow/action/{id_action}
+ou
+http://myhost/mywebapp/rest/workflow/action/{id_action}.xml
+</pre>
+            	</div>
+            	<p>
+            		Syntaxe JSON :
+            	</p>
+            	<ul>
+            		<li>Pour obtenir toutes les actions :</li>
+            	</ul>
+            	<div class="source">
+<pre>
+http://myhost/mywebapp/rest/workflow/action.json
+</pre>
+				</div>
+				<ul>
+            		<li>Pour obtenir une action :</li>
+            	</ul>
+				<div class="source">
+<pre>
+http://myhost/mywebapp/rest/workflow/action/{id_action}.json
+</pre>
+            	</div>
+            </subsection>
+            <subsection name="Syntaxe des URLs pour les ressources">
+            	<h3>R&#233;cup&#233;rer les informations d'une ressource au format XML ou JSON</h3>
+            	<p>
+            		Syntaxe XML :
+            	</p>
+            	<ul>
+            		<li>Pour obtenir une ressource :</li>
+            	</ul>
+            	<div class="source">
+<pre>
+http://myhost/mywebapp/rest/workflow/resource_workflow/{id_workflow}/{resource_type}/{id_resource}
+ou
+http://myhost/mywebapp/rest/workflow/resource_workflow/{id_workflow}/{resource_type}/{id_resource}.xml
+</pre>
+				</div>
+            	<p>
+            		Syntaxe JSON :
+            	</p>
+				<ul>
+            		<li>Pour obtenir une ressource :</li>
+            	</ul>
+				<div class="source">
+<pre>
+http://myhost/mywebapp/rest/workflow/resource_workflow/{id_workflow}/{resource_type}/{id_resource}.json
+</pre>
+            	</div>
+            </subsection>
+        </section>
+    </body>
+</document>

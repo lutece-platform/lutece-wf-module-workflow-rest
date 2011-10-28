@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd" >
+	
+	<!-- Service -->
+	<bean id="workflow-rest.workflowRestService" class="fr.paris.lutece.plugins.workflow.modules.rest.service.WorkflowRestService" />
+	
+	<!-- Formatters -->
+	<bean id="workflow-rest.workflowFormatterXml" class="fr.paris.lutece.plugins.workflow.modules.rest.service.formatters.WorkflowFormatterXml" />
+	<bean id="workflow-rest.workflowFormatterJson" class="fr.paris.lutece.plugins.workflow.modules.rest.service.formatters.WorkflowFormatterJson" />
+	<bean id="workflow-rest.stateFormatterXml" class="fr.paris.lutece.plugins.workflow.modules.rest.service.formatters.StateFormatterXml" />
+	<bean id="workflow-rest.stateFormatterJson" class="fr.paris.lutece.plugins.workflow.modules.rest.service.formatters.StateFormatterJson" />
+	<bean id="workflow-rest.actionFormatterXml" class="fr.paris.lutece.plugins.workflow.modules.rest.service.formatters.ActionFormatterXml" />
+	<bean id="workflow-rest.actionFormatterJson" class="fr.paris.lutece.plugins.workflow.modules.rest.service.formatters.ActionFormatterJson" />
+	<bean id="workflow-rest.resourceWorkflowFormatterXml" class="fr.paris.lutece.plugins.workflow.modules.rest.service.formatters.ResourceWorkflowFormatterXml" />
+	<bean id="workflow-rest.resourceWorkflowFormatterJson" class="fr.paris.lutece.plugins.workflow.modules.rest.service.formatters.ResourceWorkflowFormatterJson" />
+
+	<!-- Writers -->
+	<bean id="workflow-rest.workflowWriter" class="fr.paris.lutece.plugins.workflow.modules.rest.service.writers.WorkflowWriter" scope="singleton">
+		<property name="formatters">
+			<map>
+				<entry key="application/xml" value-ref="workflow-rest.workflowFormatterXml" />
+				<entry key="application/json" value-ref="workflow-rest.workflowFormatterJson" />
+			</map>
+		</property>
+	</bean>
+	<bean id="workflow-rest.stateWriter" class="fr.paris.lutece.plugins.workflow.modules.rest.service.writers.StateWriter" scope="singleton">
+		<property name="formatters">
+			<map>
+				<entry key="application/xml" value-ref="workflow-rest.stateFormatterXml" />
+				<entry key="application/json" value-ref="workflow-rest.stateFormatterJson" />
+			</map>
+		</property>
+	</bean>
+	<bean id="workflow-rest.actionWriter" class="fr.paris.lutece.plugins.workflow.modules.rest.service.writers.ActionWriter" scope="singleton">
+		<property name="formatters">
+			<map>
+				<entry key="application/xml" value-ref="workflow-rest.actionFormatterXml" />
+				<entry key="application/json" value-ref="workflow-rest.actionFormatterJson" />
+			</map>
+		</property>
+	</bean>
+	<bean id="workflow-rest.resourceWorkflowWriter" class="fr.paris.lutece.plugins.workflow.modules.rest.service.writers.ResourceWorkflowWriter" scope="singleton">
+		<property name="formatters">
+			<map>
+				<entry key="application/xml" value-ref="workflow-rest.resourceWorkflowFormatterXml" />
+				<entry key="application/json" value-ref="workflow-rest.resourceWorkflowFormatterJson" />
+			</map>
+		</property>
+	</bean>
+	
+	<!-- REST -->
+    <bean id="workflow-rest.workflowRest" class="fr.paris.lutece.plugins.workflow.modules.rest.rs.WorkflowRest">
+    	<property name="workflowRestService" ref="workflow-rest.workflowRestService" />
+    </bean>
+    <bean id="workflow-rest.stateRest" class="fr.paris.lutece.plugins.workflow.modules.rest.rs.StateRest">
+    	<property name="workflowRestService" ref="workflow-rest.workflowRestService" />
+    </bean>
+    <bean id="workflow-rest.actionRest" class="fr.paris.lutece.plugins.workflow.modules.rest.rs.ActionRest">
+    	<property name="workflowRestService" ref="workflow-rest.workflowRestService" />
+    </bean>
+    <bean id="workflow-rest.resourceWorkflowRest" class="fr.paris.lutece.plugins.workflow.modules.rest.rs.ResourceWorkflowRest">
+    	<property name="workflowRestService" ref="workflow-rest.workflowRestService" />
+    </bean>
+</beans>

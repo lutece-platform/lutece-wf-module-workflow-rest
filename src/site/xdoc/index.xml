@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+    <properties>
+        <title>REST module for Workflow plugin</title>
+    </properties>
+    <body>
+        <section name="REST module for Workflow plugin">
+            <subsection name="Overview">
+                <p>
+                    This module provides REST web services to access to
+                    workflow's plugin data.
+                </p>
+            </subsection>
+        </section>
+    </body>
+</document>
