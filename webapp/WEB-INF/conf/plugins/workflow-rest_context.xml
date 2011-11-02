@@ -6,6 +6,9 @@
 	<!-- Service -->
 	<bean id="workflow-rest.workflowRestService" class="fr.paris.lutece.plugins.workflow.modules.rest.service.WorkflowRestService" />
 	
+	<!-- ResourceInfoProvider -->
+	<bean id="workflow-rest.stateInfoProvider" class="fr.paris.lutece.plugins.workflow.modules.rest.service.resourceinfo.StateInfoProvider" />
+	
 	<!-- Formatters -->
 	<bean id="workflow-rest.workflowFormatterXml" class="fr.paris.lutece.plugins.workflow.modules.rest.service.formatters.WorkflowFormatterXml" />
 	<bean id="workflow-rest.workflowFormatterJson" class="fr.paris.lutece.plugins.workflow.modules.rest.service.formatters.WorkflowFormatterJson" />

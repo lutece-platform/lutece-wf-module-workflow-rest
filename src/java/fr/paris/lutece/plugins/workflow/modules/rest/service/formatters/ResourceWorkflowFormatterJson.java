@@ -92,6 +92,7 @@ public class ResourceWorkflowFormatterJson implements IFormatter<ResourceWorkflo
             jsonWorkgroup.element( WorkflowRestConstants.TAG_WORKGROUP_KEY, strWorkgroupKey );
             jsonArrayWorkgroups.add( jsonWorkgroup );
         }
+
         jsonObject.element( WorkflowRestConstants.TAG_WORKGROUPS, jsonArrayWorkgroups );
 
         return jsonObject.toString(  );
