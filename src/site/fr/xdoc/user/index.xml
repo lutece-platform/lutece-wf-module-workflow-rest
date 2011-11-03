@@ -154,6 +154,49 @@ http://myhost/mywebapp/rest/workflow/action.json
 http://myhost/mywebapp/rest/workflow/action/{id_action}.json
 </pre>
             	</div>
+            	<h3>Ex&#233;cuter une action de workflow</h3>
+            	<p>
+            		Pour ex&#233;cuter une action de workflow, il faut faire un formulaire de type <strong>POST</strong>,
+            		et avoir les param&#232;tres suivants : 
+            	</p>
+            	<table>
+            		<tr>
+            			<th>Nom du param&#232;tre</th>
+            			<th>Type du param&#232;tre</th>
+            			<th>Description du param&#232;tre</th>
+            		</tr>
+            		<tr>
+            			<td>id_action</td>
+            			<td>entier</td>
+            			<td>Correspond &#224; l'ID de l'action (obligatoire)</td>
+            		</tr>
+            		<tr>
+            			<td>id_resource</td>
+            			<td>entier</td>
+            			<td>Correspond &#224; l'ID de la ressource (obligatoire)</td>
+            		</tr>
+            		<tr>
+            			<td>resource_type</td>
+            			<td>texte</td>
+            			<td>Correspond au type de ressource (obligatoire)</td>
+            		</tr>
+            	</table>
+            	<ul>
+            		<li>Pour obtenir une r&#233;ponse en XML :</li>
+            	</ul>
+            	<div class="source">
+<pre>
+http://myhost/mywebapps/rest/workflow/action/do
+</pre>
+				</div>
+				<ul>
+            		<li>Pour obtenir une r&#233;ponse en JSON :</li>
+            	</ul>
+            	<div class="source">
+<pre>
+http://myhost/mywebapps/rest/workflow/action/do.json
+</pre>
+				</div>
             </subsection>
             <subsection name="Syntaxe des URLs pour les ressources">
             	<h3>R&#233;cup&#233;rer les informations d'une ressource au format XML ou JSON</h3>

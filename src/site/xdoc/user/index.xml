@@ -153,6 +153,48 @@ http://myhost/mywebapp/rest/workflow/action.json
 http://myhost/mywebapp/rest/workflow/action/{id_action}.json
 </pre>
             	</div>
+            	<h3>Execute an action</h3>
+            	<p>
+            		To perform an action, a form type <strong>POST</strong> is needed with the following parameters :
+            	</p>
+            	<table>
+            		<tr>
+            			<th>Parameter name</th>
+            			<th>Parameter type</th>
+            			<th>Description</th>
+            		</tr>
+            		<tr>
+            			<td>id_action</td>
+            			<td>integer</td>
+            			<td>ID of the action (mandatory)</td>
+            		</tr>
+            		<tr>
+            			<td>id_resource</td>
+            			<td>integer</td>
+            			<td>ID resource (mandatory)</td>
+            		</tr>
+            		<tr>
+            			<td>resource_type</td>
+            			<td>text</td>
+            			<td>Resource type (mandatory)</td>
+            		</tr>
+            	</table>
+            	<ul>
+            		<li>To get a response in XML :</li>
+            	</ul>
+            	<div class="source">
+<pre>
+http://myhost/mywebapps/rest/workflow/action/do
+</pre>
+				</div>
+				<ul>
+            		<li>o get a response in JSON :</li>
+            	</ul>
+            	<div class="source">
+<pre>
+http://myhost/mywebapps/rest/workflow/action/do.json
+</pre>
+				</div>
             </subsection>
             <subsection name="URLs syntax for resources">
             	<h3>Retrieve the information of one resource in format XML or JSON</h3>
