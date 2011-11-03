@@ -16,6 +16,8 @@
 	<bean id="workflow-rest.stateFormatterJson" class="fr.paris.lutece.plugins.workflow.modules.rest.service.formatters.StateFormatterJson" />
 	<bean id="workflow-rest.actionFormatterXml" class="fr.paris.lutece.plugins.workflow.modules.rest.service.formatters.ActionFormatterXml" />
 	<bean id="workflow-rest.actionFormatterJson" class="fr.paris.lutece.plugins.workflow.modules.rest.service.formatters.ActionFormatterJson" />
+	<bean id="workflow-rest.actionResultFormatterXml" class="fr.paris.lutece.plugins.workflow.modules.rest.service.formatters.ActionResultFormatterXml" />
+	<bean id="workflow-rest.actionResultFormatterJson" class="fr.paris.lutece.plugins.workflow.modules.rest.service.formatters.ActionResultFormatterJson" />
 	<bean id="workflow-rest.resourceWorkflowFormatterXml" class="fr.paris.lutece.plugins.workflow.modules.rest.service.formatters.ResourceWorkflowFormatterXml" />
 	<bean id="workflow-rest.resourceWorkflowFormatterJson" class="fr.paris.lutece.plugins.workflow.modules.rest.service.formatters.ResourceWorkflowFormatterJson" />
 
@@ -41,6 +43,14 @@
 			<map>
 				<entry key="application/xml" value-ref="workflow-rest.actionFormatterXml" />
 				<entry key="application/json" value-ref="workflow-rest.actionFormatterJson" />
+			</map>
+		</property>
+	</bean>
+	<bean id="workflow-rest.actionResultWriter" class="fr.paris.lutece.plugins.workflow.modules.rest.service.writers.ActionResultWriter" scope="singleton">
+		<property name="formatters">
+			<map>
+				<entry key="application/xml" value-ref="workflow-rest.actionResultFormatterXml" />
+				<entry key="application/json" value-ref="workflow-rest.actionResultFormatterJson" />
 			</map>
 		</property>
 	</bean>

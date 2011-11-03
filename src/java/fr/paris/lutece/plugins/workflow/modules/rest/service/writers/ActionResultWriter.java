@@ -34,7 +34,7 @@
 package fr.paris.lutece.plugins.workflow.modules.rest.service.writers;
 
 import fr.paris.lutece.plugins.rest.service.writers.AbstractWriter;
-import fr.paris.lutece.plugins.workflow.business.ResourceWorkflow;
+import fr.paris.lutece.plugins.workflow.modules.rest.business.actionresult.IActionResult;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.ParameterizedType;
@@ -49,24 +49,24 @@ import javax.ws.rs.ext.Provider;
 
 /**
  *
- * ResourceWorkflowWriter
+ * ActionResultWriter
  *
  */
 @Provider
 @Produces( {MediaType.APPLICATION_XML,
     MediaType.APPLICATION_JSON
 } )
-public class ResourceWorkflowWriter extends AbstractWriter<ResourceWorkflow>
+public class ActionResultWriter extends AbstractWriter<IActionResult>
 {
     /**
      * {@inheritDoc}
      */
     public boolean isWriteable( Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType )
     {
-        // Ensure that we're handling only List<ResourceWorkflow> objects.
+        // Ensure that we're handling only List<IActionResult> objects.
         boolean isWritable = false;
 
-        if ( ResourceWorkflow.class.equals( genericType ) )
+        if ( IActionResult.class.equals( genericType ) )
         {
             isWritable = true;
         }
@@ -75,7 +75,7 @@ public class ResourceWorkflowWriter extends AbstractWriter<ResourceWorkflow>
         {
             ParameterizedType parameterizedType = (ParameterizedType) genericType;
             Type[] actualTypeArgs = ( parameterizedType.getActualTypeArguments(  ) );
-            isWritable = ( ( actualTypeArgs.length == 1 ) && actualTypeArgs[0].equals( ResourceWorkflow.class ) );
+            isWritable = ( ( actualTypeArgs.length == 1 ) && actualTypeArgs[0].equals( IActionResult.class ) );
         }
 
         return isWritable;

@@ -63,7 +63,7 @@ public class ActionWriter extends AbstractWriter<Action>
      */
     public boolean isWriteable( Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType )
     {
-        // Ensure that we're handling only List<State> objects.
+        // Ensure that we're handling only List<Action> objects.
         boolean isWritable = false;
 
         if ( Action.class.equals( genericType ) )

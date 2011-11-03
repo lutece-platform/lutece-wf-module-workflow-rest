@@ -35,7 +35,7 @@ package fr.paris.lutece.plugins.workflow.modules.rest.service.formatters;
 
 import fr.paris.lutece.plugins.rest.service.formatters.IFormatter;
 import fr.paris.lutece.plugins.rest.util.xml.XMLUtil;
-import fr.paris.lutece.plugins.workflow.business.ResourceWorkflow;
+import fr.paris.lutece.plugins.workflow.modules.rest.business.actionresult.IActionResult;
 import fr.paris.lutece.plugins.workflow.modules.rest.util.constants.WorkflowRestConstants;
 import fr.paris.lutece.plugins.workflow.utils.WorkflowUtils;
 import fr.paris.lutece.portal.service.util.AppPropertiesService;
@@ -48,10 +48,10 @@ import java.util.List;
 
 /**
  *
- * ResourceWorkflowFormatterXml
+ * ActionResultFormatterXml
  *
  */
-public class ResourceWorkflowFormatterXml implements IFormatter<ResourceWorkflow>
+public class ActionResultFormatterXml implements IFormatter<IActionResult>
 {
     /**
      * {@inheritDoc}
@@ -71,10 +71,10 @@ public class ResourceWorkflowFormatterXml implements IFormatter<ResourceWorkflow
     /**
      * {@inheritDoc}
      */
-    public String format( ResourceWorkflow resource )
+    public String format( IActionResult actionResult )
     {
         StringBuffer sbXml = new StringBuffer( AppPropertiesService.getProperty( XmlUtil.PROPERTIES_XML_HEADER ) );
-        formatResourceWorkflow( sbXml, resource );
+        formatActionResult( sbXml, actionResult );
 
         return sbXml.toString(  );
     }
@@ -82,51 +82,37 @@ public class ResourceWorkflowFormatterXml implements IFormatter<ResourceWorkflow
     /**
      * {@inheritDoc}
      */
-    public String format( List<ResourceWorkflow> listResources )
+    public String format( List<IActionResult> listActionsResult )
     {
         StringBuffer sbXml = new StringBuffer( AppPropertiesService.getProperty( XmlUtil.PROPERTIES_XML_HEADER ) );
-        XmlUtil.beginElement( sbXml, WorkflowRestConstants.TAG_RESOURCE_WORKFLOWS );
+        XmlUtil.beginElement( sbXml, WorkflowRestConstants.TAG_ACTION_RESULTS );
 
-        for ( ResourceWorkflow resource : listResources )
+        for ( IActionResult actionResult : listActionsResult )
         {
-            formatResourceWorkflow( sbXml, resource );
+            formatActionResult( sbXml, actionResult );
         }
 
-        XmlUtil.endElement( sbXml, WorkflowRestConstants.TAG_RESOURCE_WORKFLOWS );
+        XmlUtil.endElement( sbXml, WorkflowRestConstants.TAG_ACTION_RESULTS );
 
         return sbXml.toString(  );
     }
 
     /**
-     * Format the state
+     * Format the action result
      * @param sbXml the XML
-     * @param resource the state
+     * @param actionResult the action result
      */
-    private void formatResourceWorkflow( StringBuffer sbXml, ResourceWorkflow resource )
+    private void formatActionResult( StringBuffer sbXml, IActionResult actionResult )
     {
-        XmlUtil.beginElement( sbXml, WorkflowRestConstants.TAG_RESOURCE_WORKFLOW );
+        XmlUtil.beginElement( sbXml, WorkflowRestConstants.TAG_ACTION_RESULT );
 
-        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_ID_RESOURCE, resource.getIdResource(  ) );
-        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_RESOURCE_TYPE, resource.getResourceType(  ) );
-        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_ID_WORKFLOW, resource.getWorkflow(  ).getId(  ) );
-        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_ID_STATE, resource.getState(  ).getId(  ) );
+        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_IS_SUCCESSFUL,
+            Boolean.toString( actionResult.isSuccessful(  ) ) );
+        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_ID_ACTION, actionResult.getIdAction(  ) );
+        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_ID_RESOURCE, actionResult.getIdResource(  ) );
+        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_RESOURCE_TYPE, actionResult.getResourceType(  ) );
+        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_MESSAGE, actionResult.getMessage(  ) );
 
-        if ( resource.getExternalParentId(  ) != null )
-        {
-            XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_ID_EXTERNAL_PARENT, resource.getExternalParentId(  ) );
-        }
-
-        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_IS_ASSOCIATED_WITH_WORKGROUP,
-            Boolean.toString( resource.isAssociatedWithWorkgroup(  ) ) );
-        XmlUtil.beginElement( sbXml, WorkflowRestConstants.TAG_WORKGROUPS );
-
-        for ( String strWorkgroupKey : resource.getWorkgroups(  ) )
-        {
-            XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_WORKGROUP_KEY, strWorkgroupKey );
-        }
-
-        XmlUtil.endElement( sbXml, WorkflowRestConstants.TAG_WORKGROUPS );
-
-        XmlUtil.endElement( sbXml, WorkflowRestConstants.TAG_RESOURCE_WORKFLOW );
+        XmlUtil.endElement( sbXml, WorkflowRestConstants.TAG_ACTION_RESULT );
     }
 }

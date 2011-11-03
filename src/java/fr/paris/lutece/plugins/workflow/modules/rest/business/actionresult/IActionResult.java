@@ -31,53 +31,73 @@
  *
  * License 1.0
  */
-package fr.paris.lutece.plugins.workflow.modules.rest.service.writers;
-
-import fr.paris.lutece.plugins.rest.service.writers.AbstractWriter;
-import fr.paris.lutece.plugins.workflow.business.ResourceWorkflow;
-
-import java.lang.annotation.Annotation;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-
-import java.util.List;
-
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.ext.Provider;
+package fr.paris.lutece.plugins.workflow.modules.rest.business.actionresult;
 
 
 /**
  *
- * ResourceWorkflowWriter
+ * IActionResult
  *
  */
-@Provider
-@Produces( {MediaType.APPLICATION_XML,
-    MediaType.APPLICATION_JSON
-} )
-public class ResourceWorkflowWriter extends AbstractWriter<ResourceWorkflow>
+public interface IActionResult
 {
     /**
-     * {@inheritDoc}
+     * Set true if the action has been executed, false otherwise
+     * @param bIsSuccessful true if the action has been executed, false otherwise
      */
-    public boolean isWriteable( Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType )
-    {
-        // Ensure that we're handling only List<ResourceWorkflow> objects.
-        boolean isWritable = false;
+    void setSuccessful( boolean bIsSuccessful );
 
-        if ( ResourceWorkflow.class.equals( genericType ) )
-        {
-            isWritable = true;
-        }
+    /**
+     * Check if the action has been executed
+     * @return true if the action has been executed, false otherwise
+     */
+    boolean isSuccessful(  );
 
-        if ( List.class.isAssignableFrom( type ) && genericType instanceof ParameterizedType )
-        {
-            ParameterizedType parameterizedType = (ParameterizedType) genericType;
-            Type[] actualTypeArgs = ( parameterizedType.getActualTypeArguments(  ) );
-            isWritable = ( ( actualTypeArgs.length == 1 ) && actualTypeArgs[0].equals( ResourceWorkflow.class ) );
-        }
+    /**
+     * Set the message
+     * @param strMessage the message
+     */
+    void setMessage( String strMessage );
 
-        return isWritable;
-    }
+    /**
+     * Get the message
+     * @return the message
+     */
+    String getMessage(  );
+
+    /**
+     * Set the id action
+     * @param nIdAction the id action
+     */
+    void setIdAction( int nIdAction );
+
+    /**
+     * Get the id action
+     * @return the id action
+     */
+    int getIdAction(  );
+
+    /**
+     * Set the id resource
+     * @param nIdResource the id resource
+     */
+    void setIdResource( int nIdResource );
+
+    /**
+     * Get the id resource
+     * @return the id resource
+     */
+    int getIdResource(  );
+
+    /**
+     * Set the resource type
+     * @param strResourceType the resource type
+     */
+    void setResourceType( String strResourceType );
+
+    /**
+     * Get the resource type
+     * @return the resource type
+     */
+    String getResourceType(  );
 }

@@ -51,6 +51,17 @@ xmlns:xsd="http://www.w3.org/2001/XMLSchema">
                 </response>
             </method>
         </resource>
+        <resource path="action/do">
+            <method name="POST" >
+                <request>
+                    <representation mediaType="application/x-www-form-urlencoded">
+                        <param name="id_action" type="xsd:int" style="query" required="true"/>
+                        <param name="id_resource" type="xsd:int" style="query" required="true"/>
+                        <param name="resource_type" type="xsd:string" style="query" required="true"/>
+                    </representation>
+                </request>
+            </method>
+        </resource>
         <resource path="resource_workflow/{id_workflow}/{resource_type}/{id_resource}">
             <method name="GET" >
                 <response>

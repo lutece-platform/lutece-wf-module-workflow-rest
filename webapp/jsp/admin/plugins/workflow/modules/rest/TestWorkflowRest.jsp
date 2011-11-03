@@ -107,7 +107,7 @@
 	            </div>
 	            
 	            <div class="highlight-box">
-	                <h2>View action</h2>
+	                <h2>View resource workflow</h2>
 	                <form name="formGetResourceWorkflow">
 	                    <label for="id_resource">ID resource * : </label>
 	                    <input type="text" name="id_resource" size="10" maxlength="255" />
@@ -125,6 +125,25 @@
 	                    </select>
 	                    <br/>
 	                    <input class="button" type="button" value="View" onclick="javascript:onResourceWorkflowView(  )"/>
+	                </form>
+	            </div>
+	            
+	            <div class="highlight-box">
+	                <h2>Do action</h2>
+	                <p>
+	                	To have the response in JSON, add ".json" at the end of the attribute action of the form.
+	                </p>
+	                <form name="formDoAction" action="rest/workflow/action/do" method="post">
+	                	<label for="id_resource">ID action * : </label>
+	                    <input type="text" name="id_action" size="10" maxlength="255" />
+	                    <br/>
+	                    <label for="id_resource">ID resource * : </label>
+	                    <input type="text" name="id_resource" size="10" maxlength="255" />
+	                    <br/>
+	                    <label for="resource_type">Resource type * : </label>
+	                    <input type="text" name="resource_type" size="10" maxlength="255" />
+	                    <br/>
+	                    <input class="button" type="submit" value="Do Action" />
 	                </form>
 	            </div>
         	</div>

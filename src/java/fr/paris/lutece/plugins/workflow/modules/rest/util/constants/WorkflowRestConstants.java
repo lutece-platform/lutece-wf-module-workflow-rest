@@ -54,6 +54,7 @@ public final class WorkflowRestConstants
     public static final String PATH_RESOURCE_WORKFLOW = "/resource_workflow";
     public static final String PATH_ID_RESOURCE = "{id_resource}";
     public static final String PATH_RESOURCE_TYPE = "{resource_type}";
+    public static final String PATH_DO = "do";
 
     // TAGS
     public static final String TAG_WORKFLOWS = "workflows";
@@ -83,6 +84,10 @@ public final class WorkflowRestConstants
     public static final String TAG_ID_EXTERNAL_PARENT = "id-external-parent";
     public static final String TAG_WORKGROUPS = "workgroups";
     public static final String TAG_IS_ASSOCIATED_WITH_WORKGROUP = "is-associated-with-workgroup";
+    public static final String TAG_ACTION_RESULTS = "action-results";
+    public static final String TAG_ACTION_RESULT = "action-result";
+    public static final String TAG_IS_SUCCESSFUL = "is-successful";
+    public static final String TAG_MESSAGE = "message";
 
     // PARAMETERS
     public static final String PARAMETER_ID_WORKFLOW = "id_workflow";
@@ -93,6 +98,14 @@ public final class WorkflowRestConstants
 
     // MARKS
     public static final String MARK_BASE_URL = "base_url";
+
+    // MESSAGES
+    public static final String MESSAGE_SUCCESS = "SUCCESS";
+    public static final String MESSAGE_ERROR_WORKFLOW_NOT_AVAILABLE = "ERROR : Workflow not available";
+    public static final String MESSAGE_ERROR_ACTION_NEEDS_INTERMEDIATE_STEP = "ERROR : The action needs an intermediate step";
+    public static final String MESSAGE_ERROR_ACTION_NONEXISTENT = "ERROR : The action does not exist";
+    public static final String MESSAGE_ERROR_RESOURCE_NONEXISTENT = "ERROR : The resource does not exist";
+    public static final String MESSAGE_ERROR_RESOURCE_STATE = "ERROR : The resource is not in the correct state to perform the action";
 
     // TEMPLATES
     public static final String TEMPLATE_WADL = "admin/plugins/workflow/modules/rest/wadl.xml";

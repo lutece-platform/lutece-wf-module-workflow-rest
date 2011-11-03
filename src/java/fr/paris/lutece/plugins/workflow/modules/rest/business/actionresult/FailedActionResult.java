@@ -31,53 +31,28 @@
  *
  * License 1.0
  */
-package fr.paris.lutece.plugins.workflow.modules.rest.service.writers;
-
-import fr.paris.lutece.plugins.rest.service.writers.AbstractWriter;
-import fr.paris.lutece.plugins.workflow.business.ResourceWorkflow;
-
-import java.lang.annotation.Annotation;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-
-import java.util.List;
-
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.ext.Provider;
+package fr.paris.lutece.plugins.workflow.modules.rest.business.actionresult;
 
 
 /**
  *
- * ResourceWorkflowWriter
+ * FailedActionResult
+ * This class represents the failure of the execution of the action.
  *
  */
-@Provider
-@Produces( {MediaType.APPLICATION_XML,
-    MediaType.APPLICATION_JSON
-} )
-public class ResourceWorkflowWriter extends AbstractWriter<ResourceWorkflow>
+public class FailedActionResult extends AbstractActionResult
 {
     /**
-     * {@inheritDoc}
+     * Constructor
+     * @param nIdAction the id action
+     * @param nIdResource the id resource
+     * @param strResourceType the resource type
+     * @param strMessage the message
      */
-    public boolean isWriteable( Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType )
+    public FailedActionResult( int nIdAction, int nIdResource, String strResourceType, String strMessage )
     {
-        // Ensure that we're handling only List<ResourceWorkflow> objects.
-        boolean isWritable = false;
-
-        if ( ResourceWorkflow.class.equals( genericType ) )
-        {
-            isWritable = true;
-        }
-
-        if ( List.class.isAssignableFrom( type ) && genericType instanceof ParameterizedType )
-        {
-            ParameterizedType parameterizedType = (ParameterizedType) genericType;
-            Type[] actualTypeArgs = ( parameterizedType.getActualTypeArguments(  ) );
-            isWritable = ( ( actualTypeArgs.length == 1 ) && actualTypeArgs[0].equals( ResourceWorkflow.class ) );
-        }
-
-        return isWritable;
+        super( nIdAction, nIdResource, strResourceType );
+        setSuccessful( false );
+        setMessage( strMessage );
     }
 }
