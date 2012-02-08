@@ -161,7 +161,7 @@ public class ActionRest
 
         WorkflowService.getInstance(  )
                        .doProcessAction( nIdResource, strResourceType, nIdAction, resource.getExternalParentId(  ),
-            request, request.getLocale(  ), false );
+            request, request.getLocale(  ), true );
 
         listResults.add( new SuccessfulActionResult( nIdAction, nIdResource, strResourceType ) );
 
@@ -186,7 +186,7 @@ public class ActionRest
                 WorkflowRestConstants.MESSAGE_ERROR_WORKFLOW_NOT_AVAILABLE );
         }
 
-        // Check if the action does not requiere intermediate step
+        // Check if the action does not require intermediate step
         if ( WorkflowService.getInstance(  ).isDisplayTasksForm( nIdAction, request.getLocale(  ) ) )
         {
             return new FailedActionResult( nIdAction, nIdResource, strResourceType,
@@ -215,7 +215,7 @@ public class ActionRest
         // Check if the resource has the right state to perform the action
         if ( !WorkflowService.getInstance(  )
                                  .canProcessAction( nIdResource, strResourceType, nIdAction,
-                    resource.getExternalParentId(  ), request, false ) )
+                    resource.getExternalParentId(  ), request, true ) )
         {
             return new FailedActionResult( nIdAction, nIdResource, strResourceType,
                 WorkflowRestConstants.MESSAGE_ERROR_RESOURCE_STATE );
