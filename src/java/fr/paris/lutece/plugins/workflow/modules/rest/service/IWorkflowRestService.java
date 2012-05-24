@@ -31,54 +31,68 @@
  *
  * License 1.0
  */
-package fr.paris.lutece.plugins.workflow.modules.rest.service.writers;
+package fr.paris.lutece.plugins.workflow.modules.rest.service;
 
-import fr.paris.lutece.plugins.rest.service.writers.AbstractWriter;
+import fr.paris.lutece.plugins.workflowcore.business.action.Action;
+import fr.paris.lutece.plugins.workflowcore.business.resource.ResourceWorkflow;
+import fr.paris.lutece.plugins.workflowcore.business.state.State;
 import fr.paris.lutece.plugins.workflowcore.business.workflow.Workflow;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-
 import java.util.List;
-
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.ext.Provider;
 
 
 /**
  *
- * WorkflowWriter
+ * IWorkflowRestService
  *
  */
-@Provider
-@Produces( {MediaType.APPLICATION_XML,
-    MediaType.APPLICATION_JSON
-} )
-public class WorkflowWriter extends AbstractWriter<Workflow>
+public interface IWorkflowRestService
 {
     /**
-     * {@inheritDoc}
+    * Get the workflow
+    * @param nIdWorkflow the id workflow
+    * @return the workflow
+    */
+    Workflow getWorkflow( int nIdWorkflow );
+
+    /**
+     * Get the list of workflows
+     * @return the list of workflows
      */
-    @Override
-    public boolean isWriteable( Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType )
-    {
-        // Ensure that we're handling only List<Workflow> objects.
-        boolean isWritable = false;
+    List<Workflow> getWorkflowsList(  );
 
-        if ( Workflow.class.equals( genericType ) )
-        {
-            isWritable = true;
-        }
+    /**
+     * Get the state
+     * @param nIdState the id state
+     * @return the state
+     */
+    State getState( int nIdState );
 
-        if ( List.class.isAssignableFrom( type ) && genericType instanceof ParameterizedType )
-        {
-            ParameterizedType parameterizedType = (ParameterizedType) genericType;
-            Type[] actualTypeArgs = ( parameterizedType.getActualTypeArguments(  ) );
-            isWritable = ( ( actualTypeArgs.length == 1 ) && actualTypeArgs[0].equals( Workflow.class ) );
-        }
+    /**
+     * Get the list of states
+     * @return the list of states
+     */
+    List<State> getStatesList(  );
 
-        return isWritable;
-    }
+    /**
+     * Get the action
+     * @param nIdAction the id action
+     * @return the action
+     */
+    Action getAction( int nIdAction );
+
+    /**
+     * Get the list of actions
+     * @return the list of actions
+     */
+    List<Action> getActionsList(  );
+
+    /**
+     * Get the resource workflow
+     * @param nIdResource the id resource
+     * @param strResourceType the resource type
+     * @param nIdWorkflow the id workflow
+     * @return the resource workflow
+     */
+    ResourceWorkflow getResourceWorkflow( int nIdResource, String strResourceType, int nIdWorkflow );
 }

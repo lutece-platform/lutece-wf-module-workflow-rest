@@ -37,7 +37,7 @@ import fr.paris.lutece.plugins.rest.service.RestConstants;
 import fr.paris.lutece.plugins.workflow.modules.rest.service.WorkflowRestService;
 import fr.paris.lutece.plugins.workflow.modules.rest.util.constants.WorkflowRestConstants;
 import fr.paris.lutece.plugins.workflow.service.WorkflowPlugin;
-import fr.paris.lutece.portal.business.workflow.State;
+import fr.paris.lutece.plugins.workflowcore.business.state.State;
 
 import org.apache.commons.lang.StringUtils;
 

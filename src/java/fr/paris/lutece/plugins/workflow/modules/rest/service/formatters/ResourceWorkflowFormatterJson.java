@@ -35,9 +35,9 @@ package fr.paris.lutece.plugins.workflow.modules.rest.service.formatters;
 
 import fr.paris.lutece.plugins.rest.service.formatters.IFormatter;
 import fr.paris.lutece.plugins.rest.util.json.JSONUtil;
-import fr.paris.lutece.plugins.workflow.business.ResourceWorkflow;
 import fr.paris.lutece.plugins.workflow.modules.rest.util.constants.WorkflowRestConstants;
 import fr.paris.lutece.plugins.workflow.utils.WorkflowUtils;
+import fr.paris.lutece.plugins.workflowcore.business.resource.ResourceWorkflow;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -55,8 +55,9 @@ import java.util.List;
 public class ResourceWorkflowFormatterJson implements IFormatter<ResourceWorkflow>
 {
     /**
-    * {@inheritDoc }
-    */
+     * {@inheritDoc }
+     */
+    @Override
     public String formatError( String strCode, String strMessage )
     {
         int nIdCode = WorkflowUtils.CONSTANT_ID_NULL;
@@ -70,8 +71,9 @@ public class ResourceWorkflowFormatterJson implements IFormatter<ResourceWorkflo
     }
 
     /**
-    * {@inheritDoc }
-    */
+     * {@inheritDoc }
+     */
+    @Override
     public String format( ResourceWorkflow resource )
     {
         JSONObject jsonObject = new JSONObject(  );
@@ -99,8 +101,9 @@ public class ResourceWorkflowFormatterJson implements IFormatter<ResourceWorkflo
     }
 
     /**
-    * {@inheritDoc }
-    */
+     * {@inheritDoc }
+     */
+    @Override
     public String format( List<ResourceWorkflow> listResources )
     {
         JSONArray jsonArray = new JSONArray(  );

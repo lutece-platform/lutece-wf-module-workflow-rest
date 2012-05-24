@@ -33,22 +33,21 @@
  */
 package fr.paris.lutece.plugins.workflow.modules.rest.service;
 
-import fr.paris.lutece.plugins.workflow.business.ActionFilter;
-import fr.paris.lutece.plugins.workflow.business.ActionHome;
-import fr.paris.lutece.plugins.workflow.business.ResourceWorkflow;
-import fr.paris.lutece.plugins.workflow.business.ResourceWorkflowHome;
-import fr.paris.lutece.plugins.workflow.business.StateFilter;
-import fr.paris.lutece.plugins.workflow.business.StateHome;
-import fr.paris.lutece.plugins.workflow.business.WorkflowFilter;
-import fr.paris.lutece.plugins.workflow.business.WorkflowHome;
-import fr.paris.lutece.plugins.workflow.service.WorkflowPlugin;
-import fr.paris.lutece.portal.business.workflow.Action;
-import fr.paris.lutece.portal.business.workflow.State;
-import fr.paris.lutece.portal.business.workflow.Workflow;
-import fr.paris.lutece.portal.service.plugin.Plugin;
-import fr.paris.lutece.portal.service.plugin.PluginService;
+import fr.paris.lutece.plugins.workflowcore.business.action.Action;
+import fr.paris.lutece.plugins.workflowcore.business.action.ActionFilter;
+import fr.paris.lutece.plugins.workflowcore.business.resource.ResourceWorkflow;
+import fr.paris.lutece.plugins.workflowcore.business.state.State;
+import fr.paris.lutece.plugins.workflowcore.business.state.StateFilter;
+import fr.paris.lutece.plugins.workflowcore.business.workflow.Workflow;
+import fr.paris.lutece.plugins.workflowcore.business.workflow.WorkflowFilter;
+import fr.paris.lutece.plugins.workflowcore.service.action.IActionService;
+import fr.paris.lutece.plugins.workflowcore.service.resource.IResourceWorkflowService;
+import fr.paris.lutece.plugins.workflowcore.service.state.IStateService;
+import fr.paris.lutece.plugins.workflowcore.service.workflow.IWorkflowService;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 
 /**
@@ -56,76 +55,78 @@ import java.util.List;
  * WorkflowRestService
  *
  */
-public class WorkflowRestService
+public class WorkflowRestService implements IWorkflowRestService
 {
-    private Plugin _pluginWorkflow = PluginService.getPlugin( WorkflowPlugin.PLUGIN_NAME );
+    public static final String BEAN_SERVICE = "workflow-rest.workflowRestService";
+    @Inject
+    private IWorkflowService _workflowService;
+    @Inject
+    private IActionService _actionService;
+    @Inject
+    private IStateService _stateService;
+    @Inject
+    private IResourceWorkflowService _resourceWorkflowService;
 
     /**
-     * Get the workflow
-     * @param nIdWorkflow the id workflow
-     * @return the workflow
+     * {@inheritDoc}
      */
+    @Override
     public Workflow getWorkflow( int nIdWorkflow )
     {
-        return WorkflowHome.findByPrimaryKey( nIdWorkflow, _pluginWorkflow );
+        return _workflowService.findByPrimaryKey( nIdWorkflow );
     }
 
     /**
-     * Get the list of workflows
-     * @return the list of workflows
+     * {@inheritDoc}
      */
+    @Override
     public List<Workflow> getWorkflowsList(  )
     {
-        return WorkflowHome.getListWorkflowsByFilter( new WorkflowFilter(  ), _pluginWorkflow );
+        return _workflowService.getListWorkflowsByFilter( new WorkflowFilter(  ) );
     }
 
     /**
-     * Get the state
-     * @param nIdState the id state
-     * @return the state
+     * {@inheritDoc}
      */
+    @Override
     public State getState( int nIdState )
     {
-        return StateHome.findByPrimaryKey( nIdState, _pluginWorkflow );
+        return _stateService.findByPrimaryKey( nIdState );
     }
 
     /**
-     * Get the list of states
-     * @return the list of states
+     * {@inheritDoc}
      */
+    @Override
     public List<State> getStatesList(  )
     {
-        return StateHome.getListStateByFilter( new StateFilter(  ), _pluginWorkflow );
+        return _stateService.getListStateByFilter( new StateFilter(  ) );
     }
 
     /**
-     * Get the action
-     * @param nIdAction the id action
-     * @return the action
+     * {@inheritDoc}
      */
+    @Override
     public Action getAction( int nIdAction )
     {
-        return ActionHome.findByPrimaryKey( nIdAction, _pluginWorkflow );
+        return _actionService.findByPrimaryKey( nIdAction );
     }
 
     /**
-     * Get the list of actions
-     * @return the list of actions
+     * {@inheritDoc}
      */
+    @Override
     public List<Action> getActionsList(  )
     {
-        return ActionHome.getListActionByFilter( new ActionFilter(  ), _pluginWorkflow );
+        return _actionService.getListActionByFilter( new ActionFilter(  ) );
     }
 
     /**
-     * Get the resource workflow
-     * @param nIdResource the id resource
-     * @param strResourceType the resource type
-     * @param nIdWorkflow the id workflow
-     * @return the resource workflow
+     * {@inheritDoc}
      */
+    @Override
     public ResourceWorkflow getResourceWorkflow( int nIdResource, String strResourceType, int nIdWorkflow )
     {
-        return ResourceWorkflowHome.findByPrimaryKey( nIdResource, strResourceType, nIdWorkflow, _pluginWorkflow );
+        return _resourceWorkflowService.findByPrimaryKey( nIdResource, strResourceType, nIdWorkflow );
     }
 }

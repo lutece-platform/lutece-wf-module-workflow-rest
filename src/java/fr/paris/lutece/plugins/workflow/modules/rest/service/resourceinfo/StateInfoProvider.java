@@ -37,8 +37,8 @@ import fr.paris.lutece.plugins.rest.business.resourceinfo.IResourceInfo;
 import fr.paris.lutece.plugins.rest.service.resourceinfo.AbstractResourceInfoProvider;
 import fr.paris.lutece.plugins.workflow.modules.rest.business.resourceinfo.StateInfo;
 import fr.paris.lutece.plugins.workflow.modules.rest.util.constants.WorkflowRestConstants;
-import fr.paris.lutece.plugins.workflow.service.WorkflowService;
-import fr.paris.lutece.portal.business.workflow.State;
+import fr.paris.lutece.plugins.workflowcore.business.state.State;
+import fr.paris.lutece.portal.service.workflow.WorkflowService;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -55,6 +55,7 @@ public class StateInfoProvider extends AbstractResourceInfoProvider
     /**
      * {@inheritDoc}
      */
+    @Override
     public IResourceInfo getResourceInfo( Map<String, String> mapParams )
     {
         String strIdResource = mapParams.get( WorkflowRestConstants.PARAMETER_ID_RESOURCE );
@@ -65,7 +66,7 @@ public class StateInfoProvider extends AbstractResourceInfoProvider
         int nIdWorkflow = Integer.parseInt( strIdWorkflow );
         IResourceInfo resourceInfo = null;
 
-        State state = WorkflowService.getInstance(  ).getState( nIdResource, strResourceType, nIdWorkflow, null, null );
+        State state = WorkflowService.getInstance(  ).getState( nIdResource, strResourceType, nIdWorkflow, null );
 
         if ( state != null )
         {
@@ -80,6 +81,7 @@ public class StateInfoProvider extends AbstractResourceInfoProvider
     /**
      * {@inheritDoc}
      */
+    @Override
     public boolean isInvoked( Map<String, String> mapParams )
     {
         boolean bIsInvoked = false;

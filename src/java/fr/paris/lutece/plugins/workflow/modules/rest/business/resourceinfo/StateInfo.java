@@ -37,7 +37,7 @@ import fr.paris.lutece.plugins.rest.business.resourceinfo.AbstractResourceInfo;
 import fr.paris.lutece.plugins.rest.business.resourceinfo.IResourceInfo;
 import fr.paris.lutece.plugins.rest.business.resourceinfo.ResourceInfo;
 import fr.paris.lutece.plugins.workflow.modules.rest.util.constants.WorkflowRestConstants;
-import fr.paris.lutece.portal.business.workflow.State;
+import fr.paris.lutece.plugins.workflowcore.business.state.State;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +53,7 @@ public class StateInfo extends AbstractResourceInfo<State>
     /**
      * {@inheritDoc}
      */
+    @Override
     public void setResourceInfo( State state )
     {
         setKey( WorkflowRestConstants.TAG_STATE );

@@ -34,10 +34,10 @@
 package fr.paris.lutece.plugins.workflow.modules.rest.rs;
 
 import fr.paris.lutece.plugins.rest.service.RestConstants;
-import fr.paris.lutece.plugins.workflow.modules.rest.service.WorkflowRestService;
+import fr.paris.lutece.plugins.workflow.modules.rest.service.IWorkflowRestService;
 import fr.paris.lutece.plugins.workflow.modules.rest.util.constants.WorkflowRestConstants;
 import fr.paris.lutece.plugins.workflow.service.WorkflowPlugin;
-import fr.paris.lutece.portal.business.workflow.Workflow;
+import fr.paris.lutece.plugins.workflowcore.business.workflow.Workflow;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.portal.service.util.AppPathService;
 import fr.paris.lutece.util.html.HtmlTemplate;
@@ -67,7 +67,7 @@ import javax.ws.rs.core.MediaType;
 @Path( RestConstants.BASE_PATH + WorkflowPlugin.PLUGIN_NAME )
 public class WorkflowRest
 {
-    private WorkflowRestService _workflowRestService;
+    private IWorkflowRestService _workflowRestService;
 
     // SET
 
@@ -75,7 +75,7 @@ public class WorkflowRest
      * Set the workflow rest service
      * @param workflowRestService the workflow rest service
      */
-    public void setWorkflowRestService( WorkflowRestService workflowRestService )
+    public void setWorkflowRestService( IWorkflowRestService workflowRestService )
     {
         _workflowRestService = workflowRestService;
     }

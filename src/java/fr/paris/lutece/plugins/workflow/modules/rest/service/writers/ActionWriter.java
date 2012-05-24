@@ -34,7 +34,7 @@
 package fr.paris.lutece.plugins.workflow.modules.rest.service.writers;
 
 import fr.paris.lutece.plugins.rest.service.writers.AbstractWriter;
-import fr.paris.lutece.portal.business.workflow.Action;
+import fr.paris.lutece.plugins.workflowcore.business.action.Action;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.ParameterizedType;
@@ -61,6 +61,7 @@ public class ActionWriter extends AbstractWriter<Action>
     /**
      * {@inheritDoc}
      */
+    @Override
     public boolean isWriteable( Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType )
     {
         // Ensure that we're handling only List<Action> objects.

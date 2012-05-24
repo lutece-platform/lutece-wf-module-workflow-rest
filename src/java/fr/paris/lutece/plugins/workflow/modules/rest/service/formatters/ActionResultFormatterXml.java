@@ -56,6 +56,7 @@ public class ActionResultFormatterXml implements IFormatter<IActionResult>
     /**
      * {@inheritDoc}
      */
+    @Override
     public String formatError( String strCode, String strMessage )
     {
         int nIdCode = WorkflowUtils.CONSTANT_ID_NULL;
@@ -71,6 +72,7 @@ public class ActionResultFormatterXml implements IFormatter<IActionResult>
     /**
      * {@inheritDoc}
      */
+    @Override
     public String format( IActionResult actionResult )
     {
         StringBuffer sbXml = new StringBuffer( AppPropertiesService.getProperty( XmlUtil.PROPERTIES_XML_HEADER ) );
@@ -82,6 +84,7 @@ public class ActionResultFormatterXml implements IFormatter<IActionResult>
     /**
      * {@inheritDoc}
      */
+    @Override
     public String format( List<IActionResult> listActionsResult )
     {
         StringBuffer sbXml = new StringBuffer( AppPropertiesService.getProperty( XmlUtil.PROPERTIES_XML_HEADER ) );

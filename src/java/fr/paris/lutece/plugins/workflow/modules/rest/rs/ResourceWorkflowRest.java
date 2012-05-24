@@ -34,10 +34,10 @@
 package fr.paris.lutece.plugins.workflow.modules.rest.rs;
 
 import fr.paris.lutece.plugins.rest.service.RestConstants;
-import fr.paris.lutece.plugins.workflow.business.ResourceWorkflow;
 import fr.paris.lutece.plugins.workflow.modules.rest.service.WorkflowRestService;
 import fr.paris.lutece.plugins.workflow.modules.rest.util.constants.WorkflowRestConstants;
 import fr.paris.lutece.plugins.workflow.service.WorkflowPlugin;
+import fr.paris.lutece.plugins.workflowcore.business.resource.ResourceWorkflow;
 
 import java.util.ArrayList;
 import java.util.List;

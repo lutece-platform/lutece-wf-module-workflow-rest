@@ -37,7 +37,7 @@ import fr.paris.lutece.plugins.rest.service.formatters.IFormatter;
 import fr.paris.lutece.plugins.rest.util.xml.XMLUtil;
 import fr.paris.lutece.plugins.workflow.modules.rest.util.constants.WorkflowRestConstants;
 import fr.paris.lutece.plugins.workflow.utils.WorkflowUtils;
-import fr.paris.lutece.portal.business.workflow.Action;
+import fr.paris.lutece.plugins.workflowcore.business.action.Action;
 import fr.paris.lutece.portal.service.util.AppPropertiesService;
 import fr.paris.lutece.util.xml.XmlUtil;
 
@@ -56,6 +56,7 @@ public class ActionFormatterXml implements IFormatter<Action>
     /**
      * {@inheritDoc}
      */
+    @Override
     public String formatError( String strCode, String strMessage )
     {
         int nIdCode = WorkflowUtils.CONSTANT_ID_NULL;
@@ -71,6 +72,7 @@ public class ActionFormatterXml implements IFormatter<Action>
     /**
      * {@inheritDoc}
      */
+    @Override
     public String format( Action action )
     {
         StringBuffer sbXml = new StringBuffer( AppPropertiesService.getProperty( XmlUtil.PROPERTIES_XML_HEADER ) );

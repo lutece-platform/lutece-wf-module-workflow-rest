@@ -35,9 +35,9 @@ package fr.paris.lutece.plugins.workflow.modules.rest.service.formatters;
 
 import fr.paris.lutece.plugins.rest.service.formatters.IFormatter;
 import fr.paris.lutece.plugins.rest.util.xml.XMLUtil;
-import fr.paris.lutece.plugins.workflow.business.ResourceWorkflow;
 import fr.paris.lutece.plugins.workflow.modules.rest.util.constants.WorkflowRestConstants;
 import fr.paris.lutece.plugins.workflow.utils.WorkflowUtils;
+import fr.paris.lutece.plugins.workflowcore.business.resource.ResourceWorkflow;
 import fr.paris.lutece.portal.service.util.AppPropertiesService;
 import fr.paris.lutece.util.xml.XmlUtil;
 
@@ -56,6 +56,7 @@ public class ResourceWorkflowFormatterXml implements IFormatter<ResourceWorkflow
     /**
      * {@inheritDoc}
      */
+    @Override
     public String formatError( String strCode, String strMessage )
     {
         int nIdCode = WorkflowUtils.CONSTANT_ID_NULL;
@@ -71,6 +72,7 @@ public class ResourceWorkflowFormatterXml implements IFormatter<ResourceWorkflow
     /**
      * {@inheritDoc}
      */
+    @Override
     public String format( ResourceWorkflow resource )
     {
         StringBuffer sbXml = new StringBuffer( AppPropertiesService.getProperty( XmlUtil.PROPERTIES_XML_HEADER ) );
@@ -82,6 +84,7 @@ public class ResourceWorkflowFormatterXml implements IFormatter<ResourceWorkflow
     /**
      * {@inheritDoc}
      */
+    @Override
     public String format( List<ResourceWorkflow> listResources )
     {
         StringBuffer sbXml = new StringBuffer( AppPropertiesService.getProperty( XmlUtil.PROPERTIES_XML_HEADER ) );

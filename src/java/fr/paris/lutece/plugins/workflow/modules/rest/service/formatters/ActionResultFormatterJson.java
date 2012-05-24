@@ -57,6 +57,7 @@ public class ActionResultFormatterJson implements IFormatter<IActionResult>
     /**
     * {@inheritDoc }
     */
+    @Override
     public String formatError( String strCode, String strMessage )
     {
         int nIdCode = WorkflowUtils.CONSTANT_ID_NULL;
@@ -70,8 +71,9 @@ public class ActionResultFormatterJson implements IFormatter<IActionResult>
     }
 
     /**
-    * {@inheritDoc }
-    */
+     * {@inheritDoc }
+     */
+    @Override
     public String format( IActionResult actionResult )
     {
         JSONObject jsonObject = new JSONObject(  );
@@ -86,8 +88,9 @@ public class ActionResultFormatterJson implements IFormatter<IActionResult>
     }
 
     /**
-    * {@inheritDoc }
-    */
+     * {@inheritDoc }
+     */
+    @Override
     public String format( List<IActionResult> listActionResults )
     {
         JSONArray jsonArray = new JSONArray(  );
