@@ -63,6 +63,7 @@ public class AbstractActionResult implements IActionResult
     /**
      * {@inheritDoc}
      */
+    @Override
     public void setSuccessful( boolean bIsSuccessful )
     {
         _bIsSuccessful = bIsSuccessful;
@@ -71,6 +72,7 @@ public class AbstractActionResult implements IActionResult
     /**
      * {@inheritDoc}
      */
+    @Override
     public boolean isSuccessful(  )
     {
         return _bIsSuccessful;
@@ -79,6 +81,7 @@ public class AbstractActionResult implements IActionResult
     /**
      * {@inheritDoc}
      */
+    @Override
     public void setMessage( String strMessage )
     {
         _strMessage = strMessage;
@@ -87,6 +90,7 @@ public class AbstractActionResult implements IActionResult
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getMessage(  )
     {
         return _strMessage;
@@ -95,6 +99,7 @@ public class AbstractActionResult implements IActionResult
     /**
      * {@inheritDoc}
      */
+    @Override
     public void setIdAction( int nIdAction )
     {
         _nIdAction = nIdAction;
@@ -103,6 +108,7 @@ public class AbstractActionResult implements IActionResult
     /**
      * {@inheritDoc}
      */
+    @Override
     public int getIdAction(  )
     {
         return _nIdAction;
@@ -111,6 +117,7 @@ public class AbstractActionResult implements IActionResult
     /**
      * {@inheritDoc}
      */
+    @Override
     public void setIdResource( int nIdResource )
     {
         _nIdResource = nIdResource;
@@ -119,6 +126,7 @@ public class AbstractActionResult implements IActionResult
     /**
      * {@inheritDoc}
      */
+    @Override
     public int getIdResource(  )
     {
         return _nIdResource;
@@ -127,6 +135,7 @@ public class AbstractActionResult implements IActionResult
     /**
      * {@inheritDoc}
      */
+    @Override
     public void setResourceType( String strResourceType )
     {
         _strResourceType = strResourceType;
@@ -135,6 +144,7 @@ public class AbstractActionResult implements IActionResult
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getResourceType(  )
     {
         return _strResourceType;

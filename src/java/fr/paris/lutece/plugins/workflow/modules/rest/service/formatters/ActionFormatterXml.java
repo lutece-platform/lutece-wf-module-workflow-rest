@@ -84,6 +84,7 @@ public class ActionFormatterXml implements IFormatter<Action>
     /**
      * {@inheritDoc}
      */
+    @Override
     public String format( List<Action> listActions )
     {
         StringBuffer sbXml = new StringBuffer( AppPropertiesService.getProperty( XmlUtil.PROPERTIES_XML_HEADER ) );
