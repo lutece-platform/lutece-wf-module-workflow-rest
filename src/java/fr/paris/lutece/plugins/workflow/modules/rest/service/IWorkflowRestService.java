@@ -35,6 +35,7 @@ package fr.paris.lutece.plugins.workflow.modules.rest.service;
 
 import fr.paris.lutece.plugins.workflowcore.business.action.Action;
 import fr.paris.lutece.plugins.workflowcore.business.resource.ResourceWorkflow;
+import fr.paris.lutece.plugins.workflowcore.business.resource.ResourceWorkflowFilter;
 import fr.paris.lutece.plugins.workflowcore.business.state.State;
 import fr.paris.lutece.plugins.workflowcore.business.workflow.Workflow;
 
@@ -95,4 +96,12 @@ public interface IWorkflowRestService
      * @return the resource workflow
      */
     ResourceWorkflow getResourceWorkflow( int nIdResource, String strResourceType, int nIdWorkflow );
+    
+    
+    /**
+     * Select ResourceWorkflow by filter
+     * @param resourceWorkflowFilter the filter
+     * @return ResourceWorkflow List
+     */
+    List<ResourceWorkflow> getListResourceWorkflowByFilter( ResourceWorkflowFilter resourceWorkflowFilter );
 }

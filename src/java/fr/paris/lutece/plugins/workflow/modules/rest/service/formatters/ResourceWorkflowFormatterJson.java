@@ -42,6 +42,7 @@ import fr.paris.lutece.plugins.workflowcore.business.resource.ResourceWorkflow;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.List;
@@ -85,17 +86,19 @@ public class ResourceWorkflowFormatterJson implements IFormatter<ResourceWorkflo
         jsonObject.element( WorkflowRestConstants.TAG_ID_EXTERNAL_PARENT, resource.getExternalParentId(  ) );
         jsonObject.element( WorkflowRestConstants.TAG_IS_ASSOCIATED_WITH_WORKGROUP,
             Boolean.toString( resource.isAssociatedWithWorkgroup(  ) ) );
-
-        JSONArray jsonArrayWorkgroups = new JSONArray(  );
-
-        for ( String strWorkgroupKey : resource.getWorkgroups(  ) )
-        {
-            JSONObject jsonWorkgroup = new JSONObject(  );
-            jsonWorkgroup.element( WorkflowRestConstants.TAG_WORKGROUP_KEY, strWorkgroupKey );
-            jsonArrayWorkgroups.add( jsonWorkgroup );
-        }
-
-        jsonObject.element( WorkflowRestConstants.TAG_WORKGROUPS, jsonArrayWorkgroups );
+        if( !CollectionUtils.isEmpty(resource.getWorkgroups(  ) ))
+         {
+	        JSONArray jsonArrayWorkgroups = new JSONArray(  );
+	        for ( String strWorkgroupKey : resource.getWorkgroups(  ) )
+	        {
+	            JSONObject jsonWorkgroup = new JSONObject(  );
+	            jsonWorkgroup.element( WorkflowRestConstants.TAG_WORKGROUP_KEY, strWorkgroupKey );
+	            jsonArrayWorkgroups.add( jsonWorkgroup );
+	        }
+	        
+	
+	        jsonObject.element( WorkflowRestConstants.TAG_WORKGROUPS, jsonArrayWorkgroups );
+           }
 
         return jsonObject.toString(  );
     }

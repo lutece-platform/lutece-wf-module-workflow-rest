@@ -36,6 +36,7 @@ package fr.paris.lutece.plugins.workflow.modules.rest.service;
 import fr.paris.lutece.plugins.workflowcore.business.action.Action;
 import fr.paris.lutece.plugins.workflowcore.business.action.ActionFilter;
 import fr.paris.lutece.plugins.workflowcore.business.resource.ResourceWorkflow;
+import fr.paris.lutece.plugins.workflowcore.business.resource.ResourceWorkflowFilter;
 import fr.paris.lutece.plugins.workflowcore.business.state.State;
 import fr.paris.lutece.plugins.workflowcore.business.state.StateFilter;
 import fr.paris.lutece.plugins.workflowcore.business.workflow.Workflow;
@@ -129,4 +130,15 @@ public class WorkflowRestService implements IWorkflowRestService
     {
         return _resourceWorkflowService.findByPrimaryKey( nIdResource, strResourceType, nIdWorkflow );
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public  List<ResourceWorkflow> getListResourceWorkflowByFilter( ResourceWorkflowFilter filter )
+    {
+        return _resourceWorkflowService.getListResourceWorkflowByFilter(filter);
+    }
+    
+    
 }

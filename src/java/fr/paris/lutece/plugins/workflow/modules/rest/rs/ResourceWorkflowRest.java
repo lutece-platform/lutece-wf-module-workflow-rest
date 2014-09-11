@@ -38,6 +38,7 @@ import fr.paris.lutece.plugins.workflow.modules.rest.service.WorkflowRestService
 import fr.paris.lutece.plugins.workflow.modules.rest.util.constants.WorkflowRestConstants;
 import fr.paris.lutece.plugins.workflow.service.WorkflowPlugin;
 import fr.paris.lutece.plugins.workflowcore.business.resource.ResourceWorkflow;
+import fr.paris.lutece.plugins.workflowcore.business.resource.ResourceWorkflowFilter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -103,4 +104,32 @@ public class ResourceWorkflowRest
 
         return null;
     }
+    
+    
+
+    /**
+     * Get All workflow resource by id state
+     * @param nIdState the id workflow state
+     * @param strResourceType the resource type
+     * @return a list of workflow resource
+     */
+    @GET
+    @Path( WorkflowRestConstants.PATH_STATE+WorkflowRestConstants.SLASH+ WorkflowRestConstants.PATH_ID_STATE+ WorkflowRestConstants.SLASH +
+    WorkflowRestConstants.PATH_RESOURCE_TYPE )
+    @Produces( {MediaType.APPLICATION_JSON,
+        MediaType.APPLICATION_XML
+    } )
+    public List<ResourceWorkflow> getListResourceWorkflowIdByState( 
+        @PathParam( WorkflowRestConstants.PARAMETER_ID_STATE)
+    int nIdState, @PathParam( WorkflowRestConstants.PARAMETER_RESOURCE_TYPE )
+    String strResourceType )
+    {
+      
+    	ResourceWorkflowFilter resourceWorkflowFilter=new ResourceWorkflowFilter();
+    	resourceWorkflowFilter.setIdState(nIdState);
+    	resourceWorkflowFilter.setResourceType(strResourceType);
+    	
+    	return  _workflowRestService.getListResourceWorkflowByFilter(resourceWorkflowFilter);
+           
+     }
 }
