@@ -78,7 +78,7 @@ public class ActionFormatterJson implements IFormatter<Action>
     {
         JSONObject jsonObject = new JSONObject(  );
 
-        jsonObject.element( WorkflowRestConstants.TAG_ID_STATE, action.getId(  ) );
+        jsonObject.element( WorkflowRestConstants.TAG_ID_ACTION, action.getId(  ) );
         jsonObject.element( WorkflowRestConstants.TAG_NAME, action.getName(  ) );
         jsonObject.element( WorkflowRestConstants.TAG_DESCRIPTION, action.getDescription(  ) );
         jsonObject.element( WorkflowRestConstants.TAG_ID_WORKFLOW, action.getWorkflow(  ).getId(  ) );

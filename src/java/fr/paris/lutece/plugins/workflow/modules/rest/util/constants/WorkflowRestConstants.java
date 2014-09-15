@@ -69,11 +69,11 @@ public final class WorkflowRestConstants
     public static final String TAG_STATES = "states";
     public static final String TAG_STATE = "state";
     public static final String TAG_ID_STATE = "id-state";
+    public static final String TAG_ID_ACTION = "id-action";
     public static final String TAG_IS_INITIAL_STATE = "is-initial-state";
     public static final String TAG_IS_REQUIRED_WORKGROUP_ASSIGNED = "is-required-workgroup-assigned";
     public static final String TAG_ACTIONS = "actions";
     public static final String TAG_ACTION = "action";
-    public static final String TAG_ID_ACTION = "id-action";
     public static final String TAG_ID_STATE_BEFORE = "id-state-before";
     public static final String TAG_ID_STATE_AFTER = "id-state-after";
     public static final String TAG_IS_AUTOMATIC_STATE = "is-automatic-state";
