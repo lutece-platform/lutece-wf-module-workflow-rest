@@ -55,6 +55,7 @@ public final class WorkflowRestConstants
     public static final String PATH_ID_RESOURCE = "{id_resource}";
     public static final String PATH_RESOURCE_TYPE = "{resource_type}";
     public static final String PATH_DO = "do";
+    public static final String PATH_WORKFLOW ="workflow";
 
     // TAGS
     public static final String TAG_WORKFLOWS = "workflows";

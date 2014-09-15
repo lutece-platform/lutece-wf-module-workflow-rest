@@ -41,6 +41,7 @@ import fr.paris.lutece.plugins.workflow.modules.rest.service.WorkflowRestService
 import fr.paris.lutece.plugins.workflow.modules.rest.util.constants.WorkflowRestConstants;
 import fr.paris.lutece.plugins.workflow.service.WorkflowPlugin;
 import fr.paris.lutece.plugins.workflowcore.business.action.Action;
+import fr.paris.lutece.plugins.workflowcore.business.action.ActionFilter;
 import fr.paris.lutece.plugins.workflowcore.business.resource.ResourceWorkflow;
 import fr.paris.lutece.portal.service.workflow.WorkflowService;
 
@@ -123,6 +124,27 @@ public class ActionRest
     public List<Action> getActionsList(  )
     {
         return _workflowRestService.getActionsList(  );
+    }
+    
+    
+    
+
+    /**
+     * Get the actions list
+     * @return the list of states
+     */
+    @GET
+    @Path(WorkflowRestConstants.PATH_WORKFLOW +WorkflowRestConstants.SLASH+ WorkflowRestConstants.PATH_ID_WORKFLOW)
+    @Produces( {MediaType.APPLICATION_JSON,
+        MediaType.APPLICATION_XML
+    } )
+    public List<Action> getActionsListByWorkflow(  @PathParam( WorkflowRestConstants.PARAMETER_ID_WORKFLOW) int nIdWorkflow )
+    {
+       
+    	ActionFilter filter=new ActionFilter();
+    	filter.setIdWorkflow(nIdWorkflow);
+    	
+    	return _workflowRestService.getListActionByFilter(filter);
     }
 
     /**

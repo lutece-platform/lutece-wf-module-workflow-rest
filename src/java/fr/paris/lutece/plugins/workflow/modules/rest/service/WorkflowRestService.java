@@ -112,6 +112,20 @@ public class WorkflowRestService implements IWorkflowRestService
     {
         return _actionService.findByPrimaryKey( nIdAction );
     }
+    
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<Action> getListActionByFilter( ActionFilter filter )
+    {
+    	
+    	return _actionService.getListActionByFilter(filter);
+    	
+    }
+    
+    
 
     /**
      * {@inheritDoc}
