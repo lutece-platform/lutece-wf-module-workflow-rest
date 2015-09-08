@@ -54,9 +54,9 @@
     </properties>
 
     <scm>
-        <connection>scm:git:http://dev.lutece.paris.fr/svn/lutece/portal/trunk/plugins/directory-form-workflow/module-workflow-rest</connection>
-        <developerConnection>scm:git:https://dev.lutece.paris.fr/svn/lutece/portal/trunk/plugins/directory-form-workflow/module-workflow-rest</developerConnection>
-        <url>http://dev.lutece.paris.fr/viewvc/lutece/portal/trunk/plugins/directory-form-workflow/module-workflow-rest</url>
+        <connection>scm:git:https://github.com/lutece-platform/lutece-wf-module-workflow-rest.git</connection>
+        <developerConnection>scm:git:https://github.com/lutece-platform/lutece-wf-module-workflow-rest.git</developerConnection>
+        <url>https://github.com/lutece-platform/lutece-wf-module-workflow-rest.git</url>
     </scm>
     
 </project>
