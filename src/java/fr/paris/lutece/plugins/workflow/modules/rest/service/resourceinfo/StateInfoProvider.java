@@ -40,7 +40,7 @@ import fr.paris.lutece.plugins.workflow.modules.rest.util.constants.WorkflowRest
 import fr.paris.lutece.plugins.workflowcore.business.state.State;
 import fr.paris.lutece.portal.service.workflow.WorkflowService;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Map;
 

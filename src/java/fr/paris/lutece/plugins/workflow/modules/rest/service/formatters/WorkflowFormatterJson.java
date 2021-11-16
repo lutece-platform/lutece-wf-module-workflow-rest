@@ -43,7 +43,7 @@ import fr.paris.lutece.portal.service.i18n.I18nService;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.text.DateFormat;
 
