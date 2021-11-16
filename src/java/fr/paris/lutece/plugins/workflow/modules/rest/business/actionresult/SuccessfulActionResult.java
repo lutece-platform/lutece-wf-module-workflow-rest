@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -35,20 +35,22 @@ package fr.paris.lutece.plugins.workflow.modules.rest.business.actionresult;
 
 import fr.paris.lutece.plugins.workflow.modules.rest.util.constants.WorkflowRestConstants;
 
-
 /**
  *
- * SuccessfulActionResult
- * This class represents the success of the execution of the action.
+ * SuccessfulActionResult This class represents the success of the execution of the action.
  *
  */
 public class SuccessfulActionResult extends AbstractActionResult
 {
     /**
      * Constructor
-     * @param nIdAction the id action
-     * @param nIdResource the id resource
-     * @param strResourceType the resource type
+     * 
+     * @param nIdAction
+     *            the id action
+     * @param nIdResource
+     *            the id resource
+     * @param strResourceType
+     *            the resource type
      */
     public SuccessfulActionResult( int nIdAction, int nIdResource, String strResourceType )
     {

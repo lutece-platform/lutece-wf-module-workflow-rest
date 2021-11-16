@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -44,7 +44,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.Map;
 
-
 /**
  *
  * StateResourceInfoProvider
@@ -66,11 +65,11 @@ public class StateInfoProvider extends AbstractResourceInfoProvider
         int nIdWorkflow = Integer.parseInt( strIdWorkflow );
         IResourceInfo resourceInfo = null;
 
-        State state = WorkflowService.getInstance(  ).getState( nIdResource, strResourceType, nIdWorkflow, null );
+        State state = WorkflowService.getInstance( ).getState( nIdResource, strResourceType, nIdWorkflow, null );
 
         if ( state != null )
         {
-            StateInfo stateInfo = new StateInfo(  );
+            StateInfo stateInfo = new StateInfo( );
             stateInfo.setResourceInfo( state );
             resourceInfo = stateInfo;
         }
@@ -86,15 +85,14 @@ public class StateInfoProvider extends AbstractResourceInfoProvider
     {
         boolean bIsInvoked = false;
 
-        if ( ( mapParams != null ) && ( mapParams.size(  ) == 3 ) )
+        if ( ( mapParams != null ) && ( mapParams.size( ) == 3 ) )
         {
             String strIdResource = mapParams.get( WorkflowRestConstants.PARAMETER_ID_RESOURCE );
             String strResourceType = mapParams.get( WorkflowRestConstants.PARAMETER_RESOURCE_TYPE );
             String strIdWorkflow = mapParams.get( WorkflowRestConstants.PARAMETER_ID_WORKFLOW );
 
-            if ( StringUtils.isNotBlank( strIdResource ) && StringUtils.isNumeric( strIdResource ) &&
-                    StringUtils.isNotBlank( strIdWorkflow ) && StringUtils.isNumeric( strIdWorkflow ) &&
-                    StringUtils.isNotBlank( strResourceType ) )
+            if ( StringUtils.isNotBlank( strIdResource ) && StringUtils.isNumeric( strIdResource ) && StringUtils.isNotBlank( strIdWorkflow )
+                    && StringUtils.isNumeric( strIdWorkflow ) && StringUtils.isNotBlank( strResourceType ) )
             {
                 bIsInvoked = true;
             }

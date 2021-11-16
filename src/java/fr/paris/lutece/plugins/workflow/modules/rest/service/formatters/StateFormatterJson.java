@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -46,7 +46,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
-
 /**
  *
  * StateFormatterJson
@@ -76,17 +75,16 @@ public class StateFormatterJson implements IFormatter<State>
     @Override
     public String format( State state )
     {
-        JSONObject jsonObject = new JSONObject(  );
+        JSONObject jsonObject = new JSONObject( );
 
-        jsonObject.element( WorkflowRestConstants.TAG_ID_STATE, state.getId(  ) );
-        jsonObject.element( WorkflowRestConstants.TAG_NAME, state.getName(  ) );
-        jsonObject.element( WorkflowRestConstants.TAG_DESCRIPTION, state.getDescription(  ) );
-        jsonObject.element( WorkflowRestConstants.TAG_ID_WORKFLOW, state.getWorkflow(  ).getId(  ) );
-        jsonObject.element( WorkflowRestConstants.TAG_IS_INITIAL_STATE, Boolean.toString( state.isInitialState(  ) ) );
-        jsonObject.element( WorkflowRestConstants.TAG_IS_REQUIRED_WORKGROUP_ASSIGNED,
-            Boolean.toString( state.isRequiredWorkgroupAssigned(  ) ) );
+        jsonObject.element( WorkflowRestConstants.TAG_ID_STATE, state.getId( ) );
+        jsonObject.element( WorkflowRestConstants.TAG_NAME, state.getName( ) );
+        jsonObject.element( WorkflowRestConstants.TAG_DESCRIPTION, state.getDescription( ) );
+        jsonObject.element( WorkflowRestConstants.TAG_ID_WORKFLOW, state.getWorkflow( ).getId( ) );
+        jsonObject.element( WorkflowRestConstants.TAG_IS_INITIAL_STATE, Boolean.toString( state.isInitialState( ) ) );
+        jsonObject.element( WorkflowRestConstants.TAG_IS_REQUIRED_WORKGROUP_ASSIGNED, Boolean.toString( state.isRequiredWorkgroupAssigned( ) ) );
 
-        return jsonObject.toString(  );
+        return jsonObject.toString( );
     }
 
     /**
@@ -95,13 +93,13 @@ public class StateFormatterJson implements IFormatter<State>
     @Override
     public String format( List<State> listStates )
     {
-        JSONArray jsonArray = new JSONArray(  );
+        JSONArray jsonArray = new JSONArray( );
 
         for ( State state : listStates )
         {
             jsonArray.element( format( state ) );
         }
 
-        return jsonArray.toString(  );
+        return jsonArray.toString( );
     }
 }

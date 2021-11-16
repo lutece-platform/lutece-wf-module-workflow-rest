@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -33,21 +33,24 @@
  */
 package fr.paris.lutece.plugins.workflow.modules.rest.business.actionresult;
 
-
 /**
  *
- * FailedActionResult
- * This class represents the failure of the execution of the action.
+ * FailedActionResult This class represents the failure of the execution of the action.
  *
  */
 public class FailedActionResult extends AbstractActionResult
 {
     /**
      * Constructor
-     * @param nIdAction the id action
-     * @param nIdResource the id resource
-     * @param strResourceType the resource type
-     * @param strMessage the message
+     * 
+     * @param nIdAction
+     *            the id action
+     * @param nIdResource
+     *            the id resource
+     * @param strResourceType
+     *            the resource type
+     * @param strMessage
+     *            the message
      */
     public FailedActionResult( int nIdAction, int nIdResource, String strResourceType, String strMessage )
     {

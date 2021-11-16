@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -33,7 +33,6 @@
  */
 package fr.paris.lutece.plugins.workflow.modules.rest.business.actionresult;
 
-
 /**
  *
  * AbstractActionResult
@@ -49,9 +48,13 @@ public class AbstractActionResult implements IActionResult
 
     /**
      * Constructor
-     * @param nIdAction the id action
-     * @param nIdResource the id resource
-     * @param strResourceType the resource type
+     * 
+     * @param nIdAction
+     *            the id action
+     * @param nIdResource
+     *            the id resource
+     * @param strResourceType
+     *            the resource type
      */
     public AbstractActionResult( int nIdAction, int nIdResource, String strResourceType )
     {
@@ -73,7 +76,7 @@ public class AbstractActionResult implements IActionResult
      * {@inheritDoc}
      */
     @Override
-    public boolean isSuccessful(  )
+    public boolean isSuccessful( )
     {
         return _bIsSuccessful;
     }
@@ -91,7 +94,7 @@ public class AbstractActionResult implements IActionResult
      * {@inheritDoc}
      */
     @Override
-    public String getMessage(  )
+    public String getMessage( )
     {
         return _strMessage;
     }
@@ -109,7 +112,7 @@ public class AbstractActionResult implements IActionResult
      * {@inheritDoc}
      */
     @Override
-    public int getIdAction(  )
+    public int getIdAction( )
     {
         return _nIdAction;
     }
@@ -127,7 +130,7 @@ public class AbstractActionResult implements IActionResult
      * {@inheritDoc}
      */
     @Override
-    public int getIdResource(  )
+    public int getIdResource( )
     {
         return _nIdResource;
     }
@@ -145,7 +148,7 @@ public class AbstractActionResult implements IActionResult
      * {@inheritDoc}
      */
     @Override
-    public String getResourceType(  )
+    public String getResourceType( )
     {
         return _strResourceType;
     }

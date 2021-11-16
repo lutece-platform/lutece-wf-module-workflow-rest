@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -47,7 +47,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
-
 /**
  *
  * ResourceWorkflowFormatterJson
@@ -77,30 +76,28 @@ public class ResourceWorkflowFormatterJson implements IFormatter<ResourceWorkflo
     @Override
     public String format( ResourceWorkflow resource )
     {
-        JSONObject jsonObject = new JSONObject(  );
+        JSONObject jsonObject = new JSONObject( );
 
-        jsonObject.element( WorkflowRestConstants.TAG_ID_RESOURCE, resource.getIdResource(  ) );
-        jsonObject.element( WorkflowRestConstants.TAG_RESOURCE_TYPE, resource.getResourceType(  ) );
-        jsonObject.element( WorkflowRestConstants.TAG_ID_WORKFLOW, resource.getWorkflow(  ).getId(  ) );
-        jsonObject.element( WorkflowRestConstants.TAG_ID_STATE, resource.getState(  ).getId(  ) );
-        jsonObject.element( WorkflowRestConstants.TAG_ID_EXTERNAL_PARENT, resource.getExternalParentId(  ) );
-        jsonObject.element( WorkflowRestConstants.TAG_IS_ASSOCIATED_WITH_WORKGROUP,
-            Boolean.toString( resource.isAssociatedWithWorkgroup(  ) ) );
-        if( !CollectionUtils.isEmpty(resource.getWorkgroups(  ) ))
-         {
-	        JSONArray jsonArrayWorkgroups = new JSONArray(  );
-	        for ( String strWorkgroupKey : resource.getWorkgroups(  ) )
-	        {
-	            JSONObject jsonWorkgroup = new JSONObject(  );
-	            jsonWorkgroup.element( WorkflowRestConstants.TAG_WORKGROUP_KEY, strWorkgroupKey );
-	            jsonArrayWorkgroups.add( jsonWorkgroup );
-	        }
-	        
-	
-	        jsonObject.element( WorkflowRestConstants.TAG_WORKGROUPS, jsonArrayWorkgroups );
-           }
+        jsonObject.element( WorkflowRestConstants.TAG_ID_RESOURCE, resource.getIdResource( ) );
+        jsonObject.element( WorkflowRestConstants.TAG_RESOURCE_TYPE, resource.getResourceType( ) );
+        jsonObject.element( WorkflowRestConstants.TAG_ID_WORKFLOW, resource.getWorkflow( ).getId( ) );
+        jsonObject.element( WorkflowRestConstants.TAG_ID_STATE, resource.getState( ).getId( ) );
+        jsonObject.element( WorkflowRestConstants.TAG_ID_EXTERNAL_PARENT, resource.getExternalParentId( ) );
+        jsonObject.element( WorkflowRestConstants.TAG_IS_ASSOCIATED_WITH_WORKGROUP, Boolean.toString( resource.isAssociatedWithWorkgroup( ) ) );
+        if ( !CollectionUtils.isEmpty( resource.getWorkgroups( ) ) )
+        {
+            JSONArray jsonArrayWorkgroups = new JSONArray( );
+            for ( String strWorkgroupKey : resource.getWorkgroups( ) )
+            {
+                JSONObject jsonWorkgroup = new JSONObject( );
+                jsonWorkgroup.element( WorkflowRestConstants.TAG_WORKGROUP_KEY, strWorkgroupKey );
+                jsonArrayWorkgroups.add( jsonWorkgroup );
+            }
 
-        return jsonObject.toString(  );
+            jsonObject.element( WorkflowRestConstants.TAG_WORKGROUPS, jsonArrayWorkgroups );
+        }
+
+        return jsonObject.toString( );
     }
 
     /**
@@ -109,13 +106,13 @@ public class ResourceWorkflowFormatterJson implements IFormatter<ResourceWorkflo
     @Override
     public String format( List<ResourceWorkflow> listResources )
     {
-        JSONArray jsonArray = new JSONArray(  );
+        JSONArray jsonArray = new JSONArray( );
 
         for ( ResourceWorkflow resource : listResources )
         {
             jsonArray.element( format( resource ) );
         }
 
-        return jsonArray.toString(  );
+        return jsonArray.toString( );
     }
 }

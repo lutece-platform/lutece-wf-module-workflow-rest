@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -46,7 +46,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
-
 /**
  *
  * ActionResultFormatterJson
@@ -55,8 +54,8 @@ import java.util.List;
 public class ActionResultFormatterJson implements IFormatter<IActionResult>
 {
     /**
-    * {@inheritDoc }
-    */
+     * {@inheritDoc }
+     */
     @Override
     public String formatError( String strCode, String strMessage )
     {
@@ -76,15 +75,15 @@ public class ActionResultFormatterJson implements IFormatter<IActionResult>
     @Override
     public String format( IActionResult actionResult )
     {
-        JSONObject jsonObject = new JSONObject(  );
+        JSONObject jsonObject = new JSONObject( );
 
-        jsonObject.element( WorkflowRestConstants.TAG_IS_SUCCESSFUL, Boolean.toString( actionResult.isSuccessful(  ) ) );
-        jsonObject.element( WorkflowRestConstants.TAG_ID_ACTION, actionResult.getIdAction(  ) );
-        jsonObject.element( WorkflowRestConstants.TAG_ID_RESOURCE, actionResult.getIdResource(  ) );
-        jsonObject.element( WorkflowRestConstants.TAG_RESOURCE_TYPE, actionResult.getResourceType(  ) );
-        jsonObject.element( WorkflowRestConstants.TAG_MESSAGE, actionResult.getMessage(  ) );
+        jsonObject.element( WorkflowRestConstants.TAG_IS_SUCCESSFUL, Boolean.toString( actionResult.isSuccessful( ) ) );
+        jsonObject.element( WorkflowRestConstants.TAG_ID_ACTION, actionResult.getIdAction( ) );
+        jsonObject.element( WorkflowRestConstants.TAG_ID_RESOURCE, actionResult.getIdResource( ) );
+        jsonObject.element( WorkflowRestConstants.TAG_RESOURCE_TYPE, actionResult.getResourceType( ) );
+        jsonObject.element( WorkflowRestConstants.TAG_MESSAGE, actionResult.getMessage( ) );
 
-        return jsonObject.toString(  );
+        return jsonObject.toString( );
     }
 
     /**
@@ -93,13 +92,13 @@ public class ActionResultFormatterJson implements IFormatter<IActionResult>
     @Override
     public String format( List<IActionResult> listActionResults )
     {
-        JSONArray jsonArray = new JSONArray(  );
+        JSONArray jsonArray = new JSONArray( );
 
         for ( IActionResult action : listActionResults )
         {
             jsonArray.element( format( action ) );
         }
 
-        return jsonArray.toString(  );
+        return jsonArray.toString( );
     }
 }

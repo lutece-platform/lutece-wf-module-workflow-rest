@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -46,15 +46,14 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.ext.Provider;
 
-
 /**
  *
  * StateWriter
  *
  */
 @Provider
-@Produces( {MediaType.APPLICATION_XML,
-    MediaType.APPLICATION_JSON
+@Produces( {
+        MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON
 } )
 public class StateWriter extends AbstractWriter<State>
 {
@@ -62,7 +61,7 @@ public class StateWriter extends AbstractWriter<State>
      * {@inheritDoc}
      */
     @Override
-    public boolean isWriteable( Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType )
+    public boolean isWriteable( Class<?> type, Type genericType, Annotation [ ] annotations, MediaType mediaType )
     {
         // Ensure that we're handling only List<State> objects.
         boolean isWritable = false;
@@ -75,8 +74,8 @@ public class StateWriter extends AbstractWriter<State>
         if ( List.class.isAssignableFrom( type ) && genericType instanceof ParameterizedType )
         {
             ParameterizedType parameterizedType = (ParameterizedType) genericType;
-            Type[] actualTypeArgs = ( parameterizedType.getActualTypeArguments(  ) );
-            isWritable = ( ( actualTypeArgs.length == 1 ) && actualTypeArgs[0].equals( State.class ) );
+            Type [ ] actualTypeArgs = ( parameterizedType.getActualTypeArguments( ) );
+            isWritable = ( ( actualTypeArgs.length == 1 ) && actualTypeArgs [0].equals( State.class ) );
         }
 
         return isWritable;

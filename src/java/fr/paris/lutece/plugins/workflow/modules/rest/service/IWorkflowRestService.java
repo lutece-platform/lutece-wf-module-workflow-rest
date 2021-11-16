@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -42,7 +42,6 @@ import fr.paris.lutece.plugins.workflowcore.business.workflow.Workflow;
 
 import java.util.List;
 
-
 /**
  *
  * IWorkflowRestService
@@ -51,65 +50,80 @@ import java.util.List;
 public interface IWorkflowRestService
 {
     /**
-    * Get the workflow
-    * @param nIdWorkflow the id workflow
-    * @return the workflow
-    */
+     * Get the workflow
+     * 
+     * @param nIdWorkflow
+     *            the id workflow
+     * @return the workflow
+     */
     Workflow getWorkflow( int nIdWorkflow );
 
     /**
      * Get the list of workflows
+     * 
      * @return the list of workflows
      */
-    List<Workflow> getWorkflowsList(  );
+    List<Workflow> getWorkflowsList( );
 
     /**
      * Get the state
-     * @param nIdState the id state
+     * 
+     * @param nIdState
+     *            the id state
      * @return the state
      */
     State getState( int nIdState );
 
     /**
      * Get the list of states
+     * 
      * @return the list of states
      */
-    List<State> getStatesList(  );
+    List<State> getStatesList( );
 
     /**
      * Get the action
-     * @param nIdAction the id action
+     * 
+     * @param nIdAction
+     *            the id action
      * @return the action
      */
     Action getAction( int nIdAction );
 
     /**
      * Get the list of actions
+     * 
      * @return the list of actions
      */
-    List<Action> getActionsList(  );
+    List<Action> getActionsList( );
 
     /**
      * Get the resource workflow
-     * @param nIdResource the id resource
-     * @param strResourceType the resource type
-     * @param nIdWorkflow the id workflow
+     * 
+     * @param nIdResource
+     *            the id resource
+     * @param strResourceType
+     *            the resource type
+     * @param nIdWorkflow
+     *            the id workflow
      * @return the resource workflow
      */
     ResourceWorkflow getResourceWorkflow( int nIdResource, String strResourceType, int nIdWorkflow );
-    
-    
+
     /**
      * Select ResourceWorkflow by filter
-     * @param resourceWorkflowFilter the filter
+     * 
+     * @param resourceWorkflowFilter
+     *            the filter
      * @return ResourceWorkflow List
      */
     List<ResourceWorkflow> getListResourceWorkflowByFilter( ResourceWorkflowFilter resourceWorkflowFilter );
-    
-    
+
     /**
      * Select actions by filter
-     * @param filter the action filter
+     * 
+     * @param filter
+     *            the action filter
      * @return Action List
      */
     List<Action> getListActionByFilter( ActionFilter filter );

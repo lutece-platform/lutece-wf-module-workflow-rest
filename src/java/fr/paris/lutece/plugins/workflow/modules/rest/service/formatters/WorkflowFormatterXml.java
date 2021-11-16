@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -48,7 +48,6 @@ import java.text.DateFormat;
 
 import java.util.List;
 
-
 /**
  *
  * WorkflowFormatterXml
@@ -81,7 +80,7 @@ public class WorkflowFormatterXml implements IFormatter<Workflow>
         StringBuffer sbXml = new StringBuffer( AppPropertiesService.getProperty( XmlUtil.PROPERTIES_XML_HEADER ) );
         formatWorkflow( sbXml, workflow );
 
-        return sbXml.toString(  );
+        return sbXml.toString( );
     }
 
     /**
@@ -100,27 +99,30 @@ public class WorkflowFormatterXml implements IFormatter<Workflow>
 
         XmlUtil.endElement( sbXml, WorkflowRestConstants.TAG_WORKFLOWS );
 
-        return sbXml.toString(  );
+        return sbXml.toString( );
     }
 
     /**
      * Format the workflow
-     * @param sbXml the XML
-     * @param workflow the workflow
+     * 
+     * @param sbXml
+     *            the XML
+     * @param workflow
+     *            the workflow
      */
     private void formatWorkflow( StringBuffer sbXml, Workflow workflow )
     {
-        DateFormat dateFormat = DateFormat.getDateInstance( DateFormat.SHORT, I18nService.getDefaultLocale(  ) );
-        String strDate = dateFormat.format( workflow.getCreationDate(  ) );
+        DateFormat dateFormat = DateFormat.getDateInstance( DateFormat.SHORT, I18nService.getDefaultLocale( ) );
+        String strDate = dateFormat.format( workflow.getCreationDate( ) );
 
         XmlUtil.beginElement( sbXml, WorkflowRestConstants.TAG_WORKFLOW );
 
-        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_ID_WORKFLOW, workflow.getId(  ) );
-        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_NAME, workflow.getName(  ) );
-        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_DESCRIPTION, workflow.getDescription(  ) );
+        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_ID_WORKFLOW, workflow.getId( ) );
+        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_NAME, workflow.getName( ) );
+        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_DESCRIPTION, workflow.getDescription( ) );
         XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_CREATION_DATE, strDate );
-        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_IS_ENABLE, Boolean.toString( workflow.isEnabled(  ) ) );
-        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_WORKGROUP_KEY, workflow.getWorkgroup(  ) );
+        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_IS_ENABLE, Boolean.toString( workflow.isEnabled( ) ) );
+        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_WORKGROUP_KEY, workflow.getWorkgroup( ) );
 
         XmlUtil.endElement( sbXml, WorkflowRestConstants.TAG_WORKFLOW );
     }

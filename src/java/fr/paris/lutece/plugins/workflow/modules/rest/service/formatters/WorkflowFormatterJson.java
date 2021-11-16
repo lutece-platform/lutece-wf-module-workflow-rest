@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -49,7 +49,6 @@ import java.text.DateFormat;
 
 import java.util.List;
 
-
 /**
  *
  * WorkflowFormatterJson
@@ -79,19 +78,19 @@ public class WorkflowFormatterJson implements IFormatter<Workflow>
     @Override
     public String format( Workflow workflow )
     {
-        JSONObject jsonObject = new JSONObject(  );
+        JSONObject jsonObject = new JSONObject( );
 
-        DateFormat dateFormat = DateFormat.getDateInstance( DateFormat.SHORT, I18nService.getDefaultLocale(  ) );
-        String strDate = dateFormat.format( workflow.getCreationDate(  ) );
+        DateFormat dateFormat = DateFormat.getDateInstance( DateFormat.SHORT, I18nService.getDefaultLocale( ) );
+        String strDate = dateFormat.format( workflow.getCreationDate( ) );
 
-        jsonObject.element( WorkflowRestConstants.TAG_ID_WORKFLOW, workflow.getId(  ) );
-        jsonObject.element( WorkflowRestConstants.TAG_NAME, workflow.getName(  ) );
-        jsonObject.element( WorkflowRestConstants.TAG_DESCRIPTION, workflow.getDescription(  ) );
+        jsonObject.element( WorkflowRestConstants.TAG_ID_WORKFLOW, workflow.getId( ) );
+        jsonObject.element( WorkflowRestConstants.TAG_NAME, workflow.getName( ) );
+        jsonObject.element( WorkflowRestConstants.TAG_DESCRIPTION, workflow.getDescription( ) );
         jsonObject.element( WorkflowRestConstants.TAG_CREATION_DATE, strDate );
-        jsonObject.element( WorkflowRestConstants.TAG_IS_ENABLE, Boolean.toString( workflow.isEnabled(  ) ) );
-        jsonObject.element( WorkflowRestConstants.TAG_WORKGROUP_KEY, workflow.getWorkgroup(  ) );
+        jsonObject.element( WorkflowRestConstants.TAG_IS_ENABLE, Boolean.toString( workflow.isEnabled( ) ) );
+        jsonObject.element( WorkflowRestConstants.TAG_WORKGROUP_KEY, workflow.getWorkgroup( ) );
 
-        return jsonObject.toString(  );
+        return jsonObject.toString( );
     }
 
     /**
@@ -100,13 +99,13 @@ public class WorkflowFormatterJson implements IFormatter<Workflow>
     @Override
     public String format( List<Workflow> listWorkflows )
     {
-        JSONArray jsonArray = new JSONArray(  );
+        JSONArray jsonArray = new JSONArray( );
 
         for ( Workflow workflow : listWorkflows )
         {
             jsonArray.element( format( workflow ) );
         }
 
-        return jsonArray.toString(  );
+        return jsonArray.toString( );
     }
 }

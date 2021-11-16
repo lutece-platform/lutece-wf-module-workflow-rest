@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -45,7 +45,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
-
 /**
  *
  * ActionFormatterXml
@@ -78,7 +77,7 @@ public class ActionFormatterXml implements IFormatter<Action>
         StringBuffer sbXml = new StringBuffer( AppPropertiesService.getProperty( XmlUtil.PROPERTIES_XML_HEADER ) );
         formatAction( sbXml, action );
 
-        return sbXml.toString(  );
+        return sbXml.toString( );
     }
 
     /**
@@ -97,27 +96,29 @@ public class ActionFormatterXml implements IFormatter<Action>
 
         XmlUtil.endElement( sbXml, WorkflowRestConstants.TAG_ACTIONS );
 
-        return sbXml.toString(  );
+        return sbXml.toString( );
     }
 
     /**
      * Format the action
-     * @param sbXml the XML
-     * @param action the action
+     * 
+     * @param sbXml
+     *            the XML
+     * @param action
+     *            the action
      */
     private void formatAction( StringBuffer sbXml, Action action )
     {
         XmlUtil.beginElement( sbXml, WorkflowRestConstants.TAG_ACTION );
 
-        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_ID_ACTION, action.getId(  ) );
-        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_NAME, action.getName(  ) );
-        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_DESCRIPTION, action.getDescription(  ) );
-        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_ID_WORKFLOW, action.getWorkflow(  ).getId(  ) );
-        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_ID_STATE_BEFORE, action.getStateBefore(  ).getId(  ) );
-        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_ID_STATE_AFTER, action.getStateAfter(  ).getId(  ) );
-        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_IS_AUTOMATIC_STATE,
-            Boolean.toString( action.isAutomaticState(  ) ) );
-        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_IS_MASS_ACTION, Boolean.toString( action.isMassAction(  ) ) );
+        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_ID_ACTION, action.getId( ) );
+        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_NAME, action.getName( ) );
+        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_DESCRIPTION, action.getDescription( ) );
+        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_ID_WORKFLOW, action.getWorkflow( ).getId( ) );
+        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_ID_STATE_BEFORE, action.getStateBefore( ).getId( ) );
+        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_ID_STATE_AFTER, action.getStateAfter( ).getId( ) );
+        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_IS_AUTOMATIC_STATE, Boolean.toString( action.isAutomaticState( ) ) );
+        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_IS_MASS_ACTION, Boolean.toString( action.isMassAction( ) ) );
 
         XmlUtil.endElement( sbXml, WorkflowRestConstants.TAG_ACTION );
     }

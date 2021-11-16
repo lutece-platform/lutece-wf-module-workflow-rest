@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -50,7 +50,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-
 /**
  *
  * StateRest
@@ -65,7 +64,9 @@ public class StateRest
 
     /**
      * Set the workflow rest service
-     * @param workflowRestService the workflow rest service
+     * 
+     * @param workflowRestService
+     *            the workflow rest service
      */
     public void setWorkflowRestService( WorkflowRestService workflowRestService )
     {
@@ -76,22 +77,23 @@ public class StateRest
 
     /**
      * Get the state
-     * @param nIdState the id state
+     * 
+     * @param nIdState
+     *            the id state
      * @return the state
      */
     @GET
     @Path( WorkflowRestConstants.PATH_ID_STATE )
-    @Produces( {MediaType.APPLICATION_JSON,
-        MediaType.APPLICATION_XML
+    @Produces( {
+            MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML
     } )
-    public List<State> getState( @PathParam( WorkflowRestConstants.PARAMETER_ID_STATE )
-    int nIdState )
+    public List<State> getState( @PathParam( WorkflowRestConstants.PARAMETER_ID_STATE ) int nIdState )
     {
         State state = _workflowRestService.getState( nIdState );
 
         if ( state != null )
         {
-            List<State> listStates = new ArrayList<State>(  );
+            List<State> listStates = new ArrayList<State>( );
             listStates.add( state );
 
             return listStates;
@@ -102,15 +104,16 @@ public class StateRest
 
     /**
      * Get the states list
+     * 
      * @return the list of states
      */
     @GET
     @Path( StringUtils.EMPTY )
-    @Produces( {MediaType.APPLICATION_JSON,
-        MediaType.APPLICATION_XML
+    @Produces( {
+            MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML
     } )
-    public List<State> getStatesList(  )
+    public List<State> getStatesList( )
     {
-        return _workflowRestService.getStatesList(  );
+        return _workflowRestService.getStatesList( );
     }
 }

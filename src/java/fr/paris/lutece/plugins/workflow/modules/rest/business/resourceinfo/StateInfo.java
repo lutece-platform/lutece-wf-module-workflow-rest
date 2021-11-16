@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -42,7 +42,6 @@ import fr.paris.lutece.plugins.workflowcore.business.state.State;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  *
  * StateInfo
@@ -58,31 +57,28 @@ public class StateInfo extends AbstractResourceInfo<State>
     {
         setKey( WorkflowRestConstants.TAG_STATE );
 
-        List<IResourceInfo> listChildren = new ArrayList<IResourceInfo>(  );
+        List<IResourceInfo> listChildren = new ArrayList<IResourceInfo>( );
 
-        IResourceInfo idState = new ResourceInfo( WorkflowRestConstants.TAG_ID_STATE,
-                Integer.toString( state.getId(  ) ) );
+        IResourceInfo idState = new ResourceInfo( WorkflowRestConstants.TAG_ID_STATE, Integer.toString( state.getId( ) ) );
         listChildren.add( idState );
 
-        IResourceInfo name = new ResourceInfo( WorkflowRestConstants.TAG_NAME, state.getName(  ) );
+        IResourceInfo name = new ResourceInfo( WorkflowRestConstants.TAG_NAME, state.getName( ) );
         listChildren.add( name );
 
-        IResourceInfo description = new ResourceInfo( WorkflowRestConstants.TAG_DESCRIPTION, state.getDescription(  ) );
+        IResourceInfo description = new ResourceInfo( WorkflowRestConstants.TAG_DESCRIPTION, state.getDescription( ) );
         listChildren.add( description );
 
-        if ( state.getWorkflow(  ) != null )
+        if ( state.getWorkflow( ) != null )
         {
-            IResourceInfo idWorkflow = new ResourceInfo( WorkflowRestConstants.TAG_ID_WORKFLOW,
-                    Integer.toString( state.getWorkflow(  ).getId(  ) ) );
+            IResourceInfo idWorkflow = new ResourceInfo( WorkflowRestConstants.TAG_ID_WORKFLOW, Integer.toString( state.getWorkflow( ).getId( ) ) );
             listChildren.add( idWorkflow );
         }
 
-        IResourceInfo isInitialState = new ResourceInfo( WorkflowRestConstants.TAG_IS_INITIAL_STATE,
-                Boolean.toString( state.isInitialState(  ) ) );
+        IResourceInfo isInitialState = new ResourceInfo( WorkflowRestConstants.TAG_IS_INITIAL_STATE, Boolean.toString( state.isInitialState( ) ) );
         listChildren.add( isInitialState );
 
         IResourceInfo isRequiredWorkgroupAssigned = new ResourceInfo( WorkflowRestConstants.TAG_IS_REQUIRED_WORKGROUP_ASSIGNED,
-                Boolean.toString( state.isRequiredWorkgroupAssigned(  ) ) );
+                Boolean.toString( state.isRequiredWorkgroupAssigned( ) ) );
         listChildren.add( isRequiredWorkgroupAssigned );
 
         setListChildren( listChildren );

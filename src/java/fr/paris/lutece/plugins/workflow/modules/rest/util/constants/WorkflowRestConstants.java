@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -33,7 +33,6 @@
  */
 package fr.paris.lutece.plugins.workflow.modules.rest.util.constants;
 
-
 /**
  *
  * WorkflowRestConstants
@@ -55,7 +54,7 @@ public final class WorkflowRestConstants
     public static final String PATH_ID_RESOURCE = "{id_resource}";
     public static final String PATH_RESOURCE_TYPE = "{resource_type}";
     public static final String PATH_DO = "do";
-    public static final String PATH_WORKFLOW ="workflow";
+    public static final String PATH_WORKFLOW = "workflow";
 
     // TAGS
     public static final String TAG_WORKFLOWS = "workflows";
@@ -114,7 +113,7 @@ public final class WorkflowRestConstants
     /**
      * Private constructor
      */
-    private WorkflowRestConstants(  )
+    private WorkflowRestConstants( )
     {
     }
 }

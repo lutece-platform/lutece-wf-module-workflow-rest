@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -45,7 +45,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
-
 /**
  *
  * ActionResultFormatterXml
@@ -78,7 +77,7 @@ public class ActionResultFormatterXml implements IFormatter<IActionResult>
         StringBuffer sbXml = new StringBuffer( AppPropertiesService.getProperty( XmlUtil.PROPERTIES_XML_HEADER ) );
         formatActionResult( sbXml, actionResult );
 
-        return sbXml.toString(  );
+        return sbXml.toString( );
     }
 
     /**
@@ -97,24 +96,26 @@ public class ActionResultFormatterXml implements IFormatter<IActionResult>
 
         XmlUtil.endElement( sbXml, WorkflowRestConstants.TAG_ACTION_RESULTS );
 
-        return sbXml.toString(  );
+        return sbXml.toString( );
     }
 
     /**
      * Format the action result
-     * @param sbXml the XML
-     * @param actionResult the action result
+     * 
+     * @param sbXml
+     *            the XML
+     * @param actionResult
+     *            the action result
      */
     private void formatActionResult( StringBuffer sbXml, IActionResult actionResult )
     {
         XmlUtil.beginElement( sbXml, WorkflowRestConstants.TAG_ACTION_RESULT );
 
-        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_IS_SUCCESSFUL,
-            Boolean.toString( actionResult.isSuccessful(  ) ) );
-        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_ID_ACTION, actionResult.getIdAction(  ) );
-        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_ID_RESOURCE, actionResult.getIdResource(  ) );
-        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_RESOURCE_TYPE, actionResult.getResourceType(  ) );
-        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_MESSAGE, actionResult.getMessage(  ) );
+        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_IS_SUCCESSFUL, Boolean.toString( actionResult.isSuccessful( ) ) );
+        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_ID_ACTION, actionResult.getIdAction( ) );
+        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_ID_RESOURCE, actionResult.getIdResource( ) );
+        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_RESOURCE_TYPE, actionResult.getResourceType( ) );
+        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_MESSAGE, actionResult.getMessage( ) );
 
         XmlUtil.endElement( sbXml, WorkflowRestConstants.TAG_ACTION_RESULT );
     }

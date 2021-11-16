@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -62,7 +62,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
-
 /**
  *
  * ActionRest
@@ -77,7 +76,9 @@ public class ActionRest
 
     /**
      * Set the workflow rest service
-     * @param workflowRestService the workflow rest service
+     * 
+     * @param workflowRestService
+     *            the workflow rest service
      */
     public void setWorkflowRestService( WorkflowRestService workflowRestService )
     {
@@ -88,22 +89,23 @@ public class ActionRest
 
     /**
      * Get the action
-     * @param nIdAction the id action
+     * 
+     * @param nIdAction
+     *            the id action
      * @return the state
      */
     @GET
     @Path( WorkflowRestConstants.PATH_ID_ACTION )
-    @Produces( {MediaType.APPLICATION_JSON,
-        MediaType.APPLICATION_XML
+    @Produces( {
+            MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML
     } )
-    public List<Action> getAction( @PathParam( WorkflowRestConstants.PARAMETER_ID_ACTION )
-    int nIdAction )
+    public List<Action> getAction( @PathParam( WorkflowRestConstants.PARAMETER_ID_ACTION ) int nIdAction )
     {
         Action action = _workflowRestService.getAction( nIdAction );
 
         if ( action != null )
         {
-            List<Action> listActions = new ArrayList<Action>(  );
+            List<Action> listActions = new ArrayList<Action>( );
             listActions.add( action );
 
             return listActions;
@@ -114,60 +116,62 @@ public class ActionRest
 
     /**
      * Get the actions list
+     * 
      * @return the list of states
      */
     @GET
     @Path( StringUtils.EMPTY )
-    @Produces( {MediaType.APPLICATION_JSON,
-        MediaType.APPLICATION_XML
+    @Produces( {
+            MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML
     } )
-    public List<Action> getActionsList(  )
+    public List<Action> getActionsList( )
     {
-        return _workflowRestService.getActionsList(  );
+        return _workflowRestService.getActionsList( );
     }
-    
-    
-    
 
     /**
      * Get the actions list
+     * 
      * @return the list of states
      */
     @GET
-    @Path(WorkflowRestConstants.PATH_WORKFLOW +WorkflowRestConstants.SLASH+ WorkflowRestConstants.PATH_ID_WORKFLOW)
-    @Produces( {MediaType.APPLICATION_JSON,
-        MediaType.APPLICATION_XML
+    @Path( WorkflowRestConstants.PATH_WORKFLOW + WorkflowRestConstants.SLASH + WorkflowRestConstants.PATH_ID_WORKFLOW )
+    @Produces( {
+            MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML
     } )
-    public List<Action> getActionsListByWorkflow(  @PathParam( WorkflowRestConstants.PARAMETER_ID_WORKFLOW) int nIdWorkflow )
+    public List<Action> getActionsListByWorkflow( @PathParam( WorkflowRestConstants.PARAMETER_ID_WORKFLOW ) int nIdWorkflow )
     {
-       
-    	ActionFilter filter=new ActionFilter();
-    	filter.setIdWorkflow(nIdWorkflow);
-    	
-    	return _workflowRestService.getListActionByFilter(filter);
+
+        ActionFilter filter = new ActionFilter( );
+        filter.setIdWorkflow( nIdWorkflow );
+
+        return _workflowRestService.getListActionByFilter( filter );
     }
 
     /**
      * Execute the workflow action
-     * @param nIdAction the id action
-     * @param nIdResource the id resource
-     * @param strResourceType the resource type
-     * @param request the HTTP request
+     * 
+     * @param nIdAction
+     *            the id action
+     * @param nIdResource
+     *            the id resource
+     * @param strResourceType
+     *            the resource type
+     * @param request
+     *            the HTTP request
      * @return the action result
      */
     @POST
     @Path( WorkflowRestConstants.PATH_DO )
     @Consumes( MediaType.APPLICATION_FORM_URLENCODED )
-    @Produces( {MediaType.APPLICATION_JSON,
-        MediaType.APPLICATION_XML
+    @Produces( {
+            MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML
     } )
-    public List<IActionResult> doAction( @FormParam( WorkflowRestConstants.PARAMETER_ID_ACTION )
-    int nIdAction, @FormParam( WorkflowRestConstants.PARAMETER_ID_RESOURCE )
-    int nIdResource, @FormParam( WorkflowRestConstants.PARAMETER_RESOURCE_TYPE )
-    String strResourceType, @Context
-    HttpServletRequest request )
+    public List<IActionResult> doAction( @FormParam( WorkflowRestConstants.PARAMETER_ID_ACTION ) int nIdAction,
+            @FormParam( WorkflowRestConstants.PARAMETER_ID_RESOURCE ) int nIdResource,
+            @FormParam( WorkflowRestConstants.PARAMETER_RESOURCE_TYPE ) String strResourceType, @Context HttpServletRequest request )
     {
-        List<IActionResult> listResults = new ArrayList<IActionResult>(  );
+        List<IActionResult> listResults = new ArrayList<IActionResult>( );
         IActionResult failedResult = checkDoAction( nIdAction, nIdResource, strResourceType, request );
 
         if ( failedResult != null )
@@ -178,12 +182,10 @@ public class ActionRest
         }
 
         Action action = _workflowRestService.getAction( nIdAction );
-        ResourceWorkflow resource = _workflowRestService.getResourceWorkflow( nIdResource, strResourceType,
-                action.getWorkflow(  ).getId(  ) );
+        ResourceWorkflow resource = _workflowRestService.getResourceWorkflow( nIdResource, strResourceType, action.getWorkflow( ).getId( ) );
 
-        WorkflowService.getInstance(  )
-                       .doProcessAction( nIdResource, strResourceType, nIdAction, resource.getExternalParentId(  ),
-            request, request.getLocale(  ), true );
+        WorkflowService.getInstance( ).doProcessAction( nIdResource, strResourceType, nIdAction, resource.getExternalParentId( ), request, request.getLocale( ),
+                true );
 
         listResults.add( new SuccessfulActionResult( nIdAction, nIdResource, strResourceType ) );
 
@@ -192,27 +194,29 @@ public class ActionRest
 
     /**
      * Check if the action can be executed or not
-     * @param nIdAction the id action
-     * @param nIdResource the id resource
-     * @param strResourceType the resource type
-     * @param request the HTTP request
+     * 
+     * @param nIdAction
+     *            the id action
+     * @param nIdResource
+     *            the id resource
+     * @param strResourceType
+     *            the resource type
+     * @param request
+     *            the HTTP request
      * @return null if the action can be executed, a {@link FailedActionResult} object otherwise
      */
-    private IActionResult checkDoAction( int nIdAction, int nIdResource, String strResourceType,
-        HttpServletRequest request )
+    private IActionResult checkDoAction( int nIdAction, int nIdResource, String strResourceType, HttpServletRequest request )
     {
         // Check the availability of the workflow service
-        if ( !WorkflowService.getInstance(  ).isAvailable(  ) )
+        if ( !WorkflowService.getInstance( ).isAvailable( ) )
         {
-            new FailedActionResult( nIdAction, nIdResource, strResourceType,
-                WorkflowRestConstants.MESSAGE_ERROR_WORKFLOW_NOT_AVAILABLE );
+            new FailedActionResult( nIdAction, nIdResource, strResourceType, WorkflowRestConstants.MESSAGE_ERROR_WORKFLOW_NOT_AVAILABLE );
         }
 
         // Check if the action does not require intermediate step
-        if ( WorkflowService.getInstance(  ).isDisplayTasksForm( nIdAction, request.getLocale(  ) ) )
+        if ( WorkflowService.getInstance( ).isDisplayTasksForm( nIdAction, request.getLocale( ) ) )
         {
-            return new FailedActionResult( nIdAction, nIdResource, strResourceType,
-                WorkflowRestConstants.MESSAGE_ERROR_ACTION_NEEDS_INTERMEDIATE_STEP );
+            return new FailedActionResult( nIdAction, nIdResource, strResourceType, WorkflowRestConstants.MESSAGE_ERROR_ACTION_NEEDS_INTERMEDIATE_STEP );
         }
 
         // Check the existence of the action
@@ -220,27 +224,21 @@ public class ActionRest
 
         if ( action == null )
         {
-            return new FailedActionResult( nIdAction, nIdResource, strResourceType,
-                WorkflowRestConstants.MESSAGE_ERROR_ACTION_NONEXISTENT );
+            return new FailedActionResult( nIdAction, nIdResource, strResourceType, WorkflowRestConstants.MESSAGE_ERROR_ACTION_NONEXISTENT );
         }
 
         // Check the existence of the resource
-        ResourceWorkflow resource = _workflowRestService.getResourceWorkflow( nIdResource, strResourceType,
-                action.getWorkflow(  ).getId(  ) );
+        ResourceWorkflow resource = _workflowRestService.getResourceWorkflow( nIdResource, strResourceType, action.getWorkflow( ).getId( ) );
 
         if ( resource == null )
         {
-            return new FailedActionResult( nIdAction, nIdResource, strResourceType,
-                WorkflowRestConstants.MESSAGE_ERROR_RESOURCE_NONEXISTENT );
+            return new FailedActionResult( nIdAction, nIdResource, strResourceType, WorkflowRestConstants.MESSAGE_ERROR_RESOURCE_NONEXISTENT );
         }
 
         // Check if the resource has the right state to perform the action
-        if ( !WorkflowService.getInstance(  )
-                                 .canProcessAction( nIdResource, strResourceType, nIdAction,
-                    resource.getExternalParentId(  ), request, true ) )
+        if ( !WorkflowService.getInstance( ).canProcessAction( nIdResource, strResourceType, nIdAction, resource.getExternalParentId( ), request, true ) )
         {
-            return new FailedActionResult( nIdAction, nIdResource, strResourceType,
-                WorkflowRestConstants.MESSAGE_ERROR_RESOURCE_STATE );
+            return new FailedActionResult( nIdAction, nIdResource, strResourceType, WorkflowRestConstants.MESSAGE_ERROR_RESOURCE_STATE );
         }
 
         return null;

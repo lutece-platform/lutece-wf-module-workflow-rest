@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -45,7 +45,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
-
 /**
  *
  * StateFormatterXml
@@ -78,7 +77,7 @@ public class StateFormatterXml implements IFormatter<State>
         StringBuffer sbXml = new StringBuffer( AppPropertiesService.getProperty( XmlUtil.PROPERTIES_XML_HEADER ) );
         formatState( sbXml, state );
 
-        return sbXml.toString(  );
+        return sbXml.toString( );
     }
 
     /**
@@ -97,26 +96,27 @@ public class StateFormatterXml implements IFormatter<State>
 
         XmlUtil.endElement( sbXml, WorkflowRestConstants.TAG_STATES );
 
-        return sbXml.toString(  );
+        return sbXml.toString( );
     }
 
     /**
      * Format the state
-     * @param sbXml the XML
-     * @param state the state
+     * 
+     * @param sbXml
+     *            the XML
+     * @param state
+     *            the state
      */
     private void formatState( StringBuffer sbXml, State state )
     {
         XmlUtil.beginElement( sbXml, WorkflowRestConstants.TAG_STATE );
 
-        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_ID_STATE, state.getId(  ) );
-        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_NAME, state.getName(  ) );
-        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_DESCRIPTION, state.getDescription(  ) );
-        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_ID_WORKFLOW, state.getWorkflow(  ).getId(  ) );
-        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_IS_INITIAL_STATE,
-            Boolean.toString( state.isInitialState(  ) ) );
-        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_IS_REQUIRED_WORKGROUP_ASSIGNED,
-            Boolean.toString( state.isRequiredWorkgroupAssigned(  ) ) );
+        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_ID_STATE, state.getId( ) );
+        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_NAME, state.getName( ) );
+        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_DESCRIPTION, state.getDescription( ) );
+        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_ID_WORKFLOW, state.getWorkflow( ).getId( ) );
+        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_IS_INITIAL_STATE, Boolean.toString( state.isInitialState( ) ) );
+        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_IS_REQUIRED_WORKGROUP_ASSIGNED, Boolean.toString( state.isRequiredWorkgroupAssigned( ) ) );
 
         XmlUtil.endElement( sbXml, WorkflowRestConstants.TAG_STATE );
     }

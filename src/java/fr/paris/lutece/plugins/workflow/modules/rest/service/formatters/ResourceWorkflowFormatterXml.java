@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -45,7 +45,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
-
 /**
  *
  * ResourceWorkflowFormatterXml
@@ -78,7 +77,7 @@ public class ResourceWorkflowFormatterXml implements IFormatter<ResourceWorkflow
         StringBuffer sbXml = new StringBuffer( AppPropertiesService.getProperty( XmlUtil.PROPERTIES_XML_HEADER ) );
         formatResourceWorkflow( sbXml, resource );
 
-        return sbXml.toString(  );
+        return sbXml.toString( );
     }
 
     /**
@@ -97,33 +96,35 @@ public class ResourceWorkflowFormatterXml implements IFormatter<ResourceWorkflow
 
         XmlUtil.endElement( sbXml, WorkflowRestConstants.TAG_RESOURCE_WORKFLOWS );
 
-        return sbXml.toString(  );
+        return sbXml.toString( );
     }
 
     /**
      * Format the state
-     * @param sbXml the XML
-     * @param resource the state
+     * 
+     * @param sbXml
+     *            the XML
+     * @param resource
+     *            the state
      */
     private void formatResourceWorkflow( StringBuffer sbXml, ResourceWorkflow resource )
     {
         XmlUtil.beginElement( sbXml, WorkflowRestConstants.TAG_RESOURCE_WORKFLOW );
 
-        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_ID_RESOURCE, resource.getIdResource(  ) );
-        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_RESOURCE_TYPE, resource.getResourceType(  ) );
-        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_ID_WORKFLOW, resource.getWorkflow(  ).getId(  ) );
-        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_ID_STATE, resource.getState(  ).getId(  ) );
+        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_ID_RESOURCE, resource.getIdResource( ) );
+        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_RESOURCE_TYPE, resource.getResourceType( ) );
+        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_ID_WORKFLOW, resource.getWorkflow( ).getId( ) );
+        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_ID_STATE, resource.getState( ).getId( ) );
 
-        if ( resource.getExternalParentId(  ) != null )
+        if ( resource.getExternalParentId( ) != null )
         {
-            XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_ID_EXTERNAL_PARENT, resource.getExternalParentId(  ) );
+            XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_ID_EXTERNAL_PARENT, resource.getExternalParentId( ) );
         }
 
-        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_IS_ASSOCIATED_WITH_WORKGROUP,
-            Boolean.toString( resource.isAssociatedWithWorkgroup(  ) ) );
+        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_IS_ASSOCIATED_WITH_WORKGROUP, Boolean.toString( resource.isAssociatedWithWorkgroup( ) ) );
         XmlUtil.beginElement( sbXml, WorkflowRestConstants.TAG_WORKGROUPS );
 
-        for ( String strWorkgroupKey : resource.getWorkgroups(  ) )
+        for ( String strWorkgroupKey : resource.getWorkgroups( ) )
         {
             XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_WORKGROUP_KEY, strWorkgroupKey );
         }

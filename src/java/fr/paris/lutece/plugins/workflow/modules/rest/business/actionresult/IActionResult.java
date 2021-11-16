@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -33,7 +33,6 @@
  */
 package fr.paris.lutece.plugins.workflow.modules.rest.business.actionresult;
 
-
 /**
  *
  * IActionResult
@@ -43,61 +42,76 @@ public interface IActionResult
 {
     /**
      * Set true if the action has been executed, false otherwise
-     * @param bIsSuccessful true if the action has been executed, false otherwise
+     * 
+     * @param bIsSuccessful
+     *            true if the action has been executed, false otherwise
      */
     void setSuccessful( boolean bIsSuccessful );
 
     /**
      * Check if the action has been executed
+     * 
      * @return true if the action has been executed, false otherwise
      */
-    boolean isSuccessful(  );
+    boolean isSuccessful( );
 
     /**
      * Set the message
-     * @param strMessage the message
+     * 
+     * @param strMessage
+     *            the message
      */
     void setMessage( String strMessage );
 
     /**
      * Get the message
+     * 
      * @return the message
      */
-    String getMessage(  );
+    String getMessage( );
 
     /**
      * Set the id action
-     * @param nIdAction the id action
+     * 
+     * @param nIdAction
+     *            the id action
      */
     void setIdAction( int nIdAction );
 
     /**
      * Get the id action
+     * 
      * @return the id action
      */
-    int getIdAction(  );
+    int getIdAction( );
 
     /**
      * Set the id resource
-     * @param nIdResource the id resource
+     * 
+     * @param nIdResource
+     *            the id resource
      */
     void setIdResource( int nIdResource );
 
     /**
      * Get the id resource
+     * 
      * @return the id resource
      */
-    int getIdResource(  );
+    int getIdResource( );
 
     /**
      * Set the resource type
-     * @param strResourceType the resource type
+     * 
+     * @param strResourceType
+     *            the resource type
      */
     void setResourceType( String strResourceType );
 
     /**
      * Get the resource type
+     * 
      * @return the resource type
      */
-    String getResourceType(  );
+    String getResourceType( );
 }

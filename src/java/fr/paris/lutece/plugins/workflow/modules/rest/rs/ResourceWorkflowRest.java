@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -49,7 +49,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-
 /**
  *
  * ResourceWorkflowRest
@@ -64,7 +63,9 @@ public class ResourceWorkflowRest
 
     /**
      * Set the workflow rest service
-     * @param workflowRestService the workflow rest service
+     * 
+     * @param workflowRestService
+     *            the workflow rest service
      */
     public void setWorkflowRestService( WorkflowRestService workflowRestService )
     {
@@ -75,28 +76,30 @@ public class ResourceWorkflowRest
 
     /**
      * Get the state
-     * @param nIdWorkflow the id workflow
-     * @param strResourceType the resource type
-     * @param nIdResource the id state
+     * 
+     * @param nIdWorkflow
+     *            the id workflow
+     * @param strResourceType
+     *            the resource type
+     * @param nIdResource
+     *            the id state
      * @return the state
      */
     @GET
-    @Path( WorkflowRestConstants.PATH_ID_WORKFLOW + WorkflowRestConstants.SLASH +
-    WorkflowRestConstants.PATH_RESOURCE_TYPE + WorkflowRestConstants.SLASH + WorkflowRestConstants.PATH_ID_RESOURCE )
-    @Produces( {MediaType.APPLICATION_JSON,
-        MediaType.APPLICATION_XML
+    @Path( WorkflowRestConstants.PATH_ID_WORKFLOW + WorkflowRestConstants.SLASH + WorkflowRestConstants.PATH_RESOURCE_TYPE + WorkflowRestConstants.SLASH
+            + WorkflowRestConstants.PATH_ID_RESOURCE )
+    @Produces( {
+            MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML
     } )
-    public List<ResourceWorkflow> getResourceWorkflow( 
-        @PathParam( WorkflowRestConstants.PARAMETER_ID_WORKFLOW )
-    int nIdWorkflow, @PathParam( WorkflowRestConstants.PARAMETER_RESOURCE_TYPE )
-    String strResourceType, @PathParam( WorkflowRestConstants.PARAMETER_ID_RESOURCE )
-    int nIdResource )
+    public List<ResourceWorkflow> getResourceWorkflow( @PathParam( WorkflowRestConstants.PARAMETER_ID_WORKFLOW ) int nIdWorkflow,
+            @PathParam( WorkflowRestConstants.PARAMETER_RESOURCE_TYPE ) String strResourceType,
+            @PathParam( WorkflowRestConstants.PARAMETER_ID_RESOURCE ) int nIdResource )
     {
         ResourceWorkflow resource = _workflowRestService.getResourceWorkflow( nIdResource, strResourceType, nIdWorkflow );
 
         if ( resource != null )
         {
-            List<ResourceWorkflow> listResources = new ArrayList<ResourceWorkflow>(  );
+            List<ResourceWorkflow> listResources = new ArrayList<ResourceWorkflow>( );
             listResources.add( resource );
 
             return listResources;
@@ -104,32 +107,31 @@ public class ResourceWorkflowRest
 
         return null;
     }
-    
-    
 
     /**
      * Get All workflow resource by id state
-     * @param nIdState the id workflow state
-     * @param strResourceType the resource type
+     * 
+     * @param nIdState
+     *            the id workflow state
+     * @param strResourceType
+     *            the resource type
      * @return a list of workflow resource
      */
     @GET
-    @Path( WorkflowRestConstants.PATH_STATE+WorkflowRestConstants.SLASH+ WorkflowRestConstants.PATH_ID_STATE+ WorkflowRestConstants.SLASH +
-    WorkflowRestConstants.PATH_RESOURCE_TYPE )
-    @Produces( {MediaType.APPLICATION_JSON,
-        MediaType.APPLICATION_XML
+    @Path( WorkflowRestConstants.PATH_STATE + WorkflowRestConstants.SLASH + WorkflowRestConstants.PATH_ID_STATE + WorkflowRestConstants.SLASH
+            + WorkflowRestConstants.PATH_RESOURCE_TYPE )
+    @Produces( {
+            MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML
     } )
-    public List<ResourceWorkflow> getListResourceWorkflowIdByState( 
-        @PathParam( WorkflowRestConstants.PARAMETER_ID_STATE)
-    int nIdState, @PathParam( WorkflowRestConstants.PARAMETER_RESOURCE_TYPE )
-    String strResourceType )
+    public List<ResourceWorkflow> getListResourceWorkflowIdByState( @PathParam( WorkflowRestConstants.PARAMETER_ID_STATE ) int nIdState,
+            @PathParam( WorkflowRestConstants.PARAMETER_RESOURCE_TYPE ) String strResourceType )
     {
-      
-    	ResourceWorkflowFilter resourceWorkflowFilter=new ResourceWorkflowFilter();
-    	resourceWorkflowFilter.setIdState(nIdState);
-    	resourceWorkflowFilter.setResourceType(strResourceType);
-    	
-    	return  _workflowRestService.getListResourceWorkflowByFilter(resourceWorkflowFilter);
-           
-     }
+
+        ResourceWorkflowFilter resourceWorkflowFilter = new ResourceWorkflowFilter( );
+        resourceWorkflowFilter.setIdState( nIdState );
+        resourceWorkflowFilter.setResourceType( strResourceType );
+
+        return _workflowRestService.getListResourceWorkflowByFilter( resourceWorkflowFilter );
+
+    }
 }

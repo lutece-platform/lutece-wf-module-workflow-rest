@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -46,7 +46,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
-
 /**
  *
  * ActionFormatterJson
@@ -76,19 +75,18 @@ public class ActionFormatterJson implements IFormatter<Action>
     @Override
     public String format( Action action )
     {
-        JSONObject jsonObject = new JSONObject(  );
+        JSONObject jsonObject = new JSONObject( );
 
-        jsonObject.element( WorkflowRestConstants.TAG_ID_ACTION, action.getId(  ) );
-        jsonObject.element( WorkflowRestConstants.TAG_NAME, action.getName(  ) );
-        jsonObject.element( WorkflowRestConstants.TAG_DESCRIPTION, action.getDescription(  ) );
-        jsonObject.element( WorkflowRestConstants.TAG_ID_WORKFLOW, action.getWorkflow(  ).getId(  ) );
-        jsonObject.element( WorkflowRestConstants.TAG_ID_STATE_BEFORE, action.getStateBefore(  ).getId(  ) );
-        jsonObject.element( WorkflowRestConstants.TAG_ID_STATE_AFTER, action.getStateAfter(  ).getId(  ) );
-        jsonObject.element( WorkflowRestConstants.TAG_IS_AUTOMATIC_STATE,
-            Boolean.toString( action.isAutomaticState(  ) ) );
-        jsonObject.element( WorkflowRestConstants.TAG_IS_MASS_ACTION, Boolean.toString( action.isMassAction(  ) ) );
+        jsonObject.element( WorkflowRestConstants.TAG_ID_ACTION, action.getId( ) );
+        jsonObject.element( WorkflowRestConstants.TAG_NAME, action.getName( ) );
+        jsonObject.element( WorkflowRestConstants.TAG_DESCRIPTION, action.getDescription( ) );
+        jsonObject.element( WorkflowRestConstants.TAG_ID_WORKFLOW, action.getWorkflow( ).getId( ) );
+        jsonObject.element( WorkflowRestConstants.TAG_ID_STATE_BEFORE, action.getStateBefore( ).getId( ) );
+        jsonObject.element( WorkflowRestConstants.TAG_ID_STATE_AFTER, action.getStateAfter( ).getId( ) );
+        jsonObject.element( WorkflowRestConstants.TAG_IS_AUTOMATIC_STATE, Boolean.toString( action.isAutomaticState( ) ) );
+        jsonObject.element( WorkflowRestConstants.TAG_IS_MASS_ACTION, Boolean.toString( action.isMassAction( ) ) );
 
-        return jsonObject.toString(  );
+        return jsonObject.toString( );
     }
 
     /**
@@ -97,13 +95,13 @@ public class ActionFormatterJson implements IFormatter<Action>
     @Override
     public String format( List<Action> listActions )
     {
-        JSONArray jsonArray = new JSONArray(  );
+        JSONArray jsonArray = new JSONArray( );
 
         for ( Action action : listActions )
         {
             jsonArray.element( format( action ) );
         }
 
-        return jsonArray.toString(  );
+        return jsonArray.toString( );
     }
 }

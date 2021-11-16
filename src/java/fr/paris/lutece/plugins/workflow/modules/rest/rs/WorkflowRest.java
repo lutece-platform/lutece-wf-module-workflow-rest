@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -58,7 +58,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
-
 /**
  *
  * DirectoryRest
@@ -73,7 +72,9 @@ public class WorkflowRest
 
     /**
      * Set the workflow rest service
-     * @param workflowRestService the workflow rest service
+     * 
+     * @param workflowRestService
+     *            the workflow rest service
      */
     public void setWorkflowRestService( IWorkflowRestService workflowRestService )
     {
@@ -82,53 +83,54 @@ public class WorkflowRest
 
     /**
      * Get the wadl.xml content
-     * @param request {@link HttpServletRequest}
+     * 
+     * @param request
+     *            {@link HttpServletRequest}
      * @return the content of wadl.xml
      */
     @GET
     @Path( WorkflowRestConstants.PATH_WADL )
     @Produces( MediaType.APPLICATION_XML )
-    public String getWADL( @Context
-    HttpServletRequest request )
+    public String getWADL( @Context HttpServletRequest request )
     {
         StringBuilder sbBase = new StringBuilder( AppPathService.getBaseUrl( request ) );
 
-        if ( sbBase.toString(  ).endsWith( WorkflowRestConstants.SLASH ) )
+        if ( sbBase.toString( ).endsWith( WorkflowRestConstants.SLASH ) )
         {
-            sbBase.deleteCharAt( sbBase.length(  ) - 1 );
+            sbBase.deleteCharAt( sbBase.length( ) - 1 );
         }
 
         sbBase.append( RestConstants.BASE_PATH + WorkflowPlugin.PLUGIN_NAME );
 
-        Map<String, Object> model = new HashMap<String, Object>(  );
-        model.put( WorkflowRestConstants.MARK_BASE_URL, sbBase.toString(  ) );
+        Map<String, Object> model = new HashMap<String, Object>( );
+        model.put( WorkflowRestConstants.MARK_BASE_URL, sbBase.toString( ) );
 
-        HtmlTemplate t = AppTemplateService.getTemplate( WorkflowRestConstants.TEMPLATE_WADL, request.getLocale(  ),
-                model );
+        HtmlTemplate t = AppTemplateService.getTemplate( WorkflowRestConstants.TEMPLATE_WADL, request.getLocale( ), model );
 
-        return t.getHtml(  );
+        return t.getHtml( );
     }
 
     // GET
 
     /**
      * Get the workflow
-     * @param nIdWorkflow the id workflow
+     * 
+     * @param nIdWorkflow
+     *            the id workflow
      * @return the workflow
      */
     @GET
     @Path( WorkflowRestConstants.PATH_ID_WORKFLOW )
-    @Produces( {MediaType.APPLICATION_JSON,
-        MediaType.APPLICATION_XML
+    @Produces( {
+            MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML
     } )
-    public List<Workflow> getWorkflow( @PathParam( WorkflowRestConstants.PARAMETER_ID_WORKFLOW )
-    int nIdWorkflow )
+    public List<Workflow> getWorkflow( @PathParam( WorkflowRestConstants.PARAMETER_ID_WORKFLOW ) int nIdWorkflow )
     {
         Workflow workflow = _workflowRestService.getWorkflow( nIdWorkflow );
 
         if ( workflow != null )
         {
-            List<Workflow> listWorkflows = new ArrayList<Workflow>(  );
+            List<Workflow> listWorkflows = new ArrayList<Workflow>( );
             listWorkflows.add( workflow );
 
             return listWorkflows;
@@ -139,15 +141,16 @@ public class WorkflowRest
 
     /**
      * Get the workflows list
+     * 
      * @return the list of workflows
      */
     @GET
     @Path( StringUtils.EMPTY )
-    @Produces( {MediaType.APPLICATION_JSON,
-        MediaType.APPLICATION_XML
+    @Produces( {
+            MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML
     } )
-    public List<Workflow> getWorkflowsList(  )
+    public List<Workflow> getWorkflowsList( )
     {
-        return _workflowRestService.getWorkflowsList(  );
+        return _workflowRestService.getWorkflowsList( );
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -50,7 +50,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-
 /**
  *
  * WorkflowRestService
@@ -81,9 +80,9 @@ public class WorkflowRestService implements IWorkflowRestService
      * {@inheritDoc}
      */
     @Override
-    public List<Workflow> getWorkflowsList(  )
+    public List<Workflow> getWorkflowsList( )
     {
-        return _workflowService.getListWorkflowsByFilter( new WorkflowFilter(  ) );
+        return _workflowService.getListWorkflowsByFilter( new WorkflowFilter( ) );
     }
 
     /**
@@ -99,9 +98,9 @@ public class WorkflowRestService implements IWorkflowRestService
      * {@inheritDoc}
      */
     @Override
-    public List<State> getStatesList(  )
+    public List<State> getStatesList( )
     {
-        return _stateService.getListStateByFilter( new StateFilter(  ) );
+        return _stateService.getListStateByFilter( new StateFilter( ) );
     }
 
     /**
@@ -112,28 +111,25 @@ public class WorkflowRestService implements IWorkflowRestService
     {
         return _actionService.findByPrimaryKey( nIdAction );
     }
-    
-    
+
     /**
      * {@inheritDoc}
      */
     @Override
     public List<Action> getListActionByFilter( ActionFilter filter )
     {
-    	
-    	return _actionService.getListActionByFilter(filter);
-    	
+
+        return _actionService.getListActionByFilter( filter );
+
     }
-    
-    
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public List<Action> getActionsList(  )
+    public List<Action> getActionsList( )
     {
-        return _actionService.getListActionByFilter( new ActionFilter(  ) );
+        return _actionService.getListActionByFilter( new ActionFilter( ) );
     }
 
     /**
@@ -144,15 +140,14 @@ public class WorkflowRestService implements IWorkflowRestService
     {
         return _resourceWorkflowService.findByPrimaryKey( nIdResource, strResourceType, nIdWorkflow );
     }
-    
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public  List<ResourceWorkflow> getListResourceWorkflowByFilter( ResourceWorkflowFilter filter )
+    public List<ResourceWorkflow> getListResourceWorkflowByFilter( ResourceWorkflowFilter filter )
     {
-        return _resourceWorkflowService.getListResourceWorkflowByFilter(filter);
+        return _resourceWorkflowService.getListResourceWorkflowByFilter( filter );
     }
-    
-    
+
 }
