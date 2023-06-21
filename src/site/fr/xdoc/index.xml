@@ -8,8 +8,259 @@
             <subsection name="Introduction">
                 <p>
                     Ce module permet d'exposer, sous forme de web services REST
-	            	les informations contenus dans les workflow du plugin Workflow. 
+	            	les informations contenus dans les workflow du plugin Workflow.
                 </p>
+            </subsection>
+            <subsection name="Configuration">
+			<p>
+				Configure the private keys for the signature in the file <strong>workflow-rest.xml</strong> : 
+			</p>
+			<div class="source">
+<pre>
+&lt;filters&gt;
+	&lt;filter&gt;
+		&lt;filter-name&gt;WorkflowRestSecurity&lt;/filter-name&gt;
+		&lt;url-pattern&gt;/rest/workflow/*&lt;/url-pattern&gt;
+		&lt;filter-class&gt;fr.paris.lutece.util.signrequest.servlet.HeaderHashRequestFilter&lt;/filter-class&gt;
+
+		&lt;init-param&gt;
+			&lt;param-name&gt;elementsSignature&lt;/param-name&gt;
+			&lt;param-value&gt;&lt;/param-value&gt;
+		&lt;/init-param&gt;
+
+		&lt;init-param&gt;
+			&lt;param-name&gt;validityTimePeriod&lt;/param-name&gt;
+			&lt;param-value&gt;0&lt;/param-value&gt;
+		&lt;/init-param&gt;
+
+		&lt;init-param&gt;
+			&lt;param-name&gt;privateKey&lt;/param-name&gt;
+			&lt;param-value&gt;<strong>change me</strong>&lt;/param-value&gt;
+		&lt;/init-param&gt;
+	&lt;/filter&gt;
+&lt;/filters&gt;
+</pre>
+			</div>
+            </subsection>
+        </section>
+        <section name="Usage">
+            <subsection name="Test JSP">
+                <p>
+                	There is a JSP that allow to run test on the module-workflow-rest.
+                	It is accessible through the following link :
+                </p>
+                <p>
+                	<strong>jsp/admin/plugins/workflow/modules/rest/TestWorkflowRest.jsp</strong>
+                </p>
+                <p>
+                	<strong>Note : </strong>To access to this JSP, one must be authenticated in the 
+                	Back-Office. The filter tags must also be commented in the file workflow-rest.xml
+                	so the module won't use the security, otherwise, an HTTP 401 response will be returned.
+                </p>
+            </subsection>
+            <subsection name="URLs syntax for workflows">
+            	<h3>Retrieve the information of one or several workflows in format XML or JSON</h3>
+            	<p>
+            		XML syntax :
+            	</p>
+            	<ul>
+            		<li>To get all the workflows :</li>
+            	</ul>
+            	<div class="source">
+<pre>
+http://myhost/mywebapp/rest/workflow
+ou
+http://myhost/mywebapp/rest/workflow.xml
+</pre>
+				</div>
+				<ul>
+            		<li>To get one workflows :</li>
+            	</ul>
+				<div class="source">
+<pre>
+http://myhost/mywebapp/rest/workflow/{id_workflow}
+ou
+http://myhost/mywebapp/rest/workflow/{id_workflow}.xml
+</pre>
+            	</div>
+            	<p>
+            		JSON syntax :
+            	</p>
+            	<ul>
+            		<li>To get all the workflows :</li>
+            	</ul>
+            	<div class="source">
+<pre>
+http://myhost/mywebapp/rest/workflow.json
+</pre>
+				</div>
+				<ul>
+            		<li>To get one workflows :</li>
+            	</ul>
+				<div class="source">
+<pre>
+http://myhost/mywebapp/rest/workflow/{id_workflow}.json
+</pre>
+            	</div>
+            </subsection>
+            <subsection name="URLs syntax for states">
+            	<h3>Retrieve the information of one or several states in format XML or JSON</h3>
+            	<p>
+            		XML syntax :
+            	</p>
+            	<ul>
+            		<li>To get all states :</li>
+            	</ul>
+            	<div class="source">
+<pre>
+http://myhost/mywebapp/rest/workflow/state
+ou
+http://myhost/mywebapp/rest/workflow/state.xml
+</pre>
+				</div>
+				<ul>
+            		<li>To get one state :</li>
+            	</ul>
+				<div class="source">
+<pre>
+http://myhost/mywebapp/rest/workflow/state/{id_state}
+ou
+http://myhost/mywebapp/rest/workflow/state/{id_state}.xml
+</pre>
+            	</div>
+            	<p>
+            		JSON syntax :
+            	</p>
+            	<ul>
+            		<li>To get all states :</li>
+            	</ul>
+            	<div class="source">
+<pre>
+http://myhost/mywebapp/rest/workflow/state.json
+</pre>
+				</div>
+				<ul>
+            		<li>To get one state :</li>
+            	</ul>
+				<div class="source">
+<pre>
+http://myhost/mywebapp/rest/workflow/state/{id_state}.json
+</pre>
+            	</div>
+            </subsection>
+            <subsection name="URLs syntax for actions">
+            	<h3>Retrieve the information of one or several actions in format XML or JSON</h3>
+            	<p>
+            		XML syntax :
+            	</p>
+            	<ul>
+            		<li>To get all actions :</li>
+            	</ul>
+            	<div class="source">
+<pre>
+http://myhost/mywebapp/rest/workflow/action
+ou
+http://myhost/mywebapp/rest/workflow/action.xml
+</pre>
+				</div>
+				<ul>
+            		<li>To get one action :</li>
+            	</ul>
+				<div class="source">
+<pre>
+http://myhost/mywebapp/rest/workflow/action/{id_action}
+ou
+http://myhost/mywebapp/rest/workflow/action/{id_action}.xml
+</pre>
+            	</div>
+            	<p>
+            		JSON syntax :
+            	</p>
+            	<ul>
+            		<li>To get all actions :</li>
+            	</ul>
+            	<div class="source">
+<pre>
+http://myhost/mywebapp/rest/workflow/action.json
+</pre>
+				</div>
+				<ul>
+            		<li>To get one action :</li>
+            	</ul>
+				<div class="source">
+<pre>
+http://myhost/mywebapp/rest/workflow/action/{id_action}.json
+</pre>
+            	</div>
+            	<h3>Execute an action</h3>
+            	<p>
+            		To perform an action, a form type <strong>POST</strong> is needed with the following parameters :
+            	</p>
+            	<table>
+            		<tr>
+            			<th>Parameter name</th>
+            			<th>Parameter type</th>
+            			<th>Description</th>
+            		</tr>
+            		<tr>
+            			<td>id_action</td>
+            			<td>integer</td>
+            			<td>ID of the action (mandatory)</td>
+            		</tr>
+            		<tr>
+            			<td>id_resource</td>
+            			<td>integer</td>
+            			<td>ID resource (mandatory)</td>
+            		</tr>
+            		<tr>
+            			<td>resource_type</td>
+            			<td>text</td>
+            			<td>Resource type (mandatory)</td>
+            		</tr>
+            	</table>
+            	<ul>
+            		<li>To get a response in XML :</li>
+            	</ul>
+            	<div class="source">
+<pre>
+http://myhost/mywebapps/rest/workflow/action/do
+</pre>
+				</div>
+				<ul>
+            		<li>o get a response in JSON :</li>
+            	</ul>
+            	<div class="source">
+<pre>
+http://myhost/mywebapps/rest/workflow/action/do.json
+</pre>
+				</div>
+            </subsection>
+            <subsection name="URLs syntax for resources">
+            	<h3>Retrieve the information of one resource in format XML or JSON</h3>
+            	<p>
+            		XML syntax :
+            	</p>
+            	<ul>
+            		<li>To get one resource :</li>
+            	</ul>
+            	<div class="source">
+<pre>
+http://myhost/mywebapp/rest/workflow/resource_workflow/{id_workflow}/{resource_type}/{id_resource}
+ou
+http://myhost/mywebapp/rest/workflow/resource_workflow/{id_workflow}/{resource_type}/{id_resource}.xml
+</pre>
+				</div>
+            	<p>
+            		JSON syntax :
+            	</p>
+				<ul>
+            		<li>To get one resource :</li>
+            	</ul>
+				<div class="source">
+<pre>
+http://myhost/mywebapp/rest/workflow/resource_workflow/{id_workflow}/{resource_type}/{id_resource}.json
+</pre>
+            	</div>
             </subsection>
         </section>
     </body>
