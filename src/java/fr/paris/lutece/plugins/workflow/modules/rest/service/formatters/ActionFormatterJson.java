@@ -39,20 +39,25 @@ import fr.paris.lutece.plugins.workflow.modules.rest.util.constants.WorkflowRest
 import fr.paris.lutece.plugins.workflow.utils.WorkflowUtils;
 import fr.paris.lutece.plugins.workflowcore.business.action.Action;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
+import jakarta.enterprise.context.ApplicationScoped;
 
 /**
  *
  * ActionFormatterJson
  *
  */
+@ApplicationScoped
 public class ActionFormatterJson implements IFormatter<Action>
 {
+    private static final ObjectMapper MAPPER = new ObjectMapper( );
+
     /**
      * {@inheritDoc }
      */
@@ -75,16 +80,23 @@ public class ActionFormatterJson implements IFormatter<Action>
     @Override
     public String format( Action action )
     {
-        JSONObject jsonObject = new JSONObject( );
+        ObjectNode jsonObject = MAPPER.createObjectNode( );
 
-        jsonObject.element( WorkflowRestConstants.TAG_ID_ACTION, action.getId( ) );
-        jsonObject.element( WorkflowRestConstants.TAG_NAME, action.getName( ) );
-        jsonObject.element( WorkflowRestConstants.TAG_DESCRIPTION, action.getDescription( ) );
-        jsonObject.element( WorkflowRestConstants.TAG_ID_WORKFLOW, action.getWorkflow( ).getId( ) );
-        jsonObject.element( WorkflowRestConstants.TAG_ID_STATE_BEFORE, action.getStateBefore( ).getId( ) );
-        jsonObject.element( WorkflowRestConstants.TAG_ID_STATE_AFTER, action.getStateAfter( ).getId( ) );
-        jsonObject.element( WorkflowRestConstants.TAG_IS_AUTOMATIC_STATE, Boolean.toString( action.isAutomaticState( ) ) );
-        jsonObject.element( WorkflowRestConstants.TAG_IS_MASS_ACTION, Boolean.toString( action.isMassAction( ) ) );
+        jsonObject.put( WorkflowRestConstants.TAG_ID_ACTION, action.getId( ) );
+        jsonObject.put( WorkflowRestConstants.TAG_NAME, action.getName( ) );
+        jsonObject.put( WorkflowRestConstants.TAG_DESCRIPTION, action.getDescription( ) );
+        jsonObject.put( WorkflowRestConstants.TAG_ID_WORKFLOW, action.getWorkflow( ).getId( ) );
+        ArrayNode jsonStatesBefore = MAPPER.createArrayNode( );
+
+        for ( Integer nIdStateBefore : action.getListIdStateBefore( ) )
+        {
+            jsonStatesBefore.add( nIdStateBefore );
+        }
+
+        jsonObject.set( WorkflowRestConstants.TAG_ID_STATE_BEFORE, jsonStatesBefore );
+        jsonObject.put( WorkflowRestConstants.TAG_ID_STATE_AFTER, action.getStateAfter( ).getId( ) );
+        jsonObject.put( WorkflowRestConstants.TAG_IS_AUTOMATIC_STATE, Boolean.toString( action.isAutomaticState( ) ) );
+        jsonObject.put( WorkflowRestConstants.TAG_IS_MASS_ACTION, Boolean.toString( action.isMassAction( ) ) );
 
         return jsonObject.toString( );
     }
@@ -95,11 +107,11 @@ public class ActionFormatterJson implements IFormatter<Action>
     @Override
     public String format( List<Action> listActions )
     {
-        JSONArray jsonArray = new JSONArray( );
+        ArrayNode jsonArray = MAPPER.createArrayNode( );
 
         for ( Action action : listActions )
         {
-            jsonArray.element( format( action ) );
+            jsonArray.add( format( action ) );
         }
 
         return jsonArray.toString( );

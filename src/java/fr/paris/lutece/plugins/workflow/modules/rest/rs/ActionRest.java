@@ -37,6 +37,7 @@ import fr.paris.lutece.plugins.rest.service.RestConstants;
 import fr.paris.lutece.plugins.workflow.modules.rest.business.actionresult.FailedActionResult;
 import fr.paris.lutece.plugins.workflow.modules.rest.business.actionresult.IActionResult;
 import fr.paris.lutece.plugins.workflow.modules.rest.business.actionresult.SuccessfulActionResult;
+import fr.paris.lutece.plugins.workflow.modules.rest.filter.WorkflowRestAuthentication;
 import fr.paris.lutece.plugins.workflow.modules.rest.service.WorkflowRestService;
 import fr.paris.lutece.plugins.workflow.modules.rest.util.constants.WorkflowRestConstants;
 import fr.paris.lutece.plugins.workflow.service.WorkflowPlugin;
@@ -50,17 +51,20 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.FormParam;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.enterprise.inject.spi.CDI;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 
 /**
  *
@@ -68,8 +72,11 @@ import javax.ws.rs.core.MediaType;
  *
  */
 @Path( RestConstants.BASE_PATH + WorkflowPlugin.PLUGIN_NAME + WorkflowRestConstants.PATH_ACTION )
+@ApplicationScoped
+@WorkflowRestAuthentication
 public class ActionRest
 {
+    @Inject
     private WorkflowRestService _workflowRestService;
 
     // SET
@@ -184,8 +191,8 @@ public class ActionRest
         Action action = _workflowRestService.getAction( nIdAction );
         ResourceWorkflow resource = _workflowRestService.getResourceWorkflow( nIdResource, strResourceType, action.getWorkflow( ).getId( ) );
 
-        WorkflowService.getInstance( ).doProcessAction( nIdResource, strResourceType, nIdAction, resource.getExternalParentId( ), request, request.getLocale( ),
-                true );
+        CDI.current( ).select( WorkflowService.class ).get( ).doProcessAction( nIdResource, strResourceType, nIdAction, resource.getExternalParentId( ), request, request.getLocale( ),
+                true, null );
 
         listResults.add( new SuccessfulActionResult( nIdAction, nIdResource, strResourceType ) );
 
@@ -208,13 +215,13 @@ public class ActionRest
     private IActionResult checkDoAction( int nIdAction, int nIdResource, String strResourceType, HttpServletRequest request )
     {
         // Check the availability of the workflow service
-        if ( !WorkflowService.getInstance( ).isAvailable( ) )
+        if ( !CDI.current( ).select( WorkflowService.class ).get( ).isAvailable( ) )
         {
             new FailedActionResult( nIdAction, nIdResource, strResourceType, WorkflowRestConstants.MESSAGE_ERROR_WORKFLOW_NOT_AVAILABLE );
         }
 
         // Check if the action does not require intermediate step
-        if ( WorkflowService.getInstance( ).isDisplayTasksForm( nIdAction, request.getLocale( ) ) )
+        if ( CDI.current( ).select( WorkflowService.class ).get( ).isDisplayTasksForm( nIdAction, request.getLocale( ) ) )
         {
             return new FailedActionResult( nIdAction, nIdResource, strResourceType, WorkflowRestConstants.MESSAGE_ERROR_ACTION_NEEDS_INTERMEDIATE_STEP );
         }
@@ -236,7 +243,7 @@ public class ActionRest
         }
 
         // Check if the resource has the right state to perform the action
-        if ( !WorkflowService.getInstance( ).canProcessAction( nIdResource, strResourceType, nIdAction, resource.getExternalParentId( ), request, true ) )
+        if ( !CDI.current( ).select( WorkflowService.class ).get( ).canProcessAction( nIdResource, strResourceType, nIdAction, resource.getExternalParentId( ), request, true, null ) )
         {
             return new FailedActionResult( nIdAction, nIdResource, strResourceType, WorkflowRestConstants.MESSAGE_ERROR_RESOURCE_STATE );
         }

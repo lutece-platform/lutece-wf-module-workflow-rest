@@ -34,6 +34,7 @@
 package fr.paris.lutece.plugins.workflow.modules.rest.rs;
 
 import fr.paris.lutece.plugins.rest.service.RestConstants;
+import fr.paris.lutece.plugins.workflow.modules.rest.filter.WorkflowRestAuthentication;
 import fr.paris.lutece.plugins.workflow.modules.rest.service.IWorkflowRestService;
 import fr.paris.lutece.plugins.workflow.modules.rest.util.constants.WorkflowRestConstants;
 import fr.paris.lutece.plugins.workflow.service.WorkflowPlugin;
@@ -49,14 +50,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 
 /**
  *
@@ -64,8 +67,11 @@ import javax.ws.rs.core.MediaType;
  *
  */
 @Path( RestConstants.BASE_PATH + WorkflowPlugin.PLUGIN_NAME )
+@ApplicationScoped
+@WorkflowRestAuthentication
 public class WorkflowRest
 {
+    @Inject
     private IWorkflowRestService _workflowRestService;
 
     // SET
@@ -100,7 +106,7 @@ public class WorkflowRest
             sbBase.deleteCharAt( sbBase.length( ) - 1 );
         }
 
-        sbBase.append( RestConstants.BASE_PATH + WorkflowPlugin.PLUGIN_NAME );
+        sbBase.append( RestConstants.APP_PATH + WorkflowPlugin.PLUGIN_NAME );
 
         Map<String, Object> model = new HashMap<String, Object>( );
         model.put( WorkflowRestConstants.MARK_BASE_URL, sbBase.toString( ) );

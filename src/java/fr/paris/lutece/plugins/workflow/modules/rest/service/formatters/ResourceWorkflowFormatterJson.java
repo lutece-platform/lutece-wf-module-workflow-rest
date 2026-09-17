@@ -39,21 +39,26 @@ import fr.paris.lutece.plugins.workflow.modules.rest.util.constants.WorkflowRest
 import fr.paris.lutece.plugins.workflow.utils.WorkflowUtils;
 import fr.paris.lutece.plugins.workflowcore.business.resource.ResourceWorkflow;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
+import jakarta.enterprise.context.ApplicationScoped;
 
 /**
  *
  * ResourceWorkflowFormatterJson
  *
  */
+@ApplicationScoped
 public class ResourceWorkflowFormatterJson implements IFormatter<ResourceWorkflow>
 {
+    private static final ObjectMapper MAPPER = new ObjectMapper( );
+
     /**
      * {@inheritDoc }
      */
@@ -76,25 +81,25 @@ public class ResourceWorkflowFormatterJson implements IFormatter<ResourceWorkflo
     @Override
     public String format( ResourceWorkflow resource )
     {
-        JSONObject jsonObject = new JSONObject( );
+        ObjectNode jsonObject = MAPPER.createObjectNode( );
 
-        jsonObject.element( WorkflowRestConstants.TAG_ID_RESOURCE, resource.getIdResource( ) );
-        jsonObject.element( WorkflowRestConstants.TAG_RESOURCE_TYPE, resource.getResourceType( ) );
-        jsonObject.element( WorkflowRestConstants.TAG_ID_WORKFLOW, resource.getWorkflow( ).getId( ) );
-        jsonObject.element( WorkflowRestConstants.TAG_ID_STATE, resource.getState( ).getId( ) );
-        jsonObject.element( WorkflowRestConstants.TAG_ID_EXTERNAL_PARENT, resource.getExternalParentId( ) );
-        jsonObject.element( WorkflowRestConstants.TAG_IS_ASSOCIATED_WITH_WORKGROUP, Boolean.toString( resource.isAssociatedWithWorkgroup( ) ) );
+        jsonObject.put( WorkflowRestConstants.TAG_ID_RESOURCE, resource.getIdResource( ) );
+        jsonObject.put( WorkflowRestConstants.TAG_RESOURCE_TYPE, resource.getResourceType( ) );
+        jsonObject.put( WorkflowRestConstants.TAG_ID_WORKFLOW, resource.getWorkflow( ).getId( ) );
+        jsonObject.put( WorkflowRestConstants.TAG_ID_STATE, resource.getState( ).getId( ) );
+        jsonObject.put( WorkflowRestConstants.TAG_ID_EXTERNAL_PARENT, resource.getExternalParentId( ) );
+        jsonObject.put( WorkflowRestConstants.TAG_IS_ASSOCIATED_WITH_WORKGROUP, Boolean.toString( resource.isAssociatedWithWorkgroup( ) ) );
         if ( !CollectionUtils.isEmpty( resource.getWorkgroups( ) ) )
         {
-            JSONArray jsonArrayWorkgroups = new JSONArray( );
+            ArrayNode jsonArrayWorkgroups = MAPPER.createArrayNode( );
             for ( String strWorkgroupKey : resource.getWorkgroups( ) )
             {
-                JSONObject jsonWorkgroup = new JSONObject( );
-                jsonWorkgroup.element( WorkflowRestConstants.TAG_WORKGROUP_KEY, strWorkgroupKey );
+                ObjectNode jsonWorkgroup = MAPPER.createObjectNode( );
+                jsonWorkgroup.put( WorkflowRestConstants.TAG_WORKGROUP_KEY, strWorkgroupKey );
                 jsonArrayWorkgroups.add( jsonWorkgroup );
             }
 
-            jsonObject.element( WorkflowRestConstants.TAG_WORKGROUPS, jsonArrayWorkgroups );
+            jsonObject.set( WorkflowRestConstants.TAG_WORKGROUPS, jsonArrayWorkgroups );
         }
 
         return jsonObject.toString( );
@@ -106,11 +111,11 @@ public class ResourceWorkflowFormatterJson implements IFormatter<ResourceWorkflo
     @Override
     public String format( List<ResourceWorkflow> listResources )
     {
-        JSONArray jsonArray = new JSONArray( );
+        ArrayNode jsonArray = MAPPER.createArrayNode( );
 
         for ( ResourceWorkflow resource : listResources )
         {
-            jsonArray.element( format( resource ) );
+            jsonArray.add( format( resource ) );
         }
 
         return jsonArray.toString( );

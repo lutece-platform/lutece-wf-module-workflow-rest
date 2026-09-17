@@ -42,21 +42,47 @@ import java.lang.reflect.Type;
 
 import java.util.List;
 
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.ext.Provider;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.ext.Provider;
+import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import java.util.HashMap;
+import java.util.Map;
+import fr.paris.lutece.plugins.rest.service.formatters.IFormatter;
+import fr.paris.lutece.plugins.workflow.modules.rest.service.formatters.ActionResultFormatterXml;
+import fr.paris.lutece.plugins.workflow.modules.rest.service.formatters.ActionResultFormatterJson;
 
 /**
  *
  * ActionResultWriter
  *
  */
+@ApplicationScoped
 @Provider
 @Produces( {
         MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON
 } )
 public class ActionResultWriter extends AbstractWriter<IActionResult>
 {
+    @Inject
+    private ActionResultFormatterXml _formatterXml;
+    @Inject
+    private ActionResultFormatterJson _formatterJson;
+
+    /**
+     * Wires the formatters the writer serves, one per media type, as the Spring context used to.
+     */
+    @PostConstruct
+    void initFormatters( )
+    {
+        Map<String, IFormatter<IActionResult>> mapFormatters = new HashMap<>( );
+        mapFormatters.put( MediaType.APPLICATION_XML, _formatterXml );
+        mapFormatters.put( MediaType.APPLICATION_JSON, _formatterJson );
+        setFormatters( mapFormatters );
+    }
+
     /**
      * {@inheritDoc}
      */

@@ -47,12 +47,14 @@ import org.apache.commons.lang3.StringUtils;
 import java.text.DateFormat;
 
 import java.util.List;
+import jakarta.enterprise.context.ApplicationScoped;
 
 /**
  *
  * WorkflowFormatterXml
  *
  */
+@ApplicationScoped
 public class WorkflowFormatterXml implements IFormatter<Workflow>
 {
     /**
