@@ -48,13 +48,17 @@ import fr.paris.lutece.plugins.workflowcore.service.workflow.IWorkflowService;
 
 import java.util.List;
 
-import javax.inject.Inject;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Named;
+import jakarta.inject.Inject;
 
 /**
  *
  * WorkflowRestService
  *
  */
+@ApplicationScoped
+@Named( WorkflowRestService.BEAN_SERVICE )
 public class WorkflowRestService implements IWorkflowRestService
 {
     public static final String BEAN_SERVICE = "workflow-rest.workflowRestService";

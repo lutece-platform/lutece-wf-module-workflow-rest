@@ -39,20 +39,25 @@ import fr.paris.lutece.plugins.workflow.modules.rest.business.actionresult.IActi
 import fr.paris.lutece.plugins.workflow.modules.rest.util.constants.WorkflowRestConstants;
 import fr.paris.lutece.plugins.workflow.utils.WorkflowUtils;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
+import jakarta.enterprise.context.ApplicationScoped;
 
 /**
  *
  * ActionResultFormatterJson
  *
  */
+@ApplicationScoped
 public class ActionResultFormatterJson implements IFormatter<IActionResult>
 {
+    private static final ObjectMapper MAPPER = new ObjectMapper( );
+
     /**
      * {@inheritDoc }
      */
@@ -75,13 +80,13 @@ public class ActionResultFormatterJson implements IFormatter<IActionResult>
     @Override
     public String format( IActionResult actionResult )
     {
-        JSONObject jsonObject = new JSONObject( );
+        ObjectNode jsonObject = MAPPER.createObjectNode( );
 
-        jsonObject.element( WorkflowRestConstants.TAG_IS_SUCCESSFUL, Boolean.toString( actionResult.isSuccessful( ) ) );
-        jsonObject.element( WorkflowRestConstants.TAG_ID_ACTION, actionResult.getIdAction( ) );
-        jsonObject.element( WorkflowRestConstants.TAG_ID_RESOURCE, actionResult.getIdResource( ) );
-        jsonObject.element( WorkflowRestConstants.TAG_RESOURCE_TYPE, actionResult.getResourceType( ) );
-        jsonObject.element( WorkflowRestConstants.TAG_MESSAGE, actionResult.getMessage( ) );
+        jsonObject.put( WorkflowRestConstants.TAG_IS_SUCCESSFUL, Boolean.toString( actionResult.isSuccessful( ) ) );
+        jsonObject.put( WorkflowRestConstants.TAG_ID_ACTION, actionResult.getIdAction( ) );
+        jsonObject.put( WorkflowRestConstants.TAG_ID_RESOURCE, actionResult.getIdResource( ) );
+        jsonObject.put( WorkflowRestConstants.TAG_RESOURCE_TYPE, actionResult.getResourceType( ) );
+        jsonObject.put( WorkflowRestConstants.TAG_MESSAGE, actionResult.getMessage( ) );
 
         return jsonObject.toString( );
     }
@@ -92,11 +97,11 @@ public class ActionResultFormatterJson implements IFormatter<IActionResult>
     @Override
     public String format( List<IActionResult> listActionResults )
     {
-        JSONArray jsonArray = new JSONArray( );
+        ArrayNode jsonArray = MAPPER.createArrayNode( );
 
         for ( IActionResult action : listActionResults )
         {
-            jsonArray.element( format( action ) );
+            jsonArray.add( format( action ) );
         }
 
         return jsonArray.toString( );

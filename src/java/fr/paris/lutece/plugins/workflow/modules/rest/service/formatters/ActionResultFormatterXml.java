@@ -44,12 +44,14 @@ import fr.paris.lutece.util.xml.XmlUtil;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
+import jakarta.enterprise.context.ApplicationScoped;
 
 /**
  *
  * ActionResultFormatterXml
  *
  */
+@ApplicationScoped
 public class ActionResultFormatterXml implements IFormatter<IActionResult>
 {
     /**

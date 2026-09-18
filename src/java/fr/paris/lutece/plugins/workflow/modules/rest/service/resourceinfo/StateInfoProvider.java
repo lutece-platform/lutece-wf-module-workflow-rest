@@ -43,12 +43,15 @@ import fr.paris.lutece.portal.service.workflow.WorkflowService;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Map;
+import jakarta.enterprise.inject.spi.CDI;
+import jakarta.enterprise.context.ApplicationScoped;
 
 /**
  *
  * StateResourceInfoProvider
  *
  */
+@ApplicationScoped
 public class StateInfoProvider extends AbstractResourceInfoProvider
 {
     /**
@@ -65,7 +68,7 @@ public class StateInfoProvider extends AbstractResourceInfoProvider
         int nIdWorkflow = Integer.parseInt( strIdWorkflow );
         IResourceInfo resourceInfo = null;
 
-        State state = WorkflowService.getInstance( ).getState( nIdResource, strResourceType, nIdWorkflow, null );
+        State state = CDI.current( ).select( WorkflowService.class ).get( ).getState( nIdResource, strResourceType, nIdWorkflow, null );
 
         if ( state != null )
         {

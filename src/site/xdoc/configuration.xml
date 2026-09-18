@@ -6,34 +6,42 @@
     <body>
         <section name="Installation">
 			<p>
-				Configure the private keys for the signature in the file <strong>workflow-rest.xml</strong> : 
+				Configure the private key for the signature in the file
+				<strong>webapp/WEB-INF/conf/plugins/workflow-rest.properties</strong> :
 			</p>
 			<div class="source">
 <pre>
-&lt;filters&gt;
-	&lt;filter&gt;
-		&lt;filter-name&gt;WorkflowRestSecurity&lt;/filter-name&gt;
-		&lt;url-pattern&gt;/rest/workflow/*&lt;/url-pattern&gt;
-		&lt;filter-class&gt;fr.paris.lutece.util.signrequest.servlet.HeaderHashRequestFilter&lt;/filter-class&gt;
-
-		&lt;init-param&gt;
-			&lt;param-name&gt;elementsSignature&lt;/param-name&gt;
-			&lt;param-value&gt;&lt;/param-value&gt;
-		&lt;/init-param&gt;
-
-		&lt;init-param&gt;
-			&lt;param-name&gt;validityTimePeriod&lt;/param-name&gt;
-			&lt;param-value&gt;0&lt;/param-value&gt;
-		&lt;/init-param&gt;
-
-		&lt;init-param&gt;
-			&lt;param-name&gt;privateKey&lt;/param-name&gt;
-			&lt;param-value&gt;<strong>change me</strong>&lt;/param-value&gt;
-		&lt;/init-param&gt;
-	&lt;/filter&gt;
-&lt;/filters&gt;
+workflow-rest.security.activated=true
+workflow-rest.requestAuthenticator.name=signrequest.HeaderHashAuthenticator
+workflow-rest.requestAuthenticator.cfg.hashService=signrequest.Sha1HashService
+workflow-rest.requestAuthenticator.cfg.signatureElements=
+workflow-rest.requestAuthenticator.cfg.privateKey=<strong>change me</strong>
 </pre>
 			</div>
+			<p>
+				A client signs a call with two headers :
+			</p>
+			<div class="source">
+<pre>
+Lutece-Request-Timestamp: &lt;epoch in milliseconds&gt;
+Lutece-Request-Signature: sha1( &lt;private key&gt; + &lt;timestamp&gt; )
+</pre>
+			</div>
+			<p>
+				The signature is lowercase hexadecimal. signatureElements is empty, as it was in v7, so the
+				signature covers the private key and the timestamp only and binds to no request content. Filling
+				it in would change what every existing client has to sign.
+			</p>
+			<p>
+				The check can be turned off with workflow-rest.security.activated=false in the same file, which
+				serves <strong>every</strong> call unchecked, doAction included. It exists so the test JSP can be
+				driven locally ; leave it on otherwise.
+			</p>
+			<p>
+				The check is bound to the module's four resource classes : WorkflowRest, StateRest, ActionRest and
+				ResourceWorkflowRest. A resource class added later without that binding is served unauthenticated,
+				and nothing in the build reports it.
+			</p>
         </section>
     </body>
 </document>

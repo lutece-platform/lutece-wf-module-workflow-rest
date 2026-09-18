@@ -6,34 +6,42 @@
     <body>
         <section name="Installation">
 			<p>
-				Configurer les cl&#233;s priv&#233;es utilis&#233;es pour les signatures dans le fichier <strong>workflow-rest.xml</strong> : 
+				Configurer la cl&#233; priv&#233;e utilis&#233;e pour la signature dans le fichier
+				<strong>webapp/WEB-INF/conf/plugins/workflow-rest.properties</strong> :
 			</p>
 			<div class="source">
 <pre>
-&lt;filters&gt;
-	&lt;filter&gt;
-		&lt;filter-name&gt;WorkflowRestSecurity&lt;/filter-name&gt;
-		&lt;url-pattern&gt;/rest/workflow/*&lt;/url-pattern&gt;
-		&lt;filter-class&gt;fr.paris.lutece.util.signrequest.servlet.HeaderHashRequestFilter&lt;/filter-class&gt;
-
-		&lt;init-param&gt;
-			&lt;param-name&gt;elementsSignature&lt;/param-name&gt;
-			&lt;param-value&gt;&lt;/param-value&gt;
-		&lt;/init-param&gt;
-
-		&lt;init-param&gt;
-			&lt;param-name&gt;validityTimePeriod&lt;/param-name&gt;
-			&lt;param-value&gt;0&lt;/param-value&gt;
-		&lt;/init-param&gt;
-
-		&lt;init-param&gt;
-			&lt;param-name&gt;privateKey&lt;/param-name&gt;
-			&lt;param-value&gt;<strong>change me</strong>&lt;/param-value&gt;
-		&lt;/init-param&gt;
-	&lt;/filter&gt;
-&lt;/filters&gt;
+workflow-rest.security.activated=true
+workflow-rest.requestAuthenticator.name=signrequest.HeaderHashAuthenticator
+workflow-rest.requestAuthenticator.cfg.hashService=signrequest.Sha1HashService
+workflow-rest.requestAuthenticator.cfg.signatureElements=
+workflow-rest.requestAuthenticator.cfg.privateKey=<strong>change me</strong>
 </pre>
 			</div>
+			<p>
+				Un client signe un appel avec deux en-t&#234;tes :
+			</p>
+			<div class="source">
+<pre>
+Lutece-Request-Timestamp: &lt;epoch en millisecondes&gt;
+Lutece-Request-Signature: sha1( &lt;cl&#233; priv&#233;e&gt; + &lt;timestamp&gt; )
+</pre>
+			</div>
+			<p>
+				La signature est en hexad&#233;cimal minuscule. signatureElements est vide, comme en v7 : la signature
+				ne couvre que la cl&#233; priv&#233;e et le timestamp, et ne porte sur aucun contenu de la requ&#234;te. La
+				renseigner changerait ce que tout client existant doit signer.
+			</p>
+			<p>
+				Le contr&#244;le se d&#233;sactive avec workflow-rest.security.activated=false dans le m&#234;me fichier, ce qui
+				sert <strong>tous</strong> les appels sans v&#233;rification, doAction compris. Cette cl&#233; existe pour
+				piloter la JSP de test en local ; la laisser &#224; true sinon.
+			</p>
+			<p>
+				Le contr&#244;le est li&#233; aux quatre classes de ressources du module : WorkflowRest, StateRest,
+				ActionRest et ResourceWorkflowRest. Une classe de ressource ajout&#233;e plus tard sans cette liaison
+				est servie sans v&#233;rification, et rien dans la construction ne le signale.
+			</p>
         </section>
     </body>
 </document>

@@ -44,12 +44,14 @@ import fr.paris.lutece.util.xml.XmlUtil;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
+import jakarta.enterprise.context.ApplicationScoped;
 
 /**
  *
  * ActionFormatterXml
  *
  */
+@ApplicationScoped
 public class ActionFormatterXml implements IFormatter<Action>
 {
     /**
@@ -115,7 +117,11 @@ public class ActionFormatterXml implements IFormatter<Action>
         XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_NAME, action.getName( ) );
         XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_DESCRIPTION, action.getDescription( ) );
         XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_ID_WORKFLOW, action.getWorkflow( ).getId( ) );
-        XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_ID_STATE_BEFORE, action.getStateBefore( ).getId( ) );
+        for ( Integer nIdStateBefore : action.getListIdStateBefore( ) )
+        {
+            XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_ID_STATE_BEFORE, nIdStateBefore );
+        }
+
         XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_ID_STATE_AFTER, action.getStateAfter( ).getId( ) );
         XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_IS_AUTOMATIC_STATE, Boolean.toString( action.isAutomaticState( ) ) );
         XmlUtil.addElement( sbXml, WorkflowRestConstants.TAG_IS_MASS_ACTION, Boolean.toString( action.isMassAction( ) ) );

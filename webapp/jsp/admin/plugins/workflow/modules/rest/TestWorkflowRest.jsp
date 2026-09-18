@@ -4,7 +4,7 @@
     <head>
         <title>Workflow - REST webservices test page</title>
         <base href="<%= AppPathService.getBaseUrl( request ) %>" />
-        <link rel="stylesheet" type="text/css" href="css/portal_admin.css" title="lutece_admin" />
+        <link rel="stylesheet" type="text/css" href="themes/admin/tabler/css/portal_admin_site.min.css" title="lutece_admin" />
         <script type="text/javascript">
             function onWorkflowView(  ) {
                 var idWorkflow = document.formGetWorkflow.id_workflow.value;

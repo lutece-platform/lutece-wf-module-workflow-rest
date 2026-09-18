@@ -39,20 +39,25 @@ import fr.paris.lutece.plugins.workflow.modules.rest.util.constants.WorkflowRest
 import fr.paris.lutece.plugins.workflow.utils.WorkflowUtils;
 import fr.paris.lutece.plugins.workflowcore.business.state.State;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
+import jakarta.enterprise.context.ApplicationScoped;
 
 /**
  *
  * StateFormatterJson
  *
  */
+@ApplicationScoped
 public class StateFormatterJson implements IFormatter<State>
 {
+    private static final ObjectMapper MAPPER = new ObjectMapper( );
+
     /**
      * {@inheritDoc }
      */
@@ -75,14 +80,14 @@ public class StateFormatterJson implements IFormatter<State>
     @Override
     public String format( State state )
     {
-        JSONObject jsonObject = new JSONObject( );
+        ObjectNode jsonObject = MAPPER.createObjectNode( );
 
-        jsonObject.element( WorkflowRestConstants.TAG_ID_STATE, state.getId( ) );
-        jsonObject.element( WorkflowRestConstants.TAG_NAME, state.getName( ) );
-        jsonObject.element( WorkflowRestConstants.TAG_DESCRIPTION, state.getDescription( ) );
-        jsonObject.element( WorkflowRestConstants.TAG_ID_WORKFLOW, state.getWorkflow( ).getId( ) );
-        jsonObject.element( WorkflowRestConstants.TAG_IS_INITIAL_STATE, Boolean.toString( state.isInitialState( ) ) );
-        jsonObject.element( WorkflowRestConstants.TAG_IS_REQUIRED_WORKGROUP_ASSIGNED, Boolean.toString( state.isRequiredWorkgroupAssigned( ) ) );
+        jsonObject.put( WorkflowRestConstants.TAG_ID_STATE, state.getId( ) );
+        jsonObject.put( WorkflowRestConstants.TAG_NAME, state.getName( ) );
+        jsonObject.put( WorkflowRestConstants.TAG_DESCRIPTION, state.getDescription( ) );
+        jsonObject.put( WorkflowRestConstants.TAG_ID_WORKFLOW, state.getWorkflow( ).getId( ) );
+        jsonObject.put( WorkflowRestConstants.TAG_IS_INITIAL_STATE, Boolean.toString( state.isInitialState( ) ) );
+        jsonObject.put( WorkflowRestConstants.TAG_IS_REQUIRED_WORKGROUP_ASSIGNED, Boolean.toString( state.isRequiredWorkgroupAssigned( ) ) );
 
         return jsonObject.toString( );
     }
@@ -93,11 +98,11 @@ public class StateFormatterJson implements IFormatter<State>
     @Override
     public String format( List<State> listStates )
     {
-        JSONArray jsonArray = new JSONArray( );
+        ArrayNode jsonArray = MAPPER.createArrayNode( );
 
         for ( State state : listStates )
         {
-            jsonArray.element( format( state ) );
+            jsonArray.add( format( state ) );
         }
 
         return jsonArray.toString( );

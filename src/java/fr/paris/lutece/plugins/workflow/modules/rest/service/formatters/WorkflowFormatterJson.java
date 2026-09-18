@@ -40,22 +40,27 @@ import fr.paris.lutece.plugins.workflow.utils.WorkflowUtils;
 import fr.paris.lutece.plugins.workflowcore.business.workflow.Workflow;
 import fr.paris.lutece.portal.service.i18n.I18nService;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import org.apache.commons.lang3.StringUtils;
 
 import java.text.DateFormat;
 
 import java.util.List;
+import jakarta.enterprise.context.ApplicationScoped;
 
 /**
  *
  * WorkflowFormatterJson
  *
  */
+@ApplicationScoped
 public class WorkflowFormatterJson implements IFormatter<Workflow>
 {
+    private static final ObjectMapper MAPPER = new ObjectMapper( );
+
     /**
      * {@inheritDoc }
      */
@@ -78,17 +83,17 @@ public class WorkflowFormatterJson implements IFormatter<Workflow>
     @Override
     public String format( Workflow workflow )
     {
-        JSONObject jsonObject = new JSONObject( );
+        ObjectNode jsonObject = MAPPER.createObjectNode( );
 
         DateFormat dateFormat = DateFormat.getDateInstance( DateFormat.SHORT, I18nService.getDefaultLocale( ) );
         String strDate = dateFormat.format( workflow.getCreationDate( ) );
 
-        jsonObject.element( WorkflowRestConstants.TAG_ID_WORKFLOW, workflow.getId( ) );
-        jsonObject.element( WorkflowRestConstants.TAG_NAME, workflow.getName( ) );
-        jsonObject.element( WorkflowRestConstants.TAG_DESCRIPTION, workflow.getDescription( ) );
-        jsonObject.element( WorkflowRestConstants.TAG_CREATION_DATE, strDate );
-        jsonObject.element( WorkflowRestConstants.TAG_IS_ENABLE, Boolean.toString( workflow.isEnabled( ) ) );
-        jsonObject.element( WorkflowRestConstants.TAG_WORKGROUP_KEY, workflow.getWorkgroup( ) );
+        jsonObject.put( WorkflowRestConstants.TAG_ID_WORKFLOW, workflow.getId( ) );
+        jsonObject.put( WorkflowRestConstants.TAG_NAME, workflow.getName( ) );
+        jsonObject.put( WorkflowRestConstants.TAG_DESCRIPTION, workflow.getDescription( ) );
+        jsonObject.put( WorkflowRestConstants.TAG_CREATION_DATE, strDate );
+        jsonObject.put( WorkflowRestConstants.TAG_IS_ENABLE, Boolean.toString( workflow.isEnabled( ) ) );
+        jsonObject.put( WorkflowRestConstants.TAG_WORKGROUP_KEY, workflow.getWorkgroup( ) );
 
         return jsonObject.toString( );
     }
@@ -99,11 +104,11 @@ public class WorkflowFormatterJson implements IFormatter<Workflow>
     @Override
     public String format( List<Workflow> listWorkflows )
     {
-        JSONArray jsonArray = new JSONArray( );
+        ArrayNode jsonArray = MAPPER.createArrayNode( );
 
         for ( Workflow workflow : listWorkflows )
         {
-            jsonArray.element( format( workflow ) );
+            jsonArray.add( format( workflow ) );
         }
 
         return jsonArray.toString( );

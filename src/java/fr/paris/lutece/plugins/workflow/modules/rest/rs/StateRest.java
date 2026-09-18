@@ -34,6 +34,7 @@
 package fr.paris.lutece.plugins.workflow.modules.rest.rs;
 
 import fr.paris.lutece.plugins.rest.service.RestConstants;
+import fr.paris.lutece.plugins.workflow.modules.rest.filter.WorkflowRestAuthentication;
 import fr.paris.lutece.plugins.workflow.modules.rest.service.WorkflowRestService;
 import fr.paris.lutece.plugins.workflow.modules.rest.util.constants.WorkflowRestConstants;
 import fr.paris.lutece.plugins.workflow.service.WorkflowPlugin;
@@ -44,11 +45,13 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 
 /**
  *
@@ -56,8 +59,11 @@ import javax.ws.rs.core.MediaType;
  *
  */
 @Path( RestConstants.BASE_PATH + WorkflowPlugin.PLUGIN_NAME + WorkflowRestConstants.PATH_STATE )
+@ApplicationScoped
+@WorkflowRestAuthentication
 public class StateRest
 {
+    @Inject
     private WorkflowRestService _workflowRestService;
 
     // SET
