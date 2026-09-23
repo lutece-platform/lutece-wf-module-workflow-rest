@@ -80,6 +80,18 @@ public class StateFormatterJson implements IFormatter<State>
     @Override
     public String format( State state )
     {
+        return toJson( state ).toString( );
+    }
+
+    /**
+     * Builds the JSON object of a State
+     * 
+     * @param state
+     *            the State
+     * @return the JSON object
+     */
+    private ObjectNode toJson( State state )
+    {
         ObjectNode jsonObject = MAPPER.createObjectNode( );
 
         jsonObject.put( WorkflowRestConstants.TAG_ID_STATE, state.getId( ) );
@@ -89,7 +101,7 @@ public class StateFormatterJson implements IFormatter<State>
         jsonObject.put( WorkflowRestConstants.TAG_IS_INITIAL_STATE, Boolean.toString( state.isInitialState( ) ) );
         jsonObject.put( WorkflowRestConstants.TAG_IS_REQUIRED_WORKGROUP_ASSIGNED, Boolean.toString( state.isRequiredWorkgroupAssigned( ) ) );
 
-        return jsonObject.toString( );
+        return jsonObject;
     }
 
     /**
@@ -102,7 +114,7 @@ public class StateFormatterJson implements IFormatter<State>
 
         for ( State state : listStates )
         {
-            jsonArray.add( format( state ) );
+            jsonArray.add( toJson( state ) );
         }
 
         return jsonArray.toString( );

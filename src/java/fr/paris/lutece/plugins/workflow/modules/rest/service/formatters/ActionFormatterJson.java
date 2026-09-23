@@ -80,6 +80,18 @@ public class ActionFormatterJson implements IFormatter<Action>
     @Override
     public String format( Action action )
     {
+        return toJson( action ).toString( );
+    }
+
+    /**
+     * Builds the JSON object of a Action
+     * 
+     * @param action
+     *            the Action
+     * @return the JSON object
+     */
+    private ObjectNode toJson( Action action )
+    {
         ObjectNode jsonObject = MAPPER.createObjectNode( );
 
         jsonObject.put( WorkflowRestConstants.TAG_ID_ACTION, action.getId( ) );
@@ -98,7 +110,7 @@ public class ActionFormatterJson implements IFormatter<Action>
         jsonObject.put( WorkflowRestConstants.TAG_IS_AUTOMATIC_STATE, Boolean.toString( action.isAutomaticState( ) ) );
         jsonObject.put( WorkflowRestConstants.TAG_IS_MASS_ACTION, Boolean.toString( action.isMassAction( ) ) );
 
-        return jsonObject.toString( );
+        return jsonObject;
     }
 
     /**
@@ -111,7 +123,7 @@ public class ActionFormatterJson implements IFormatter<Action>
 
         for ( Action action : listActions )
         {
-            jsonArray.add( format( action ) );
+            jsonArray.add( toJson( action ) );
         }
 
         return jsonArray.toString( );

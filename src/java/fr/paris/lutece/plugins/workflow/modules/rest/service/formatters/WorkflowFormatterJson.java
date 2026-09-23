@@ -83,6 +83,18 @@ public class WorkflowFormatterJson implements IFormatter<Workflow>
     @Override
     public String format( Workflow workflow )
     {
+        return toJson( workflow ).toString( );
+    }
+
+    /**
+     * Builds the JSON object of a Workflow
+     * 
+     * @param workflow
+     *            the Workflow
+     * @return the JSON object
+     */
+    private ObjectNode toJson( Workflow workflow )
+    {
         ObjectNode jsonObject = MAPPER.createObjectNode( );
 
         DateFormat dateFormat = DateFormat.getDateInstance( DateFormat.SHORT, I18nService.getDefaultLocale( ) );
@@ -95,7 +107,7 @@ public class WorkflowFormatterJson implements IFormatter<Workflow>
         jsonObject.put( WorkflowRestConstants.TAG_IS_ENABLE, Boolean.toString( workflow.isEnabled( ) ) );
         jsonObject.put( WorkflowRestConstants.TAG_WORKGROUP_KEY, workflow.getWorkgroup( ) );
 
-        return jsonObject.toString( );
+        return jsonObject;
     }
 
     /**
@@ -108,7 +120,7 @@ public class WorkflowFormatterJson implements IFormatter<Workflow>
 
         for ( Workflow workflow : listWorkflows )
         {
-            jsonArray.add( format( workflow ) );
+            jsonArray.add( toJson( workflow ) );
         }
 
         return jsonArray.toString( );

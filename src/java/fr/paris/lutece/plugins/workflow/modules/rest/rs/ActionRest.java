@@ -217,7 +217,7 @@ public class ActionRest
         // Check the availability of the workflow service
         if ( !CDI.current( ).select( WorkflowService.class ).get( ).isAvailable( ) )
         {
-            new FailedActionResult( nIdAction, nIdResource, strResourceType, WorkflowRestConstants.MESSAGE_ERROR_WORKFLOW_NOT_AVAILABLE );
+            return new FailedActionResult( nIdAction, nIdResource, strResourceType, WorkflowRestConstants.MESSAGE_ERROR_WORKFLOW_NOT_AVAILABLE );
         }
 
         // Check if the action does not require intermediate step

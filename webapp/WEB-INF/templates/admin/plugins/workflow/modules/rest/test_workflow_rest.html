@@ -1,0 +1,77 @@
+<#assign restForms = [
+	{ 'id': 'wadl', 'path': 'rest/workflow/wadl', 'method': 'get', 'formats': false, 'fields': [] },
+	{ 'id': 'workflow', 'path': 'rest/workflow/{id_workflow}', 'method': 'get', 'formats': true, 'fields': [ { 'name': 'id_workflow', 'mandatory': false } ] },
+	{ 'id': 'state', 'path': 'rest/workflow/state/{id_state}', 'method': 'get', 'formats': true, 'fields': [ { 'name': 'id_state', 'mandatory': false } ] },
+	{ 'id': 'action', 'path': 'rest/workflow/action/{id_action}', 'method': 'get', 'formats': true, 'fields': [ { 'name': 'id_action', 'mandatory': false } ] },
+	{ 'id': 'resourceWorkflow', 'path': 'rest/workflow/resource_workflow/{id_workflow}/{resource_type}/{id_resource}', 'method': 'get', 'formats': true, 'fields': [ { 'name': 'id_resource', 'mandatory': true }, { 'name': 'resource_type', 'mandatory': true }, { 'name': 'id_workflow', 'mandatory': true } ] },
+	{ 'id': 'doAction', 'path': 'rest/workflow/action/do', 'method': 'post', 'formats': true, 'fields': [ { 'name': 'id_action', 'mandatory': true }, { 'name': 'id_resource', 'mandatory': true }, { 'name': 'resource_type', 'mandatory': true } ] }
+] />
+<#assign restFormats = [ { 'code': 'application/json', 'name': 'JSON' }, { 'code': 'application/xml', 'name': 'XML' } ] />
+<@pageContainer>
+	<@pageColumn>
+		<@pageHeader title='#i18n{module.workflow.rest.test_workflow_rest.pageTitle}' description='#i18n{module.workflow.rest.test_workflow_rest.description}' />
+		<@row>
+			<#list restForms as restForm>
+			<@columns md=6>
+				<@box>
+					<@boxHeader title='#i18n{module.workflow.rest.test_workflow_rest.${restForm.id}.title}' />
+					<@boxBody>
+						<@tform name='form_${restForm.id}' id='form_${restForm.id}' action='${restForm.path}' method=restForm.method params='data-rest-form="${restForm.method}"'>
+							<#list restForm.fields as field>
+							<@formGroup labelFor='${restForm.id}_${field.name}' labelKey='#i18n{module.workflow.rest.test_workflow_rest.label.${field.name}}' mandatory=field.mandatory rows=2>
+								<@input type='text' name=field.name id='${restForm.id}_${field.name}' maxlength=255 mandatory=field.mandatory params='data-rest-param' />
+							</@formGroup>
+							</#list>
+							<#if restForm.formats>
+							<@formGroup labelFor='${restForm.id}_format' labelKey='#i18n{module.workflow.rest.test_workflow_rest.label.format}' rows=2>
+								<@select name='format' id='${restForm.id}_format' items=restFormats default_value='application/json' />
+							</@formGroup>
+							</#if>
+							<@formGroup rows=2>
+								<@button type='submit' buttonIcon='send' title='#i18n{module.workflow.rest.test_workflow_rest.buttonCall}' color='primary' />
+							</@formGroup>
+						</@tform>
+					</@boxBody>
+				</@box>
+			</@columns>
+			</#list>
+		</@row>
+		<@box>
+			<@boxHeader title='#i18n{module.workflow.rest.test_workflow_rest.result.title}' />
+			<@boxBody>
+				<pre id='rest_result' class='mb-0' aria-live='polite'>#i18n{module.workflow.rest.test_workflow_rest.result.empty}</pre>
+			</@boxBody>
+		</@box>
+	</@pageColumn>
+</@pageContainer>
+<script>
+document.querySelectorAll( 'form[data-rest-form]' ).forEach( function( form ) {
+	form.addEventListener( 'submit', function( event ) {
+		event.preventDefault( );
+		var params = form.querySelectorAll( '[data-rest-param]' );
+		var url = form.getAttribute( 'action' );
+		var body = new URLSearchParams( );
+		params.forEach( function( param ) {
+			url = url.replace( '{' + param.name + '}', encodeURIComponent( param.value ) );
+			body.append( param.name, param.value );
+		} );
+		url = url.replace( /\/+$/, '' );
+		var format = form.querySelector( 'select[name="format"]' );
+		var options = { method: form.dataset.restForm.toUpperCase( ), headers: { 'Accept': format ? format.value : 'application/xml' } };
+		if ( options.method === 'POST' ) {
+			options.headers[ 'Content-Type' ] = 'application/x-www-form-urlencoded';
+			options.body = body.toString( );
+		}
+		var result = document.getElementById( 'rest_result' );
+		fetch( url, options )
+			.then( function( response ) {
+				return response.text( ).then( function( text ) {
+					result.textContent = options.method + ' ' + url + '\nHTTP ' + response.status + '\n\n' + text;
+				} );
+			} )
+			.catch( function( error ) {
+				result.textContent = options.method + ' ' + url + '\n' + error;
+			} );
+	} );
+} );
+</script>

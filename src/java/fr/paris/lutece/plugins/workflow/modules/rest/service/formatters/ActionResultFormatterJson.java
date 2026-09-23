@@ -80,6 +80,18 @@ public class ActionResultFormatterJson implements IFormatter<IActionResult>
     @Override
     public String format( IActionResult actionResult )
     {
+        return toJson( actionResult ).toString( );
+    }
+
+    /**
+     * Builds the JSON object of a IActionResult
+     * 
+     * @param actionResult
+     *            the IActionResult
+     * @return the JSON object
+     */
+    private ObjectNode toJson( IActionResult actionResult )
+    {
         ObjectNode jsonObject = MAPPER.createObjectNode( );
 
         jsonObject.put( WorkflowRestConstants.TAG_IS_SUCCESSFUL, Boolean.toString( actionResult.isSuccessful( ) ) );
@@ -88,7 +100,7 @@ public class ActionResultFormatterJson implements IFormatter<IActionResult>
         jsonObject.put( WorkflowRestConstants.TAG_RESOURCE_TYPE, actionResult.getResourceType( ) );
         jsonObject.put( WorkflowRestConstants.TAG_MESSAGE, actionResult.getMessage( ) );
 
-        return jsonObject.toString( );
+        return jsonObject;
     }
 
     /**
@@ -101,7 +113,7 @@ public class ActionResultFormatterJson implements IFormatter<IActionResult>
 
         for ( IActionResult action : listActionResults )
         {
-            jsonArray.add( format( action ) );
+            jsonArray.add( toJson( action ) );
         }
 
         return jsonArray.toString( );
