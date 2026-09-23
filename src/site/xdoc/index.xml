@@ -61,9 +61,9 @@ Lutece-Request-Signature: sha1( &lt;private key&gt; + &lt;timestamp&gt; )
                 	<strong>jsp/admin/plugins/workflow/modules/rest/TestWorkflowRest.jsp</strong>
                 </p>
                 <p>
-                	<strong>Note : </strong>To access to this JSP, one must be authenticated in the 
-                	Back-Office. The filter tags must also be commented in the file workflow-rest.xml
-                	so the module won't use the security, otherwise, an HTTP 401 response will be returned.
+                	<strong>Note : </strong>The page needs the right <em>WORKFLOW_REST_TEST</em> (menu System). Its forms call
+                	the resources and show the answer, but a browser sends no signature: every call is answered an HTTP 401
+                	while <em>workflow-rest.security.activated</em> is true (the default).
                 </p>
             </subsection>
             <subsection name="URLs syntax for workflows">

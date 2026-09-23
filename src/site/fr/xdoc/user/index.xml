@@ -14,10 +14,9 @@
                 	<strong>jsp/admin/plugins/workflow/modules/rest/TestWorkflowRest.jsp</strong>
                 </p>
                 <p>
-                	<strong>Note : </strong>Pour acc&#233;der &#224; cette JSP, il faut &#234;tre authentifi&#233;
-                	dans le Back-Office. Il faut &#233;galement commenter dans le fichier workflow-rest.xml les filtres
-                	de fa&#231;on &#224; ce qu'il n'utilise pas la s&#233;curit&#233;, sinon une r&#233;ponse HTTP 401
-                	sera renvoy&#233;e.
+                	<strong>Note : </strong>La page demande le droit <em>WORKFLOW_REST_TEST</em> (menu Syst&#232;me). Ses formulaires
+                	appellent les ressources et affichent la r&#233;ponse, mais un navigateur n'envoie aucune signature : chaque appel
+                	re&#231;oit un HTTP 401 tant que <em>workflow-rest.security.activated</em> vaut true (la valeur par d&#233;faut).
                 </p>
             </subsection>
             <subsection name="Syntaxe des URLs pour les workflows">

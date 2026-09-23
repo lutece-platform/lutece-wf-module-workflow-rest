@@ -81,6 +81,18 @@ public class ResourceWorkflowFormatterJson implements IFormatter<ResourceWorkflo
     @Override
     public String format( ResourceWorkflow resource )
     {
+        return toJson( resource ).toString( );
+    }
+
+    /**
+     * Builds the JSON object of a ResourceWorkflow
+     * 
+     * @param resource
+     *            the ResourceWorkflow
+     * @return the JSON object
+     */
+    private ObjectNode toJson( ResourceWorkflow resource )
+    {
         ObjectNode jsonObject = MAPPER.createObjectNode( );
 
         jsonObject.put( WorkflowRestConstants.TAG_ID_RESOURCE, resource.getIdResource( ) );
@@ -102,7 +114,7 @@ public class ResourceWorkflowFormatterJson implements IFormatter<ResourceWorkflo
             jsonObject.set( WorkflowRestConstants.TAG_WORKGROUPS, jsonArrayWorkgroups );
         }
 
-        return jsonObject.toString( );
+        return jsonObject;
     }
 
     /**
@@ -115,7 +127,7 @@ public class ResourceWorkflowFormatterJson implements IFormatter<ResourceWorkflo
 
         for ( ResourceWorkflow resource : listResources )
         {
-            jsonArray.add( format( resource ) );
+            jsonArray.add( toJson( resource ) );
         }
 
         return jsonArray.toString( );
