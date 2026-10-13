@@ -44,6 +44,8 @@ import fr.paris.lutece.plugins.workflow.service.WorkflowPlugin;
 import fr.paris.lutece.plugins.workflowcore.business.action.Action;
 import fr.paris.lutece.plugins.workflowcore.business.action.ActionFilter;
 import fr.paris.lutece.plugins.workflowcore.business.resource.ResourceWorkflow;
+import fr.paris.lutece.plugins.workflowcore.exception.ResourceWorkflowLockedException;
+import fr.paris.lutece.portal.service.util.AppException;
 import fr.paris.lutece.portal.service.workflow.WorkflowService;
 
 import org.apache.commons.lang3.StringUtils;
@@ -191,8 +193,23 @@ public class ActionRest
         Action action = _workflowRestService.getAction( nIdAction );
         ResourceWorkflow resource = _workflowRestService.getResourceWorkflow( nIdResource, strResourceType, action.getWorkflow( ).getId( ) );
 
-        CDI.current( ).select( WorkflowService.class ).get( ).doProcessAction( nIdResource, strResourceType, nIdAction, resource.getExternalParentId( ), request, request.getLocale( ),
-                true, null );
+        try
+        {
+            CDI.current( ).select( WorkflowService.class ).get( ).doProcessAction( nIdResource, strResourceType, nIdAction, resource.getExternalParentId( ), request, request.getLocale( ),
+                    true, null );
+        }
+        catch( AppException e )
+        {
+            if ( e.getCause( ) instanceof ResourceWorkflowLockedException )
+            {
+                // Another action is in progress on the resource (other request or instance) or its state has changed
+                listResults.add( new FailedActionResult( nIdAction, nIdResource, strResourceType, WorkflowRestConstants.MESSAGE_ERROR_RESOURCE_LOCKED ) );
+
+                return listResults;
+            }
+
+            throw e;
+        }
 
         listResults.add( new SuccessfulActionResult( nIdAction, nIdResource, strResourceType ) );
 

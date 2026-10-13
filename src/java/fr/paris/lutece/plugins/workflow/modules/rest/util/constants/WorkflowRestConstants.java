@@ -106,6 +106,7 @@ public final class WorkflowRestConstants
     public static final String MESSAGE_ERROR_ACTION_NONEXISTENT = "ERROR : The action does not exist";
     public static final String MESSAGE_ERROR_RESOURCE_NONEXISTENT = "ERROR : The resource does not exist";
     public static final String MESSAGE_ERROR_RESOURCE_STATE = "ERROR : The resource is not in the correct state to perform the action";
+    public static final String MESSAGE_ERROR_RESOURCE_LOCKED = "ERROR : Another action is in progress on the resource, or its state has changed";
 
     // TEMPLATES
     public static final String TEMPLATE_WADL = "admin/plugins/workflow/modules/rest/wadl.xml";
