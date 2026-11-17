@@ -16,10 +16,10 @@
 				<@box>
 					<@boxHeader title='#i18n{module.workflow.rest.test_workflow_rest.${restForm.id}.title}' />
 					<@boxBody>
-						<@tform name='form_${restForm.id}' id='form_${restForm.id}' action='${restForm.path}' method=restForm.method params='data-rest-form="${restForm.method}"'>
+						<@tform name='form_${restForm.id}' id='form_${restForm.id}' action='${restForm.path}' method=restForm.method params={'data-rest-form': restForm.method}>
 							<#list restForm.fields as field>
 							<@formGroup labelFor='${restForm.id}_${field.name}' labelKey='#i18n{module.workflow.rest.test_workflow_rest.label.${field.name}}' mandatory=field.mandatory rows=2>
-								<@input type='text' name=field.name id='${restForm.id}_${field.name}' maxlength=255 mandatory=field.mandatory params='data-rest-param' />
+								<@input type='text' name=field.name id='${restForm.id}_${field.name}' maxlength=255 mandatory=field.mandatory params={'data-rest-param': true} />
 							</@formGroup>
 							</#list>
 							<#if restForm.formats>
